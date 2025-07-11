@@ -71,8 +71,8 @@ export default function HeroSection() {
           <div className="animate-in fade-in duration-1000">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                alt="QA automation engineer workspace with multiple monitors showing test frameworks and code" 
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                alt="Professional developer workspace with modern setup and coding environment" 
                 className="rounded-2xl shadow-2xl w-full" 
               />
               
