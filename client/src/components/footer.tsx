@@ -25,7 +25,9 @@ export default function Footer() {
               <Linkedin className="h-6 w-6" />
             </a>
             <a 
-              href="#" 
+              href="https://github.com/latorocka" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-300 hover:text-white transition-colors"
             >
               <Github className="h-6 w-6" />

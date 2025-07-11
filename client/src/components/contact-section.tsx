@@ -40,11 +40,36 @@ export default function ContactSection() {
     }));
   };
 
-  const handleDownloadResume = () => {
-    toast({
-      title: "Resume download",
-      description: "Resume download would be implemented here.",
-    });
+  const handleDownloadResume = async () => {
+    try {
+      const response = await fetch('/api/resume/download');
+      
+      if (!response.ok) {
+        throw new Error('Failed to download resume');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Brian_LaTorraca_Resume_2025.pdf';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      toast({
+        title: "Resume downloaded",
+        description: "Resume has been downloaded successfully.",
+      });
+    } catch (error) {
+      console.error('Resume download error:', error);
+      toast({
+        title: "Download failed",
+        description: "Failed to download resume. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -115,7 +140,10 @@ export default function ContactSection() {
                   <Linkedin className="mr-2 h-4 w-4" />
                   LinkedIn
                 </Button>
-                <Button className="bg-gray-900 hover:bg-gray-800 text-white">
+                <Button 
+                  onClick={() => window.open('https://github.com/latorocka', '_blank')}
+                  className="bg-gray-900 hover:bg-gray-800 text-white"
+                >
                   <Github className="mr-2 h-4 w-4" />
                   GitHub
                 </Button>
