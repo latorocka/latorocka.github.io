@@ -56,10 +56,7 @@ export default function SkillsSection() {
                   <div className="text-3xl mb-4">
                     {languageIcons[language] || "💻"}
                   </div>
-                  <h4 className="font-bold mb-2">{language}</h4>
-                  <p className="text-sm text-secondary">
-                    {language === "Java" || language === "Javascript" ? "Advanced" : "Intermediate"}
-                  </p>
+                  <h4 className="font-bold">{language}</h4>
                 </CardContent>
               </Card>
             ))}

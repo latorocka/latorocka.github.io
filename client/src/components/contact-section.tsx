@@ -108,7 +108,10 @@ export default function ContactSection() {
             <div className="mt-12">
               <h4 className="text-lg font-bold mb-6">Professional Links</h4>
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Button 
+                  onClick={() => window.open('https://www.linkedin.com/in/brian-latorraca-22713783/', '_blank')}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   <Linkedin className="mr-2 h-4 w-4" />
                   LinkedIn
                 </Button>
