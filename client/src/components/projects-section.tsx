@@ -85,15 +85,7 @@ export default function ProjectsSection() {
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <Button 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
-            size="lg"
-          >
-            <Github className="mr-2 h-4 w-4" />
-            View All Projects
-          </Button>
-        </div>
+
       </div>
     </section>
   );
