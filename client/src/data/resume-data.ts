@@ -201,23 +201,25 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Mobile Test Automation",
-    description: "Cross-platform mobile test automation framework built with Appium and WebDriverIO, designed for enterprise-level mobile application testing across Android and iOS platforms with comprehensive Page Object Model implementation and parallel execution capabilities.",
-    technologies: ["Appium", "WebDriverIO", "Android Studio", "Xcode", "iOS Simulator", "Page Object Model", "Parallel Testing", "CI/CD"],
+    title: "Mobile Test Automation Suite",
+    description: "Enterprise-grade cross-platform mobile test automation framework built with Appium and WebDriverIO. Features comprehensive Page Object Model architecture, parallel execution across multiple devices, advanced gesture testing, performance monitoring, and device management utilities for Android and iOS applications.",
+    technologies: ["Appium 2.x", "WebDriverIO 8.x", "Android Studio", "Xcode", "iOS Simulator", "Page Object Model", "Parallel Testing", "Allure Reports", "CI/CD"],
     category: "Mobile Testing",
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     githubUrl: "https://github.com/latorocka/mobile-test-suite",
     features: [
-      "Cross-platform testing framework for Android and iOS applications",
-      "Page Object Model implementation for maintainable test architecture",
-      "Real device and emulator/simulator support with automated setup",
-      "Parallel test execution across multiple devices and platforms",
-      "Comprehensive gesture testing including tap, swipe, pinch, and long press",
-      "Performance testing with app launch time, memory usage, and battery impact analysis",
-      "Accessibility testing with screen reader and ADA compliance validation",
-      "Advanced reporting with Allure integration and screenshot capture",
-      "CI/CD integration with Jenkins and GitHub Actions support",
-      "Device management utilities with network control and app lifecycle management"
+      "Cross-platform testing framework with unified Page Object Model for Android and iOS",
+      "Enterprise-grade test architecture with base page classes and platform-specific implementations",
+      "Real device and emulator/simulator support with automated environment setup scripts",
+      "Parallel test execution across multiple devices with WebDriverIO configuration management",
+      "Advanced gesture testing framework including multi-touch, pinch, zoom, and directional swipes",
+      "Performance testing suite with app launch time, memory usage, battery impact, and network analysis",
+      "Accessibility testing with screen reader compatibility and ADA compliance validation",
+      "Comprehensive device management utilities for app lifecycle, network control, and permission handling",
+      "Professional reporting with Allure integration, screenshot capture, and device information",
+      "CI/CD pipeline integration with Jenkins and GitHub Actions for automated testing workflows",
+      "Test data management with cross-platform test scenarios and device configuration support",
+      "Advanced debugging capabilities with detailed logging, retry mechanisms, and error handling"
     ]
   }
 ];
