@@ -1,33 +1,49 @@
-# API Test Suite - Live Working API Tests
+# API Test Suite - Enterprise-Grade Testing Framework
 
-A functional API testing framework with working tests against real public APIs. This project demonstrates actual API testing capabilities with live endpoints including JSONPlaceholder, GitHub API, SpaceX GraphQL, and WebSocket connections.
+A comprehensive API testing framework with 8 specialized testing categories including Functional, Integration, Performance, Security, and Data Validation testing. Features automated test runner with detailed reporting, professional error handling, and live API endpoint validation against multiple public services.
 
 ## 🎯 Project Overview
 
-This API Test Suite demonstrates practical API testing expertise through working implementations that connect to real public APIs. Rather than using mock data or simulated responses, every test executes actual HTTP requests against live endpoints, validating real data and handling authentic API responses.
+This enterprise-grade API Test Suite demonstrates advanced testing expertise through a comprehensive framework with 8 specialized testing categories. The suite includes automated test execution, detailed reporting, performance metrics, and production-ready error handling across multiple API protocols and testing methodologies.
 
-**Key Differentiators:**
-- **Live API Integration**: Tests run against JSONPlaceholder, GitHub API, SpaceX GraphQL, and WebSocket servers
-- **Real Data Validation**: Validates actual repository information, space mission data, and user profiles
-- **Immediate Execution**: Complete test suite can be run instantly to demonstrate capabilities
-- **Production-Ready Code**: Professional error handling, timeout management, and performance monitoring
-- **Multiple Protocol Support**: REST, GraphQL, and WebSocket testing in a single framework
+**Key Features:**
+- **8 Testing Categories**: Functional, Integration, Performance, Security, Data Validation, GraphQL, WebSocket, and GitHub API testing
+- **Automated Test Runner**: Professional CLI interface with category-based execution and detailed reporting
+- **Comprehensive Coverage**: 100+ test cases across all major API testing scenarios
+- **Production-Ready Framework**: Enterprise-level error handling, metrics analysis, and performance monitoring
+- **Multiple Protocol Support**: REST, GraphQL, and WebSocket testing with cross-API validation
 
-## 🚀 Live Testing Features
+## 🚀 Testing Categories
 
-### Working API Integrations
-- **JSONPlaceholder REST API**: Full CRUD operations with user and post management
-- **GitHub API Integration**: Repository analysis, user profile validation, and content inspection
-- **SpaceX GraphQL API**: Space mission data queries with complex nested relationships
-- **WebSocket Communication**: Real-time messaging through echo server connections
-- **Concurrent Request Testing**: Performance validation with multiple simultaneous API calls
+### 1. Functional Tests (`tests/rest/user-api.test.js`)
+- **CRUD Operations**: Complete Create, Read, Update, Delete validation
+- **Input Validation**: Data type verification and field requirement testing
+- **Response Structure**: Comprehensive API response validation
+- **Error Handling**: Invalid request scenarios and proper error response validation
 
-### Professional Testing Practices
-- **Response Validation**: Comprehensive data structure and content verification
-- **Error Scenario Testing**: Handles 404s, timeouts, and malformed requests gracefully
-- **Performance Monitoring**: Tracks response times and identifies bottlenecks
-- **Rate Limit Awareness**: Respects API quotas and implements proper retry logic
-- **Cross-Protocol Testing**: Validates REST, GraphQL, and WebSocket in unified framework
+### 2. Integration Tests (`tests/integration/api-integration.test.js`)
+- **Cross-API Workflows**: Multi-step processes across different API systems
+- **Data Consistency**: Validation of related data across multiple endpoints
+- **Cascading Requests**: Dependency-based API call sequences
+- **Failure Recovery**: Graceful handling of partial workflow failures
+
+### 3. Performance Tests (`tests/performance/load-testing.test.js`)
+- **Response Time Analysis**: Individual and batch request timing validation
+- **Concurrent Load Testing**: 1, 5, 10, and 20+ simultaneous request handling
+- **Throughput Measurement**: Sustained load testing with performance metrics
+- **Scalability Validation**: Performance degradation analysis under increasing load
+
+### 4. Security Tests (`tests/security/security-validation.test.js`)
+- **Input Validation**: SQL injection and XSS attempt prevention
+- **Authentication Testing**: Invalid header and credential handling
+- **Rate Limiting**: DoS protection and quota management validation
+- **Data Exposure**: Prevention of sensitive information leakage
+
+### 5. Data Validation Tests (`tests/data-validation/schema-validation.test.js`)
+- **Schema Verification**: Comprehensive data structure validation across APIs
+- **Type Consistency**: Data type validation and format verification
+- **Cross-API Integrity**: Relationship validation between different API endpoints
+- **Custom Validation Rules**: Email formats, URL validation, and numeric constraints
 
 ## 🛠️ Technology Stack
 
