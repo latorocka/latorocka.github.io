@@ -1,12 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Briefcase, Cog, Rocket, Gamepad } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
   const getIcon = (index: number) => {
-    const icons = [Briefcase, Cog, Rocket, Briefcase, Gamepad, Gamepad];
-    const IconComponent = icons[index] || Briefcase;
-    return <IconComponent className="h-6 w-6 text-white" />;
+    return <Briefcase className="h-6 w-6 text-white" />;
   };
 
   const getIconColor = (index: number) => {
