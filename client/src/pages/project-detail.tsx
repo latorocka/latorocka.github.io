@@ -753,7 +753,9 @@ exports.config = config;`
                 <p className="text-secondary text-sm mb-4">
                   {project.id === 1 ? 
                     "Complete installation and configuration instructions for getting the framework up and running." :
-                    "Complete installation and configuration instructions for setting up the API test suite and running tests."
+                  project.id === 2 ?
+                    "Complete installation and configuration instructions for setting up the API test suite and running tests." :
+                    "Complete installation and configuration instructions for setting up the mobile test automation framework with Android and iOS support."
                   }
                 </p>
                 <Button 
@@ -761,7 +763,9 @@ exports.config = config;`
                   size="sm"
                   onClick={() => {
                     // Create a new window/tab with the setup guide content
-                    const setupContent = project.id === 1 ? `# Setup Guide - Selenium Test Framework
+                    let setupContent = '';
+                    if (project.id === 1) {
+                      setupContent = `# Setup Guide - Selenium Test Framework
 
 ## Prerequisites
 - Java Development Kit (JDK) 11 or higher
@@ -784,7 +788,9 @@ exports.config = config;`
 ## Configuration
 Edit src/test/resources/config.properties for your environment settings.
 
-For complete setup instructions, contact: Latorocka@gmail.com` : `# Setup Guide - API Test Suite
+For complete setup instructions, contact: Latorocka@gmail.com`;
+                    } else if (project.id === 2) {
+                      setupContent = `# Setup Guide - API Test Suite
 
 ## Prerequisites
 - Node.js 16.x or higher
@@ -828,13 +834,100 @@ No additional configuration required. Tests run against public APIs:
 - WebSocket Echo Server (Real-time testing)
 
 For complete setup instructions, contact: Latorocka@gmail.com`;
+                    } else {
+                      setupContent = `# Setup Guide - Mobile Test Automation Suite
+
+## Prerequisites
+
+### For Android Testing:
+- Node.js 16.x or higher
+- npm or yarn package manager
+- Android Studio with SDK Tools
+- Java JDK 8 or 11
+- Android SDK (API levels 29-31)
+- Android emulator or physical device
+
+### For iOS Testing (macOS only):
+- Xcode 14.x or later
+- iOS Simulator
+- Command Line Tools for Xcode
+- Valid Apple Developer account (for real device testing)
+
+## Installation Steps
+
+1. Clone the repository
+   git clone https://github.com/latorocka/mobile-test-suite.git
+   cd mobile-test-suite
+
+2. Install dependencies
+   npm install
+
+3. Install Appium and drivers
+   npm install -g appium
+   appium driver install uiautomator2
+   appium driver install xcuitest
+
+4. Setup Android environment (if testing Android)
+   node scripts/setup-android.js
+
+5. Setup iOS environment (if testing iOS on macOS)
+   node scripts/setup-ios.js
+
+## Quick Start
+
+# Run Android tests
+npm run test:android
+
+# Run iOS tests
+npm run test:ios
+
+# Run cross-platform tests
+npm run test:cross-platform
+
+# Run parallel tests across multiple devices
+npm run test:parallel
+
+# Run specific test categories
+npm run test:gestures
+npm run test:performance
+npm run test:accessibility
+
+## Configuration
+
+### Android Configuration
+Update config/wdio.android.conf.js with your device details:
+- deviceName: 'Your_Device_Name'
+- platformVersion: '12.0'
+- app: './apps/your-app.apk'
+
+### iOS Configuration
+Update config/wdio.ios.conf.js with your device details:
+- deviceName: 'iPhone 14'
+- platformVersion: '16.0'
+- app: './apps/your-app.app'
+
+## Device Setup
+
+### Android Setup:
+1. Enable USB debugging on your device
+2. Verify ADB can detect your device: adb devices
+3. Set ANDROID_HOME environment variable
+
+### iOS Setup:
+1. Open Xcode and accept license agreements
+2. Install iOS Simulator
+3. Build WebDriverAgent for real device testing
+
+For complete setup instructions, contact: Latorocka@gmail.com`;
+                    }
                     
                     const newWindow = window.open('', '_blank');
                     if (newWindow) {
+                      const titleText = project.id === 1 ? 'Selenium Framework' : project.id === 2 ? 'API Test Suite' : 'Mobile Test Automation Suite';
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - Setup Guide</title>
+                            <title>${titleText} - Setup Guide</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
@@ -864,14 +957,18 @@ For complete setup instructions, contact: Latorocka@gmail.com`;
                 <p className="text-secondary text-sm mb-4">
                   {project.id === 1 ?
                     "Comprehensive guide for writing, executing, and managing automated tests with the framework." :
-                    "Comprehensive guide for executing test categories, analyzing results, and using the automated test runner."
+                  project.id === 2 ?
+                    "Comprehensive guide for executing test categories, analyzing results, and using the automated test runner." :
+                    "Comprehensive guide for writing mobile tests, configuring devices, and managing cross-platform test execution."
                   }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    const userGuideContent = project.id === 1 ? `# User Guide - Selenium Test Framework
+                    let userGuideContent = '';
+                    if (project.id === 1) {
+                      userGuideContent = `# User Guide - Selenium Test Framework
 
 ## Test Execution
 
@@ -923,7 +1020,9 @@ Edit config.properties for environment settings:
 - environment=qa
 - headless=false
 
-For detailed usage examples, contact: Latorocka@gmail.com` : `# User Guide - API Test Suite
+For detailed usage examples, contact: Latorocka@gmail.com`;
+                    } else if (project.id === 2) {
+                      userGuideContent = `# User Guide - API Test Suite
 
 ## Test Execution
 
@@ -1010,13 +1109,209 @@ node tests/test-runner.js --report-html
 node tests/test-runner.js --ci
 
 For detailed usage examples, contact: Latorocka@gmail.com`;
+                    } else {
+                      userGuideContent = `# User Guide - Mobile Test Automation Suite
+
+## Test Execution
+
+### Running Single Platform Tests
+# Run Android tests only
+npm run test:android
+
+# Run iOS tests only (macOS required)
+npm run test:ios
+
+### Running Cross-Platform Tests
+# Execute tests across both platforms
+npm run test:cross-platform
+
+# Run parallel tests on multiple devices
+npm run test:parallel
+
+### Test Categories
+# Run gesture tests
+npm run test:gestures
+
+# Run performance tests
+npm run test:performance
+
+# Run accessibility tests
+npm run test:accessibility
+
+# Run all test categories
+npm test
+
+## Device Configuration
+
+### Android Device Setup
+# List available Android devices/emulators
+adb devices
+
+# Start Android emulator
+emulator -avd Pixel_6_API_31
+
+# Install app on device
+adb install path/to/your-app.apk
+
+### iOS Device Setup (macOS only)
+# List available iOS simulators
+xcrun simctl list devices
+
+# Boot iOS simulator
+xcrun simctl boot "iPhone 14"
+
+# Install app on simulator
+xcrun simctl install booted path/to/your-app.app
+
+## Writing Tests
+
+### Creating Cross-Platform Page Objects
+class HomePage extends BasePage {
+  constructor() {
+    super();
+    this.platform = browser.capabilities.platformName.toLowerCase();
+  }
+
+  get loginButton() {
+    return this.platform === 'android' 
+      ? $('//android.widget.Button[@text="Login"]')
+      : $('//XCUIElementTypeButton[@name="Login"]');
+  }
+
+  async performLogin(username, password) {
+    await this.safeClick(this.loginButton);
+    return this;
+  }
+}
+
+### Gesture Testing Examples
+# Tap gesture
+await browser.touchAction('tap', { x: 100, y: 200 });
+
+# Long press
+await browser.touchAction([
+  { action: 'press', x: 100, y: 200 },
+  { action: 'wait', ms: 2000 },
+  { action: 'release' }
+]);
+
+# Swipe gesture
+await browser.touchAction([
+  { action: 'press', x: 300, y: 500 },
+  { action: 'moveTo', x: 300, y: 200 },
+  { action: 'release' }
+]);
+
+## Device Management
+
+### App Lifecycle Management
+# Install app
+await deviceUtils.installApp('./apps/test-app.apk');
+
+# Activate app
+await deviceUtils.activateApp('com.example.testapp');
+
+# Terminate app
+await deviceUtils.terminateApp('com.example.testapp');
+
+# Remove app
+await deviceUtils.removeApp('com.example.testapp');
+
+### Network Testing
+# Disable WiFi (Android)
+await deviceUtils.setNetworkConnection({
+  airplaneMode: false,
+  wifi: false,
+  data: true
+});
+
+# Enable airplane mode
+await deviceUtils.setNetworkConnection({
+  airplaneMode: true,
+  wifi: false,
+  data: false
+});
+
+## Performance Testing
+
+### App Launch Time Measurement
+const launchStart = Date.now();
+await deviceUtils.activateApp('com.example.app');
+const launchTime = Date.now() - launchStart;
+console.log(\`App launch time: \${launchTime}ms\`);
+
+### Memory Usage Monitoring
+const deviceInfo = await deviceUtils.getDeviceInfo();
+console.log('Memory usage:', deviceInfo.memory);
+
+### Battery Impact Analysis
+const batteryInfo = await deviceUtils.getBatteryInfo();
+if (batteryInfo) {
+  console.log('Battery level:', batteryInfo.level);
+  expect(batteryInfo.level).toBeGreaterThan(20);
+}
+
+## Parallel Execution
+
+### Multi-Device Configuration
+Configure multiple devices in wdio.parallel.conf.js:
+- Android Pixel 6 (API 31)
+- iOS iPhone 14 (iOS 16.0)
+- Android Samsung Galaxy S21 (API 30)
+
+### Running Parallel Tests
+# Execute tests across all configured devices
+npm run test:parallel
+
+# Monitor test execution
+# Each device runs tests independently
+# Results are aggregated in final report
+
+## Reporting & Analysis
+
+### Allure Reports
+# Generate comprehensive test reports
+npm run report:generate
+
+# Open interactive report
+npm run report:open
+
+### Screenshot Capture
+Screenshots are automatically captured:
+- On test failures
+- During key test steps
+- With device information overlay
+
+### Test Metrics
+The framework captures:
+- Test execution times
+- Device performance metrics
+- App crash reports
+- Network usage statistics
+- Battery consumption data
+
+## Troubleshooting
+
+### Common Android Issues
+1. ADB not found: Add Android SDK to PATH
+2. Device not detected: Enable USB debugging
+3. App installation fails: Check app signing
+
+### Common iOS Issues
+1. Simulator not booting: Reset simulator
+2. WebDriverAgent build fails: Check Xcode setup
+3. Real device testing: Verify developer certificate
+
+For detailed troubleshooting, contact: Latorocka@gmail.com`;
+                    }
                     
                     const newWindow = window.open('', '_blank');
                     if (newWindow) {
+                      const userTitleText = project.id === 1 ? 'Selenium Framework' : project.id === 2 ? 'API Test Suite' : 'Mobile Test Automation Suite';
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - User Guide</title>
+                            <title>${userTitleText} - User Guide</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
@@ -1046,14 +1341,18 @@ For detailed usage examples, contact: Latorocka@gmail.com`;
                 <p className="text-secondary text-sm mb-4">
                   {project.id === 1 ?
                     "Detailed technical documentation covering framework design, patterns, and implementation details." :
-                    "Comprehensive technical documentation covering test suite architecture, design patterns, and implementation strategies."
+                  project.id === 2 ?
+                    "Comprehensive technical documentation covering test suite architecture, design patterns, and implementation strategies." :
+                    "Comprehensive technical documentation covering mobile testing architecture, cross-platform design patterns, and device management strategies."
                   }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    const architectureContent = project.id === 1 ? `# Architecture Documentation - Selenium Test Framework
+                    let architectureContent = '';
+                    if (project.id === 1) {
+                      architectureContent = `# Architecture Documentation - Selenium Test Framework
 
 ## Framework Components
 
@@ -1111,7 +1410,9 @@ For detailed usage examples, contact: Latorocka@gmail.com`;
 - Multi-browser testing matrix
 - Automated reporting and artifacts
 
-Contact: Latorocka@gmail.com for architecture details` : `# Architecture Documentation - API Test Suite
+Contact: Latorocka@gmail.com for architecture details`;
+                    } else if (project.id === 2) {
+                      architectureContent = `# Architecture Documentation - API Test Suite
 
 ## Framework Components
 
@@ -1180,13 +1481,165 @@ Contact: Latorocka@gmail.com for architecture details` : `# Architecture Documen
 6. Comprehensive summary generation and output
 
 Contact: Latorocka@gmail.com for architecture details`;
+                    } else {
+                      architectureContent = `# Architecture Documentation - Mobile Test Automation Suite
+
+## Framework Components
+
+### 1. Configuration Management Layer
+- Base Configuration: Common WebDriverIO settings and capabilities
+- Platform-Specific Configs: Android and iOS specific configurations
+- Parallel Execution Config: Multi-device testing orchestration
+- Environment Management: Development, staging, and production settings
+
+### 2. Page Object Model Layer
+- BasePage: Common mobile interaction patterns and utilities
+- Platform-Specific Pages: Android and iOS page implementations
+- Cross-Platform Abstraction: Unified interface for different platforms
+- Element Management: Smart selector strategies for mobile elements
+
+### 3. Device Management Layer
+- DeviceUtils: Comprehensive device interaction utilities
+- App Lifecycle Management: Install, activate, terminate, and remove apps
+- Network Control: WiFi, cellular, and airplane mode management
+- Performance Monitoring: Memory, battery, and CPU usage tracking
+
+### 4. Test Execution Layer
+- Cross-Platform Tests: Unified test scenarios for both platforms
+- Platform-Specific Tests: Android and iOS specialized test cases
+- Parallel Execution: Multi-device test orchestration
+- Test Categories: Functional, performance, accessibility, and gesture testing
+
+### 5. Utility and Data Layer
+- Test Data Management: Dynamic test data generation and management
+- Screenshot Utilities: Automated capture with device information
+- Setup Scripts: Automated environment configuration for Android and iOS
+- Reporting Integration: Allure reports with comprehensive metrics
+
+### 6. CI/CD Integration Layer
+- Jenkins Pipeline: Automated test execution in CI/CD workflows
+- GitHub Actions: Cross-platform testing in cloud environments
+- Device Farm Integration: Scalable testing across multiple real devices
+- Artifact Management: Test reports, screenshots, and logs collection
+
+## Design Patterns
+
+### Cross-Platform Patterns
+- Strategy Pattern: Platform-specific implementation strategies
+- Factory Pattern: Device and page object creation
+- Template Method: Common test execution flow with platform variations
+- Adapter Pattern: Unified interface for different mobile platforms
+
+### Mobile-Specific Patterns
+- Page Object Model: Maintainable mobile page representations
+- Screen Object Pattern: Mobile screen interaction abstractions
+- Device Object Pattern: Device capability and state management
+- Test Data Builder: Dynamic test data construction for mobile scenarios
+
+## Mobile Testing Architecture
+
+### Android Testing Architecture
+- UiAutomator2 Driver: Native Android automation capabilities
+- Android SDK Integration: Direct device and emulator management
+- ADB Communication: Device interaction and app management
+- Gradle Build Integration: Automated app building and deployment
+
+### iOS Testing Architecture
+- XCUITest Driver: Native iOS automation capabilities
+- Xcode Integration: iOS Simulator and real device testing
+- WebDriverAgent: iOS test automation proxy
+- TestFlight Integration: Production app testing capabilities
+
+### Cross-Platform Coordination
+- Unified Test Interface: Common test writing patterns
+- Platform Detection: Automatic platform-specific behavior
+- Shared Test Data: Cross-platform test scenario data
+- Parallel Execution: Simultaneous testing across platforms
+
+## Device Farm Integration
+
+### Scalable Testing Architecture
+- Multi-Device Support: Parallel execution across multiple devices
+- Device Pool Management: Dynamic device allocation and release
+- Load Balancing: Optimal test distribution across available devices
+- Resource Monitoring: Device performance and availability tracking
+
+### Real Device Testing
+- Physical Device Support: USB and network connected devices
+- Device Capabilities Detection: Automatic capability discovery
+- Performance Profiling: Real-world performance measurement
+- Network Condition Testing: Various connectivity scenarios
+
+## Performance Testing Architecture
+
+### Mobile Performance Metrics
+- App Launch Time: Cold and warm start measurement
+- Memory Usage: Heap and non-heap memory monitoring
+- Battery Impact: Power consumption analysis
+- Network Usage: Data transfer and API call optimization
+
+### Performance Test Categories
+- Load Testing: App behavior under various user loads
+- Stress Testing: Device resource limitation testing
+- Endurance Testing: Long-running operation validation
+- Scalability Testing: Multi-user scenario simulation
+
+## Test Execution Flow
+
+### 1. Environment Setup Phase
+- Device capability detection and validation
+- App installation and configuration
+- Network and permission setup
+- Test data preparation and injection
+
+### 2. Test Discovery Phase
+- Platform-specific test identification
+- Cross-platform test coordination
+- Parallel execution planning
+- Resource allocation and scheduling
+
+### 3. Test Execution Phase
+- Parallel test execution across devices
+- Real-time progress monitoring
+- Dynamic error handling and recovery
+- Performance metrics collection
+
+### 4. Results Collection Phase
+- Cross-platform result aggregation
+- Screenshot and video capture
+- Performance data compilation
+- Error analysis and categorization
+
+### 5. Reporting Phase
+- Comprehensive test result reporting
+- Device-specific performance analysis
+- Cross-platform comparison metrics
+- CI/CD integration and artifact generation
+
+## Error Handling and Recovery
+
+### Robust Error Management
+- Device Connection Recovery: Automatic reconnection handling
+- App Crash Detection: Crash detection and recovery mechanisms
+- Network Failure Handling: Timeout and retry strategies
+- Platform-Specific Error Handling: iOS and Android specific error scenarios
+
+### Test Reliability Features
+- Smart Waits: Intelligent element waiting strategies
+- Retry Mechanisms: Automatic test retry on transient failures
+- Cleanup Procedures: Proper test environment cleanup
+- State Management: Consistent app and device state handling
+
+Contact: Latorocka@gmail.com for architecture details`;
+                    }
                     
                     const newWindow = window.open('', '_blank');
                     if (newWindow) {
+                      const archTitleText = project.id === 1 ? 'Selenium Framework' : project.id === 2 ? 'API Test Suite' : 'Mobile Test Automation Suite';
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - Architecture</title>
+                            <title>${archTitleText} - Architecture</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
