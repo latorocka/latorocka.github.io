@@ -30,23 +30,68 @@ export default function ProjectDetail() {
     );
   }
 
-  const seleniumFramework = {
-    overview: `This comprehensive Selenium Test Framework demonstrates enterprise-level test automation practices. Built from scratch using Java and Maven, it implements industry best practices including the Page Object Model pattern, data-driven testing, and robust CI/CD integration.`,
-    
-    keyFeatures: [
-      "Page Object Model (POM) implementation for maintainable test code",
-      "Cross-browser testing support (Chrome, Firefox, Edge, Safari)",
-      "Data-driven testing with Excel file integration",
-      "Parallel test execution for faster feedback",
-      "Automatic screenshot capture on test failures",
-      "Comprehensive test reporting with Extent Reports",
-      "Thread-safe WebDriver management",
-      "Advanced wait utilities and helper methods",
-      "Environment-specific configuration management",
-      "CI/CD pipeline integration (Jenkins & GitHub Actions)"
-    ],
+  const getProjectContent = () => {
+    if (project.id === 1) {
+      // Selenium Framework
+      return {
+        overview: `This comprehensive Selenium Test Framework demonstrates enterprise-level test automation practices. Built from scratch using Java and Maven, it implements industry best practices including the Page Object Model pattern, data-driven testing, and robust CI/CD integration.`,
+        
+        keyFeatures: [
+          "Page Object Model (POM) implementation for maintainable test code",
+          "Cross-browser testing support (Chrome, Firefox, Edge, Safari)",
+          "Data-driven testing with Excel file integration",
+          "Parallel test execution for faster feedback",
+          "Automatic screenshot capture on test failures",
+          "Comprehensive test reporting with Extent Reports",
+          "Thread-safe WebDriver management",
+          "Advanced wait utilities and helper methods",
+          "Environment-specific configuration management",
+          "CI/CD pipeline integration (Jenkins & GitHub Actions)"
+        ],
+        sectionTitle: "Framework Architecture",
+        hasCodeExamples: true,
+        hasProjectStructure: true
+      };
+    } else if (project.id === 2) {
+      // API Test Suite
+      return {
+        overview: `This enterprise-grade API Test Suite demonstrates comprehensive testing expertise through 8 specialized testing categories including Functional, Integration, Performance, Security, and Data Validation testing. Features automated test runner with detailed reporting, live API endpoint validation, and production-ready error handling with metrics analysis.`,
+        
+        keyFeatures: [
+          "8 specialized testing categories: Functional, Integration, Performance, Security, Data Validation",
+          "Automated test runner with CLI interface and detailed reporting",
+          "Live API endpoint testing against JSONPlaceholder, GitHub, and SpaceX APIs",
+          "Comprehensive CRUD operations validation with real data verification",
+          "Cross-API workflow testing and data consistency validation",
+          "Performance testing with load, throughput, and scalability analysis",
+          "Security testing including SQL injection and XSS protection validation",
+          "Data validation with schema verification across multiple API protocols",
+          "Professional error handling with metrics analysis and success rate tracking",
+          "Production-ready framework with concurrent request handling and timeout management"
+        ],
+        sectionTitle: "Testing Categories",
+        hasCodeExamples: true,
+        hasProjectStructure: true
+      };
+    } else {
+      // Default/other projects
+      return {
+        overview: project.description,
+        keyFeatures: project.features || [],
+        sectionTitle: "Key Features",
+        hasCodeExamples: false,
+        hasProjectStructure: false
+      };
+    }
+  };
 
-    architecture: [
+  const projectContent = getProjectContent();
+
+  const seleniumFramework = {
+    overview: projectContent.overview,
+    keyFeatures: projectContent.keyFeatures,
+
+    architecture: project.id === 1 ? [
       {
         component: "Driver Management",
         description: "Thread-safe WebDriver initialization with support for multiple browsers and headless execution"
@@ -63,9 +108,34 @@ export default function ProjectDetail() {
         component: "Test Classes",
         description: "Comprehensive test scenarios with data-driven testing and proper test lifecycle management"
       }
-    ],
+    ] : project.id === 2 ? [
+      {
+        component: "Functional Tests",
+        description: "Complete CRUD operations validation with input validation, response structure verification, and error handling"
+      },
+      {
+        component: "Integration Tests",
+        description: "Cross-API workflows, data consistency validation, cascading requests, and failure recovery mechanisms"
+      },
+      {
+        component: "Performance Tests",
+        description: "Response time analysis, concurrent load testing, throughput measurement, and scalability validation"
+      },
+      {
+        component: "Security Tests",
+        description: "SQL injection prevention, XSS protection, authentication testing, and rate limiting validation"
+      },
+      {
+        component: "Data Validation",
+        description: "Schema verification, type consistency, cross-API integrity checks, and custom validation rules"
+      },
+      {
+        component: "Test Runner",
+        description: "Automated CLI interface with category-based execution, detailed reporting, and performance metrics"
+      }
+    ] : [],
 
-    codeExamples: [
+    codeExamples: project.id === 1 ? [
       {
         title: "Driver Manager Implementation",
         language: "java",
@@ -144,7 +214,113 @@ public Object[][] getLoginTestData() {
     return ExcelUtils.readExcelData(config.getTestDataPath(), "LoginData");
 }`
       }
-    ]
+    ] : project.id === 2 ? [
+      {
+        title: "Automated Test Runner with CLI Interface",
+        language: "javascript",
+        code: `class TestRunner {
+  constructor() {
+    this.results = [];
+    this.categories = [
+      'functional', 'integration', 'performance', 
+      'security', 'data-validation', 'graphql', 
+      'websocket', 'github-api'
+    ];
+  }
+
+  async runAllTests() {
+    console.log('🚀 Starting API Test Suite - Enterprise Grade Framework');
+    
+    for (const category of this.categories) {
+      await this.runTestCategory(category);
+    }
+    
+    this.generateSummaryReport();
+  }
+
+  async runTestCategory(category) {
+    const startTime = Date.now();
+    const testResult = await this.executeJestTest(\`tests/\${category}\`);
+    const duration = Date.now() - startTime;
+    
+    this.results.push({
+      category,
+      passed: testResult.numPassedTests,
+      failed: testResult.numFailedTests,
+      duration: \`\${duration}ms\`
+    });
+  }
+}`
+      },
+      {
+        title: "Performance Testing with Concurrent Load Analysis",
+        language: "javascript",
+        code: `describe('Performance Tests - Load & Scalability', () => {
+  test('Concurrent API load testing', async () => {
+    const concurrentRequests = [1, 5, 10, 20];
+    const results = [];
+
+    for (const count of concurrentRequests) {
+      const startTime = Date.now();
+      
+      const promises = Array.from({ length: count }, () => 
+        axios.get('https://jsonplaceholder.typicode.com/users')
+      );
+      
+      const responses = await Promise.all(promises);
+      const totalTime = Date.now() - startTime;
+      
+      results.push({
+        concurrentRequests: count,
+        totalTime,
+        averageTime: totalTime / count,
+        successRate: responses.filter(r => r.status === 200).length / count * 100
+      });
+      
+      expect(responses.every(r => r.status === 200)).toBe(true);
+      expect(totalTime).toBeLessThan(5000); // 5 second threshold
+    }
+    
+    console.log('📊 Performance Results:', results);
+  });
+});`
+      },
+      {
+        title: "Security Testing with SQL Injection & XSS Prevention",
+        language: "javascript",
+        code: `describe('Security Tests - Injection & XSS Protection', () => {
+  const maliciousInputs = [
+    "'; DROP TABLE users; --",
+    "<script>alert('XSS')</script>",
+    "' OR '1'='1",
+    "<img src=x onerror=alert('XSS')>",
+    "../../etc/passwd",
+    "javascript:alert('XSS')"
+  ];
+
+  test('SQL injection prevention validation', async () => {
+    for (const maliciousInput of maliciousInputs) {
+      try {
+        const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
+          title: maliciousInput,
+          body: 'Test content',
+          userId: 1
+        });
+        
+        // Verify malicious input is sanitized or rejected
+        expect(response.data.title).not.toContain('DROP TABLE');
+        expect(response.data.title).not.toContain('<script>');
+        expect(response.status).toBe(201);
+        
+      } catch (error) {
+        // Expected behavior for rejected malicious input
+        expect(error.response.status).toBeGreaterThanOrEqual(400);
+      }
+    }
+  });
+});`
+      }
+    ] : []
   };
 
   return (
@@ -234,7 +410,7 @@ public Object[][] getLoginTestData() {
         {/* Architecture */}
         <Card className="mb-12">
           <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-6">Framework Architecture</h2>
+            <h2 className="text-2xl font-bold mb-6">{projectContent.sectionTitle}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {seleniumFramework.architecture.map((component, index) => (
                 <div key={index} className="border rounded-lg p-6">
@@ -266,12 +442,13 @@ public Object[][] getLoginTestData() {
         </Card>
 
         {/* Project Structure */}
-        <Card className="mb-12">
-          <CardContent className="p-8">
-            <h2 className="text-2xl font-bold mb-6">Project Structure</h2>
-            <div className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6">
-              <pre className="text-sm text-slate-300">
-                <code>{`selenium-framework/
+        {projectContent.hasProjectStructure && (
+          <Card className="mb-12">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold mb-6">Project Structure</h2>
+              <div className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6">
+                <pre className="text-sm text-slate-300">
+                  <code>{project.id === 1 ? `selenium-framework/
 ├── src/
 │   ├── main/java/
 │   │   ├── pages/           # Page Object Model classes
@@ -286,11 +463,35 @@ public Object[][] getLoginTestData() {
 ├── src/test/resources/    # Configuration files
 ├── Jenkinsfile           # Jenkins CI/CD pipeline
 ├── .github/workflows/    # GitHub Actions CI
-└── pom.xml              # Maven configuration`}</code>
-              </pre>
-            </div>
-          </CardContent>
-        </Card>
+└── pom.xml              # Maven configuration` : project.id === 2 ? `api-test-suite/
+├── tests/
+│   ├── rest/                    # Functional API tests
+│   │   ├── user-api.test.js         # CRUD operations testing
+│   │   └── github-api.test.js       # GitHub API integration
+│   ├── integration/             # Cross-API workflow tests
+│   │   └── api-integration.test.js  # Multi-step API validation
+│   ├── performance/             # Load & scalability tests
+│   │   └── load-testing.test.js     # Concurrent request analysis
+│   ├── security/                # Security validation tests
+│   │   └── security-validation.test.js # SQL injection, XSS protection
+│   ├── data-validation/         # Schema & data integrity tests
+│   │   └── schema-validation.test.js   # API response validation
+│   ├── graphql/                 # GraphQL API tests
+│   │   └── user-queries.test.js     # GraphQL query validation
+│   ├── websocket/               # Real-time communication tests
+│   │   └── real-time.test.js        # WebSocket connection testing
+│   ├── test-runner.js           # Automated test execution CLI
+│   └── setup.js                 # Test configuration & utilities
+├── demo/
+│   └── run-live-tests.js        # Live API demonstration script
+├── jest.config.js               # Jest testing framework config
+├── package.json                 # Dependencies & scripts
+└── README.md                    # Comprehensive documentation` : ''}</code>
+                </pre>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Documentation */}
         <Card className="mb-12" id="documentation-section">
