@@ -144,3 +144,10 @@ This project effectively demonstrates Brian's advanced automation skills includi
 - Repository configured with authentication and ready for future updates
 - Portfolio "View on GitHub" button now links to live, professional automation framework
 - Framework demonstrates enterprise-level QA automation skills and development practices
+
+**Latest Updates (January 2025)**:
+- ✅ **Updated Journey Text**: Added chef background story showcasing career transition from culinary to programming
+- ✅ **Darker Color Scheme**: Implemented deeper, more professional dark theme with improved contrast
+- Personal story now highlights precision, creativity, and problem-solving skills gained from kitchen experience
+- Updated color palette uses darker backgrounds (hsl(220, 15%, 8%)) for more sophisticated appearance
+- Enhanced text readability with improved foreground/background contrast ratios

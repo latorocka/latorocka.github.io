@@ -53,9 +53,7 @@ export default function AboutSection() {
             <div>
               <h3 className="text-2xl font-bold mb-4">My Journey</h3>
               <p className="text-secondary leading-relaxed mb-6">
-                Currently pursuing a Computer Science degree at Long Beach City College with multiple certifications 
-                in web development, PHP programming, and fullstack development. My experience spans from junior QA analyst 
-                to senior automation engineer roles across various industries.
+                I began my career as a chef, honing precision, creativity, and problem-solving in fast-paced, high-pressure kitchens. That same drive led me to pursue programming, where I found a new passion for building efficient, elegant solutions in the digital space. Since making the switch, I've earned multiple certifications in web development, PHP programming, and fullstack development, and built a track record of success in roles ranging from junior QA analyst to senior automation engineer across a variety of industries. With hands-on experience and a collaborative mindset, I bring both technical expertise and a service-oriented approach to every project I take on.
               </p>
             </div>
             
