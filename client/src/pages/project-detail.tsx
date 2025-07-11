@@ -387,20 +387,11 @@ public void testLoginWithMultipleUsers(String username, String password, String 
 Contact: latorocka@gmail.com
 GitHub: ${project.githubUrl}`;
     } else if (projectId === 2) {
-      // API Test Suite User Guide
+      // API Test Suite User Guide - Shortened version to avoid issues
       return `# API Test Suite - User Guide
 
-## Table of Contents
-- [Getting Started](#getting-started)
-- [Test Categories](#test-categories)
-- [Writing API Tests](#writing-api-tests)
-- [Running Tests](#running-tests)
-- [Configuration](#configuration)
-- [Live API Testing](#live-api-testing)
-- [Performance Testing](#performance-testing)
-- [Security Testing](#security-testing)
-- [Reporting](#reporting)
-- [Best Practices](#best-practices)
+## Overview
+Comprehensive enterprise-grade API testing framework with 8 specialized testing categories including Functional, Integration, Performance, Security, and Data Validation testing.
 
 ## Getting Started
 
@@ -420,38 +411,13 @@ GitHub: ${project.githubUrl}`;
 
 ### 1. Functional Testing
 Complete CRUD operations validation with comprehensive endpoint testing.
-
-**Key Features:**
 - GET, POST, PUT, DELETE operation testing
 - Request/response validation
 - Status code verification
 - Data integrity checks
 
-**Example Test:**
-\`\`\`javascript
-describe('User CRUD Operations', () => {
-  test('should create a new user', async () => {
-    const userData = {
-      name: 'John Doe',
-      username: 'johndoe',
-      email: 'john@example.com'
-    };
-    
-    const response = await request(app)
-      .post('/api/users')
-      .send(userData)
-      .expect(201);
-      
-    expect(response.body).toMatchObject(userData);
-    expect(response.body.id).toBeDefined();
-  });
-});
-\`\`\`
-
 ### 2. Integration Testing
 Cross-API system testing with data consistency validation.
-
-**Features:**
 - Multi-endpoint workflow testing
 - Data flow verification
 - System integration validation
@@ -459,38 +425,13 @@ Cross-API system testing with data consistency validation.
 
 ### 3. Performance Testing
 Load testing with throughput and scalability analysis.
-
-**Metrics:**
 - Response time analysis
 - Concurrent request handling
 - Throughput measurement
 - Resource utilization monitoring
 
-\`\`\`javascript
-describe('Performance Testing', () => {
-  test('should handle concurrent requests', async () => {
-    const requests = Array(100).fill().map(() => 
-      request(app).get('/api/users')
-    );
-    
-    const startTime = Date.now();
-    const responses = await Promise.all(requests);
-    const endTime = Date.now();
-    
-    const avgResponseTime = (endTime - startTime) / requests.length;
-    expect(avgResponseTime).toBeLessThan(100); // ms
-    
-    responses.forEach(response => {
-      expect(response.status).toBe(200);
-    });
-  });
-});
-\`\`\`
-
 ### 4. Security Testing
 Input validation and vulnerability assessment.
-
-**Security Checks:**
 - SQL injection protection
 - XSS prevention
 - Authentication validation
@@ -499,169 +440,22 @@ Input validation and vulnerability assessment.
 
 ### 5. Data Validation
 Schema verification and consistency checks.
-
-**Validation Types:**
 - JSON schema validation
 - Data type verification
 - Required field validation
 - Format validation (email, phone, etc.)
 
-## Writing API Tests
-
-### Basic Test Structure
-\`\`\`javascript
-const request = require('supertest');
-const app = require('../server');
-
-describe('API Endpoint', () => {
-  beforeEach(async () => {
-    // Setup test data
-  });
-  
-  afterEach(async () => {
-    // Cleanup
-  });
-  
-  test('should return expected response', async () => {
-    const response = await request(app)
-      .get('/api/endpoint')
-      .expect(200);
-      
-    expect(response.body).toBeDefined();
-  });
-});
-\`\`\`
-
-### GraphQL Testing
-\`\`\`javascript
-const graphqlQuery = \`
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
-      name
-      email
-    }
-  }
-\`;
-
-test('should fetch user via GraphQL', async () => {
-  const response = await request(app)
-    .post('/graphql')
-    .send({
-      query: graphqlQuery,
-      variables: { id: '1' }
-    })
-    .expect(200);
-    
-  expect(response.body.data.user).toBeDefined();
-});
-\`\`\`
-
-### WebSocket Testing
-\`\`\`javascript
-const WebSocket = require('ws');
-
-test('should handle WebSocket communication', (done) => {
-  const ws = new WebSocket('ws://localhost:8080');
-  
-  ws.on('open', () => {
-    ws.send(JSON.stringify({ type: 'ping' }));
-  });
-  
-  ws.on('message', (data) => {
-    const message = JSON.parse(data);
-    expect(message.type).toBe('pong');
-    ws.close();
-    done();
-  });
-});
-\`\`\`
-
-## Running Tests
-
-### Command Line Options
-\`\`\`bash
-# Run all tests
-npm test
-
-# Run specific test category
-npm run test:functional
-npm run test:integration
-npm run test:performance
-npm run test:security
-
-# Run with coverage
-npm run test:coverage
-
-# Run in watch mode
-npm run test:watch
-
-# Generate detailed report
-npm run test:report
-\`\`\`
-
-### Live API Demonstration
-\`\`\`bash
-# Run live API tests against real endpoints
-npm run demo
-
-# Test specific APIs
-npm run demo:github
-npm run demo:jsonplaceholder
-npm run demo:spacex
-npm run demo:websocket
-\`\`\`
-
-## Configuration
-
-### Test Configuration (config/test.config.js)
-\`\`\`javascript
-module.exports = {
-  endpoints: {
-    jsonplaceholder: 'https://jsonplaceholder.typicode.com',
-    github: 'https://api.github.com',
-    spacex: 'https://api.spacexdata.com/v4'
-  },
-  timeouts: {
-    default: 5000,
-    performance: 1000,
-    long: 30000
-  },
-  retry: {
-    attempts: 3,
-    delay: 1000
-  }
-};
-\`\`\`
-
-### Environment Variables
-\`\`\`bash
-# API Keys (if required)
-GITHUB_API_KEY=your_github_token
-API_BASE_URL=https://api.example.com
-
-# Test Configuration
-TEST_TIMEOUT=10000
-PERFORMANCE_THRESHOLD=500
-CONCURRENT_USERS=50
-\`\`\`
-
 ## Live API Testing
 
 ### JSONPlaceholder API
 Tests basic CRUD operations against a live REST API.
-
-**Endpoints Tested:**
 - GET /posts - Fetch all posts
-- GET /posts/1 - Fetch specific post
 - POST /posts - Create new post
 - PUT /posts/1 - Update post
 - DELETE /posts/1 - Delete post
 
 ### GitHub API
 Tests real GitHub API endpoints with authentication.
-
-**Features Tested:**
 - Repository information
 - User profiles
 - Rate limiting handling
@@ -669,8 +463,6 @@ Tests real GitHub API endpoints with authentication.
 
 ### SpaceX GraphQL API
 Tests GraphQL queries against SpaceX data.
-
-**Queries Tested:**
 - Launch data retrieval
 - Rocket information
 - Mission details
@@ -678,158 +470,108 @@ Tests GraphQL queries against SpaceX data.
 
 ### WebSocket Testing
 Real-time communication testing with echo server.
-
-**Scenarios:**
 - Connection establishment
 - Message sending/receiving
 - Connection closing
 - Error handling
 
-## Performance Testing
+## Running Tests
+
+### Command Line Options
+- All tests: npm test
+- Functional tests: npm run test:functional
+- Integration tests: npm run test:integration
+- Performance tests: npm run test:performance
+- Security tests: npm run test:security
+- Coverage report: npm run test:coverage
+
+### Live API Demonstration
+- Run live tests: npm run demo
+- Test GitHub API: npm run demo:github
+- Test JSONPlaceholder: npm run demo:jsonplaceholder
+- Test SpaceX API: npm run demo:spacex
+- Test WebSocket: npm run demo:websocket
+
+## Configuration
+
+### Environment Variables
+- GITHUB_API_KEY: Your GitHub token
+- API_BASE_URL: Base API URL
+- TEST_TIMEOUT: Test timeout (default: 10000ms)
+- PERFORMANCE_THRESHOLD: Performance threshold (default: 500ms)
+- CONCURRENT_USERS: Concurrent users for load testing (default: 50)
+
+## Performance Testing Features
 
 ### Load Testing Configuration
-\`\`\`javascript
-const performanceTest = {
-  concurrent_users: 100,
-  duration: '30s',
-  ramp_up: '10s',
-  scenarios: [
-    {
-      name: 'api_load_test',
-      executor: 'ramping-vus',
-      startVUs: 0,
-      stages: [
-        { duration: '10s', target: 50 },
-        { duration: '20s', target: 100 },
-        { duration: '10s', target: 0 }
-      ]
-    }
-  ]
-};
-\`\`\`
+- Concurrent users: 100
+- Test duration: 30 seconds
+- Ramp-up time: 10 seconds
+- Performance thresholds validation
+- Resource utilization monitoring
 
 ### Performance Metrics
-- **Response Time**: Average, P95, P99 percentiles
-- **Throughput**: Requests per second
-- **Error Rate**: Percentage of failed requests
-- **Concurrent Users**: Maximum supported load
+- Response Time: Average, P95, P99 percentiles
+- Throughput: Requests per second
+- Error Rate: Percentage of failed requests
+- Concurrent Users: Maximum supported load
 
-## Security Testing
+## Security Testing Features
 
 ### Input Validation Tests
-\`\`\`javascript
-describe('Security - Input Validation', () => {
-  test('should reject SQL injection attempts', async () => {
-    const maliciousInput = "'; DROP TABLE users; --";
-    
-    const response = await request(app)
-      .post('/api/users')
-      .send({ name: maliciousInput })
-      .expect(400);
-      
-    expect(response.body.error).toContain('Invalid input');
-  });
-  
-  test('should sanitize XSS attempts', async () => {
-    const xssPayload = '<script>alert("xss")</script>';
-    
-    const response = await request(app)
-      .post('/api/comments')
-      .send({ content: xssPayload });
-      
-    expect(response.body.content).not.toContain('<script>');
-  });
-});
-\`\`\`
+- SQL injection protection verification
+- XSS prevention testing
+- Input sanitization validation
+- Malicious payload handling
 
 ### Authentication Testing
-\`\`\`javascript
-describe('Security - Authentication', () => {
-  test('should require valid JWT token', async () => {
-    await request(app)
-      .get('/api/protected')
-      .expect(401);
-  });
-  
-  test('should accept valid JWT token', async () => {
-    const token = generateValidToken();
-    
-    await request(app)
-      .get('/api/protected')
-      .set('Authorization', \`Bearer \${token}\`)
-      .expect(200);
-  });
-});
-\`\`\`
+- JWT token validation
+- Protected endpoint access control
+- Authorization testing
+- Session management verification
 
 ## Reporting
 
 ### Test Reports
-- **HTML Report**: Comprehensive test execution report
-- **Coverage Report**: Code coverage analysis
-- **Performance Report**: Response time and throughput metrics
-- **Security Report**: Vulnerability assessment results
-
-### Report Generation
-\`\`\`bash
-# Generate all reports
-npm run report:generate
-
-# Specific report types
-npm run report:coverage
-npm run report:performance
-npm run report:security
-\`\`\`
+- HTML Report: Comprehensive test execution report
+- Coverage Report: Code coverage analysis
+- Performance Report: Response time and throughput metrics
+- Security Report: Vulnerability assessment results
 
 ### CI/CD Integration
-\`\`\`yaml
-# GitHub Actions example
-name: API Tests
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - run: npm install
-      - run: npm test
-      - run: npm run test:performance
-      - name: Upload coverage
-        uses: codecov/codecov-action@v1
-\`\`\`
+- GitHub Actions workflows
+- Jenkins pipeline support
+- Automated test execution
+- Report generation and archiving
 
 ## Best Practices
 
 ### Test Organization
-1. **Categorize Tests**: Group by functionality and test type
-2. **Naming Conventions**: Use descriptive test names
-3. **Test Independence**: Ensure tests can run independently
-4. **Data Management**: Use test-specific data
+1. Categorize tests by functionality and test type
+2. Use descriptive test names
+3. Ensure tests can run independently
+4. Use test-specific data
 
 ### API Testing Strategy
-1. **Contract Testing**: Verify API contracts
-2. **Error Handling**: Test error scenarios
-3. **Edge Cases**: Test boundary conditions
-4. **Documentation**: Keep tests as living documentation
+1. Verify API contracts
+2. Test error scenarios
+3. Test boundary conditions
+4. Keep tests as living documentation
 
 ### Performance Considerations
-1. **Baseline Metrics**: Establish performance baselines
-2. **Monitoring**: Continuous performance monitoring
-3. **Optimization**: Identify and fix bottlenecks
-4. **Scalability**: Test under various load conditions
+1. Establish performance baselines
+2. Continuous performance monitoring
+3. Identify and fix bottlenecks
+4. Test under various load conditions
 
 ### Security Best Practices
-1. **Input Validation**: Test all input vectors
-2. **Authentication**: Verify security mechanisms
-3. **Authorization**: Test access controls
-4. **Vulnerability Scanning**: Regular security assessments
+1. Test all input vectors
+2. Verify security mechanisms
+3. Test access controls
+4. Regular security assessments
 
-Contact: latorocka@gmail.com
-GitHub: ${project.githubUrl}`;
+For complete documentation and code examples, visit: ${project.githubUrl}
+Contact: latorocka@gmail.com`;
     } else if (projectId === 3) {
       // Mobile Test Suite User Guide
       return `# Mobile Test Automation Suite - User Guide
