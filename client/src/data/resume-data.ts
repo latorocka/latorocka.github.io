@@ -166,7 +166,7 @@ export const projects = [
     technologies: ["Selenium WebDriver 4.x", "TestNG", "Maven", "Java 11+", "Jenkins", "GitHub Actions"],
     category: "Automation",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-    githubUrl: "https://github.com/brianlatorraca/selenium-framework",
+    githubUrl: "https://github.com/latorocka/selenium-framework",
     features: [
       "Page Object Model implementation",
       "Cross-browser testing (Chrome, Firefox, Edge, Safari)",

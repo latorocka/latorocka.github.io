@@ -130,3 +130,8 @@ The application follows a monorepo structure with clear separation between clien
 - CI/CD configuration files for Jenkins and GitHub Actions
 
 This project effectively demonstrates Brian's advanced automation skills including framework design, best practices implementation, and enterprise-level testing strategies.
+
+**GitHub Integration**:
+- Connected to real GitHub repository: https://github.com/latorocka/selenium-framework
+- Documentation links point to actual GitHub docs for live demonstration
+- Project showcase includes comprehensive documentation with Setup Guide, User Guide, Architecture, and API Reference

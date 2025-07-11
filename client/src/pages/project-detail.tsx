@@ -166,11 +166,22 @@ public Object[][] getLoginTestData() {
             </div>
             
             <div className="flex flex-wrap gap-3">
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button 
+                className="bg-primary hover:bg-primary/90"
+                onClick={() => window.open(project.githubUrl, '_blank')}
+              >
                 <Github className="mr-2 h-4 w-4" />
                 View on GitHub
               </Button>
-              <Button variant="outline">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  const documentationSection = document.getElementById('documentation-section');
+                  if (documentationSection) {
+                    documentationSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 <FileText className="mr-2 h-4 w-4" />
                 Documentation
               </Button>
@@ -282,7 +293,7 @@ public Object[][] getLoginTestData() {
         </Card>
 
         {/* Documentation */}
-        <Card className="mb-12">
+        <Card className="mb-12" id="documentation-section">
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold mb-6">Documentation</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -297,7 +308,7 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/SETUP.md', '_blank')}
+                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/SETUP.md', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   View Setup Guide
@@ -315,7 +326,7 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/USER_GUIDE.md', '_blank')}
+                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/USER_GUIDE.md', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   View User Guide
@@ -333,7 +344,7 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/ARCHITECTURE.md', '_blank')}
+                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/ARCHITECTURE.md', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   View Architecture
@@ -351,7 +362,7 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/API_REFERENCE.md', '_blank')}
+                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/API_REFERENCE.md', '_blank')}
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   View API Reference
