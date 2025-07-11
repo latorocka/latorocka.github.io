@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Briefcase, Gamepad2, Brain } from "lucide-react";
+import { Settings, Gamepad2, Brain } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
@@ -12,7 +12,7 @@ export default function ExperienceSection() {
     if (experience && experience.company === "Tatum Games") {
       return <Gamepad2 className="h-6 w-6 text-white" />;
     }
-    return <Briefcase className="h-6 w-6 text-white" />;
+    return <Settings className="h-6 w-6 text-white" />;
   };
 
   const getIconColor = (index: number) => {
