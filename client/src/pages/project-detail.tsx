@@ -2,7 +2,7 @@ import { useRoute } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Github, ExternalLink, Code, FileText, Play } from "lucide-react";
+import { ArrowLeft, Github, ExternalLink, Code, FileText, Play, Book, Settings, Users } from "lucide-react";
 import { projects } from "@/data/resume-data";
 import { Link } from "wouter";
 
@@ -277,6 +277,86 @@ public Object[][] getLoginTestData() {
 ├── .github/workflows/    # GitHub Actions CI
 └── pom.xml              # Maven configuration`}</code>
               </pre>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Documentation */}
+        <Card className="mb-12">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold mb-6">Documentation</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="border rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Book className="h-6 w-6 text-blue-500" />
+                  <h3 className="font-bold text-lg">Setup Guide</h3>
+                </div>
+                <p className="text-secondary text-sm mb-4">
+                  Complete installation and configuration instructions for getting the framework up and running.
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/SETUP.md', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  View Setup Guide
+                </Button>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Users className="h-6 w-6 text-green-500" />
+                  <h3 className="font-bold text-lg">User Guide</h3>
+                </div>
+                <p className="text-secondary text-sm mb-4">
+                  Comprehensive guide for writing, executing, and managing automated tests with the framework.
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/USER_GUIDE.md', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  View User Guide
+                </Button>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Settings className="h-6 w-6 text-purple-500" />
+                  <h3 className="font-bold text-lg">Architecture</h3>
+                </div>
+                <p className="text-secondary text-sm mb-4">
+                  Detailed technical documentation covering framework design, patterns, and implementation details.
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/ARCHITECTURE.md', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  View Architecture
+                </Button>
+              </div>
+
+              <div className="border rounded-lg p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Code className="h-6 w-6 text-orange-500" />
+                  <h3 className="font-bold text-lg">API Reference</h3>
+                </div>
+                <p className="text-secondary text-sm mb-4">
+                  Complete API documentation with class references, method signatures, and usage examples.
+                </p>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => window.open('https://github.com/brianlatorraca/selenium-framework/blob/main/docs/API_REFERENCE.md', '_blank')}
+                >
+                  <ExternalLink className="mr-2 h-4 w-4" />
+                  View API Reference
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
