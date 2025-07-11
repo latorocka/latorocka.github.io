@@ -48,76 +48,104 @@ export default function ContactSection() {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Contact Information */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold mb-4 text-center">Contact Information</h3>
-              <div className="space-y-3">
-                <div className="flex flex-col items-center text-center">
-                  <Mail className="h-5 w-5 text-primary mb-2" />
-                  <a 
-                    href={`mailto:${personalInfo.email}`}
-                    className="text-sm text-secondary hover:text-primary transition-colors"
-                  >
-                    {personalInfo.email}
-                  </a>
-                </div>
-                
-                <div className="flex flex-col items-center text-center">
-                  <Phone className="h-5 w-5 text-primary mb-2" />
-                  <a 
-                    href={`tel:${personalInfo.phone}`}
-                    className="text-sm text-secondary hover:text-primary transition-colors"
-                  >
-                    {personalInfo.phone}
-                  </a>
-                </div>
-                
-                <div className="flex flex-col items-center text-center">
-                  <MapPin className="h-5 w-5 text-primary mb-2" />
-                  <p className="text-sm text-secondary">{personalInfo.location}</p>
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-card rounded-2xl shadow-xl p-12 border">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              {/* Contact Information */}
+              <div>
+                <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Mail className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Email</p>
+                      <a 
+                        href={`mailto:${personalInfo.email}`}
+                        className="text-lg font-medium hover:text-primary transition-colors"
+                      >
+                        {personalInfo.email}
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <Phone className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Phone</p>
+                      <a 
+                        href={`tel:${personalInfo.phone}`}
+                        className="text-lg font-medium hover:text-primary transition-colors"
+                      >
+                        {personalInfo.phone}
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Location</p>
+                      <p className="text-lg font-medium">{personalInfo.location}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Social Links */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold mb-4 text-center">Connect</h3>
-              <div className="space-y-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                  onClick={() => window.open(personalInfo.linkedin, '_blank')}
-                >
-                  <Linkedin className="mr-2 h-4 w-4" />
-                  LinkedIn
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                  onClick={() => window.open(personalInfo.github, '_blank')}
-                >
-                  <Github className="mr-2 h-4 w-4" />
-                  GitHub
-                </Button>
+              
+              {/* Actions */}
+              <div>
+                <h3 className="text-2xl font-bold mb-8">Let's Connect</h3>
+                <div className="space-y-4">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start h-14 text-left"
+                    onClick={() => window.open(personalInfo.linkedin, '_blank')}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mr-4">
+                      <Linkedin className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div>
+                      <p className="font-medium">LinkedIn</p>
+                      <p className="text-sm text-muted-foreground">Professional profile</p>
+                    </div>
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start h-14 text-left"
+                    onClick={() => window.open(personalInfo.github, '_blank')}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center mr-4">
+                      <Github className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+                    </div>
+                    <div>
+                      <p className="font-medium">GitHub</p>
+                      <p className="text-sm text-muted-foreground">Code repositories</p>
+                    </div>
+                  </Button>
+                  
+                  <Button 
+                    onClick={handleDownloadResume}
+                    className="w-full justify-start h-14 text-left bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl mt-6"
+                    size="lg"
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mr-4">
+                      <Download className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Download Resume</p>
+                      <p className="text-sm opacity-90">PDF format</p>
+                    </div>
+                  </Button>
+                </div>
               </div>
-            </div>
-            
-            {/* Resume Download */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold mb-4 text-center">Resume</h3>
-              <Button 
-                onClick={handleDownloadResume}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
-                size="sm"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </Button>
             </div>
           </div>
         </div>
