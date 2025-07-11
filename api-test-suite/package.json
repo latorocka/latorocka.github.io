@@ -1,0 +1,91 @@
+{
+  "name": "api-test-suite",
+  "version": "1.0.0",
+  "description": "Professional API testing framework demonstrating modern testing practices",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "test:watch": "jest --watch",
+    "test:rest": "jest --testPathPattern=rest",
+    "test:graphql": "jest --testPathPattern=graphql",
+    "test:websocket": "jest --testPathPattern=websocket",
+    "test:integration": "jest --testPathPattern=integration",
+    "test:coverage": "jest --coverage --coverageReporters=html",
+    "test:performance": "jest --testPathPattern=performance",
+    "start:server": "node server/mock-server.js",
+    "start:graphql": "node server/graphql-server.js",
+    "start:websocket": "node server/websocket-server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "report": "open reports/index.html"
+  },
+  "keywords": [
+    "api-testing",
+    "rest-api",
+    "graphql",
+    "websocket",
+    "jest",
+    "supertest",
+    "qa-automation",
+    "testing-framework"
+  ],
+  "author": "Brian LaTorraca <latorocka@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@apollo/client": "^3.8.7",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.8.10",
+    "@types/supertest": "^2.0.16",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jest": "^27.6.0",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2",
+    "prettier": "^3.1.0",
+    "supertest": "^6.3.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.12.1",
+    "axios": "^1.6.2",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "json-server": "^0.17.4",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.14.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "tests/**/*.js",
+      "!tests/fixtures/**",
+      "!tests/utils/**"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "reporters": [
+      "default",
+      [
+        "jest-html-reporter",
+        {
+          "pageTitle": "API Test Suite Report",
+          "outputPath": "reports/index.html",
+          "includeFailureMsg": true,
+          "includeSuiteFailure": true
+        }
+      ]
+    ]
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

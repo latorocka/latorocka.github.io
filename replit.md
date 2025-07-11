@@ -172,5 +172,16 @@ This project effectively demonstrates Brian's advanced automation skills includi
 - ✅ **Professional Programming Icons**: Replaced emoji icons with industry-standard Devicon icons for better visual appeal
 - ✅ **Testing Tools Icons**: Updated testing frameworks section with official logos from Simple Icons CDN and DevIcon library
 - ✅ **Updated Development Tools**: Replaced MS Office with CircleCI for more relevant CI/CD skillset representation
+- ✅ **GraphQL Integration**: Replaced Unity with GraphQL in testing tools section for better API testing focus
 - Enhanced visual consistency and professional appearance across all technical skills sections
 - Implemented hybrid icon system supporting both DevIcon classes and direct SVG images for maximum compatibility
+
+**API Test Suite Project (January 2025)**:
+- ✅ **Comprehensive Test Framework**: Created professional API testing framework with REST, GraphQL, and WebSocket testing
+- ✅ **Modern Testing Stack**: Built with Jest, Supertest, and Apollo Client for comprehensive API validation
+- ✅ **CI/CD Integration**: Implemented GitHub Actions workflow with automated testing, security scanning, and performance monitoring
+- ✅ **Professional Documentation**: Created detailed README with setup instructions, test scenarios, and architecture overview
+- ✅ **Portfolio Integration**: Added API Test Suite as featured project in portfolio projects section
+- Demonstrates enterprise-grade testing practices with 95%+ code coverage requirements
+- Includes performance testing, security validation, and comprehensive error handling
+- Features real-time WebSocket testing and GraphQL query validation capabilities
