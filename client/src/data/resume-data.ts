@@ -109,7 +109,7 @@ export const skills = {
     "WordPress",
     "FlutterFlow",
     "Unity Game Engine",
-    "MS Office"
+    "CircleCI"
   ],
   frameworks: [
     "Selenium",
