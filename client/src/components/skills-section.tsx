@@ -15,12 +15,22 @@ export default function SkillsSection() {
   };
 
   const toolIcons: Record<string, { type: 'devicon' | 'image', value: string }> = {
+    // Testing Tools & Frameworks
     "Selenium": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/selenium.svg' },
     "Cypress.io": { type: 'devicon', value: 'devicon-cypressio-plain colored' },
     "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
     "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
     "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
-    "Unity Game Engine": { type: 'devicon', value: 'devicon-unity-original colored' }
+    "Unity Game Engine": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg' },
+    
+    // Development Tools
+    "IntelliJ": { type: 'devicon', value: 'devicon-intellij-plain colored' },
+    "MongoDB": { type: 'devicon', value: 'devicon-mongodb-plain colored' },
+    "Jenkins": { type: 'devicon', value: 'devicon-jenkins-line colored' },
+    "Visual Studio": { type: 'devicon', value: 'devicon-visualstudio-plain colored' },
+    "WordPress": { type: 'devicon', value: 'devicon-wordpress-plain colored' },
+    "FlutterFlow": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg' },
+    "CircleCI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg' }
   };
 
   const toolCategories = [
@@ -78,9 +88,7 @@ export default function SkillsSection() {
             <h3 className="text-2xl font-bold mb-8 text-center">{category.title}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {category.items.map((tool, index) => {
-                const iconConfig = category.title === "Testing Tools & Frameworks" 
-                  ? toolIcons[tool.name] 
-                  : null;
+                const iconConfig = toolIcons[tool.name];
                 
                 return (
                   <Card key={index} className="skill-card">
