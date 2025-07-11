@@ -263,115 +263,16 @@ Contact: Latorocka@gmail.com`;
         <Card className="mb-12">
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold mb-6">Key Features</h2>
-            {project.id === 4 ? (
-              // Enhanced Cypress-specific features layout
-              <div className="space-y-8">
-                {/* Testing Architecture */}
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 text-blue-600">Testing Architecture</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-blue-500 mt-1">🔧</span>
-                        <span className="text-sm">Multi-layered testing architecture with API, UI, Performance, and Accessibility test suites</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-blue-500 mt-1">⚡</span>
-                        <span className="text-sm">100+ specialized custom commands for comprehensive testing scenarios</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-blue-500 mt-1">🌐</span>
-                        <span className="text-sm">Cross-browser testing support for Chrome, Firefox, Edge, and Safari</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-blue-50 dark:bg-blue-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-blue-500 mt-1">📊</span>
-                        <span className="text-sm">Professional test organization with smoke, regression, and integration testing</span>
-                      </div>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {project.features.map((feature, index) => (
+                <div key={index} className="p-4 border rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    <span className="text-sm">{feature}</span>
                   </div>
                 </div>
-
-                {/* Performance & Accessibility */}
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 text-green-600">Performance & Accessibility</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-green-500 mt-1">⚡</span>
-                        <span className="text-sm">Advanced performance testing with Core Web Vitals monitoring</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-green-500 mt-1">♿</span>
-                        <span className="text-sm">WCAG 2.1 AA accessibility compliance testing with keyboard navigation</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-green-500 mt-1">📱</span>
-                        <span className="text-sm">Mobile and responsive testing with touch interaction simulation</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-green-50 dark:bg-green-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-green-500 mt-1">👁️</span>
-                        <span className="text-sm">Visual regression testing with screenshot comparison</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Security & API Testing */}
-                <div>
-                  <h3 className="text-xl font-semibold mb-4 text-orange-600">Security & API Testing</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 border rounded-lg bg-orange-50 dark:bg-orange-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-orange-500 mt-1">🔒</span>
-                        <span className="text-sm">Security testing including XSS, CSRF, and SQL injection protection</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-orange-50 dark:bg-orange-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-orange-500 mt-1">🔌</span>
-                        <span className="text-sm">Comprehensive API testing with REST, GraphQL, and WebSocket validation</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-orange-50 dark:bg-orange-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-orange-500 mt-1">📝</span>
-                        <span className="text-sm">Professional reporting with Mochawesome and video recordings</span>
-                      </div>
-                    </div>
-                    <div className="p-4 border rounded-lg bg-orange-50 dark:bg-orange-950/20">
-                      <div className="flex items-start gap-2">
-                        <span className="text-orange-500 mt-1">🚀</span>
-                        <span className="text-sm">Enterprise-grade CI/CD integration with Jenkins and GitHub Actions</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              // Default features layout for other projects
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.features.map((feature, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <span className="text-blue-500 mt-1">•</span>
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+              ))}
+            </div>
           </CardContent>
         </Card>
 
