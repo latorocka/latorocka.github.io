@@ -308,9 +308,56 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/SETUP.md', '_blank')}
+                  onClick={() => {
+                    // Create a new window/tab with the setup guide content
+                    const setupContent = `# Setup Guide - Selenium Test Framework
+
+## Prerequisites
+- Java Development Kit (JDK) 11 or higher
+- Apache Maven 3.6+
+- IDE (IntelliJ IDEA, Eclipse, or VS Code)
+- Browser support: Chrome, Firefox, Edge, Safari
+
+## Installation Steps
+1. Clone the repository
+2. Install dependencies: mvn clean install
+3. Configure test environment
+4. Verify installation: mvn test
+
+## Browser Requirements
+- Google Chrome (Latest stable version)
+- Mozilla Firefox (Latest stable version)
+- Microsoft Edge (Latest stable version)
+- Safari (macOS only)
+
+## Configuration
+Edit src/test/resources/config.properties for your environment settings.
+
+For complete setup instructions, contact: Latorocka@gmail.com`;
+                    
+                    const newWindow = window.open('', '_blank');
+                    if (newWindow) {
+                      newWindow.document.write(`
+                        <html>
+                          <head>
+                            <title>Selenium Framework - Setup Guide</title>
+                            <style>
+                              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+                              h1, h2, h3 { color: #2563eb; }
+                              pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+                              code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+                            </style>
+                          </head>
+                          <body>
+                            <pre>${setupContent}</pre>
+                          </body>
+                        </html>
+                      `);
+                      newWindow.document.close();
+                    }
+                  }}
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
+                  <Book className="mr-2 h-4 w-4" />
                   View Setup Guide
                 </Button>
               </div>
@@ -326,9 +373,84 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/USER_GUIDE.md', '_blank')}
+                  onClick={() => {
+                    const userGuideContent = `# User Guide - Selenium Test Framework
+
+## Test Execution
+
+### Running Tests
+# Run all tests
+mvn test
+
+# Run specific test class
+mvn test -Dtest=LoginTest
+
+# Run tests in different browsers
+mvn test -Dbrowser=chrome
+mvn test -Dbrowser=firefox
+mvn test -Dbrowser=edge
+
+# Run headless tests
+mvn test -Dheadless=true
+
+### Test Suite Execution
+# Run smoke tests
+mvn test -DsuiteXmlFile=src/test/resources/smoke-suite.xml
+
+# Run regression tests  
+mvn test -DsuiteXmlFile=src/test/resources/regression-suite.xml
+
+## Writing Tests
+
+### Creating Page Objects
+public class LoginPage extends BasePage {
+    @FindBy(id = "username")
+    private WebElement usernameField;
+    
+    public void login(String username, String password) {
+        enterUsername(username);
+        enterPassword(password);
+        clickLoginButton();
+    }
+}
+
+### Data-Driven Testing
+@Test(dataProvider = "loginData")
+public void testLogin(Map<String, String> testData) {
+    // Use Excel data for test parameters
+}
+
+## Configuration Management
+Edit config.properties for environment settings:
+- browser=chrome
+- environment=qa
+- headless=false
+
+For detailed usage examples, contact: Latorocka@gmail.com`;
+                    
+                    const newWindow = window.open('', '_blank');
+                    if (newWindow) {
+                      newWindow.document.write(`
+                        <html>
+                          <head>
+                            <title>Selenium Framework - User Guide</title>
+                            <style>
+                              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+                              h1, h2, h3 { color: #2563eb; }
+                              pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+                              code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+                            </style>
+                          </head>
+                          <body>
+                            <pre>${userGuideContent}</pre>
+                          </body>
+                        </html>
+                      `);
+                      newWindow.document.close();
+                    }
+                  }}
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
+                  <Users className="mr-2 h-4 w-4" />
                   View User Guide
                 </Button>
               </div>
@@ -344,9 +466,90 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/ARCHITECTURE.md', '_blank')}
+                  onClick={() => {
+                    const architectureContent = `# Architecture Documentation - Selenium Test Framework
+
+## Framework Components
+
+### 1. Driver Management Layer
+- DriverManager: Thread-safe WebDriver instantiation
+- Cross-browser support (Chrome, Firefox, Edge, Safari)
+- Headless execution support
+- Automatic driver binary management
+
+### 2. Page Object Model (POM) Layer
+- BasePage: Common page interactions and utilities
+- Page-specific classes extending BasePage
+- WebElement initialization using Page Factory
+- Encapsulated page functionality
+
+### 3. Wait Management Layer
+- WaitUtils: Explicit wait strategies
+- Element visibility and clickability waits
+- Custom wait conditions
+- JavaScript execution waits
+
+### 4. Test Foundation Layer
+- BaseTest: Test lifecycle management
+- Setup and teardown methods
+- Screenshot capture on failures
+- Test result handling
+
+### 5. Data Management Layer
+- ExcelUtils: Excel file reading and parsing
+- TestNG DataProvider integration
+- Dynamic test data injection
+- Data-driven testing support
+
+### 6. Configuration Management
+- ConfigManager: Singleton configuration access
+- Environment-specific settings
+- Runtime property override support
+- External configuration files
+
+## Design Patterns
+- Singleton Pattern: ConfigManager
+- Factory Pattern: WebDriverManager, Page Factory
+- Template Method: BasePage, BaseTest
+- Strategy Pattern: Wait strategies, Browser strategies
+- Observer Pattern: TestNG Listeners
+
+## Thread Safety
+- ThreadLocal WebDriver implementation
+- Parallel test execution support
+- Thread isolation for concurrent testing
+
+## CI/CD Integration
+- Jenkins pipeline support
+- GitHub Actions workflow
+- Multi-browser testing matrix
+- Automated reporting and artifacts
+
+Contact: Latorocka@gmail.com for architecture details`;
+                    
+                    const newWindow = window.open('', '_blank');
+                    if (newWindow) {
+                      newWindow.document.write(`
+                        <html>
+                          <head>
+                            <title>Selenium Framework - Architecture</title>
+                            <style>
+                              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+                              h1, h2, h3 { color: #2563eb; }
+                              pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+                              code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+                            </style>
+                          </head>
+                          <body>
+                            <pre>${architectureContent}</pre>
+                          </body>
+                        </html>
+                      `);
+                      newWindow.document.close();
+                    }
+                  }}
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
+                  <Settings className="mr-2 h-4 w-4" />
                   View Architecture
                 </Button>
               </div>
@@ -362,9 +565,138 @@ public Object[][] getLoginTestData() {
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => window.open('https://github.com/latorocka/selenium-framework/blob/main/docs/API_REFERENCE.md', '_blank')}
+                  onClick={() => {
+                    const apiReferenceContent = `# API Reference - Selenium Test Framework
+
+## Core Classes
+
+### DriverManager
+Thread-safe WebDriver management for parallel execution.
+
+#### Methods
+- setDriver(): Initializes WebDriver based on configuration
+- getDriver(): Returns current WebDriver instance for thread
+- quitDriver(): Quits driver and removes from ThreadLocal
+- isDriverInitialized(): Checks if driver exists for current thread
+
+### ConfigManager
+Singleton configuration management.
+
+#### Methods
+- getInstance(): Returns singleton ConfigManager instance
+- getProperty(String key): Gets property value by key
+- getBrowser(): Gets configured browser name
+- isHeadless(): Checks if headless execution enabled
+- getImplicitWait(): Gets implicit wait timeout
+- getExplicitWait(): Gets explicit wait timeout
+- getBaseUrl(): Gets base URL for current environment
+
+### WaitUtils
+Element synchronization utilities.
+
+#### Methods
+- waitForElementToBeVisible(WebDriver, By): Waits for element visibility
+- waitForElementToBeClickable(WebDriver, By): Waits for element clickability
+- waitForElementToBeInvisible(WebDriver, By): Waits for element invisibility
+- waitForTextToBePresentInElement(WebDriver, By, String): Waits for text presence
+- waitForPageToLoad(WebDriver): Waits for page load completion
+
+### BasePage
+Abstract base class for page objects.
+
+#### Constructor
+- BasePage(WebDriver): Initializes page with WebDriver instance
+
+#### Protected Methods
+- click(By): Clicks element after wait
+- sendKeys(By, String): Enters text after clearing field
+- getText(By): Gets element text content
+- getAttribute(By, String): Gets element attribute value
+- isElementDisplayed(By): Checks element visibility
+- scrollToElement(By): Scrolls element into view
+- hoverOver(By): Hovers mouse over element
+
+### BaseTest
+Base test class with lifecycle management.
+
+#### Lifecycle Methods
+- @BeforeSuite suiteSetup(): Initializes configuration
+- @BeforeMethod testSetup(Method): Sets up driver and navigation
+- @AfterMethod testTeardown(ITestResult): Captures screenshots, quits driver
+- @AfterSuite suiteTeardown(): Final cleanup
+
+#### Utility Methods
+- navigateToUrl(String): Navigates to specified URL
+- takeScreenshot(String): Manually captures screenshot
+
+### ExcelUtils
+Test data management from Excel files.
+
+#### Methods
+- readExcelData(String, String): Returns Object[][] for DataProvider
+- readExcelDataAsList(String, String): Returns List<Map<String, String>>
+- getRowCount(String, String): Gets total row count
+- getColumnCount(String, String): Gets total column count
+
+### ScreenshotUtils
+Screenshot capture utilities.
+
+#### Methods
+- takeScreenshot(WebDriver, String): Captures full page screenshot
+- takeElementScreenshot(WebElement, String): Captures element screenshot
+- takeScreenshotAsBase64(WebDriver): Returns Base64 screenshot
+- takeFailureScreenshot(WebDriver, String): Captures failure screenshot
+
+## Usage Examples
+
+### Basic Test Structure
+public class ExampleTest extends BaseTest {
+    @Test
+    public void testExample() {
+        LoginPage loginPage = new LoginPage(DriverManager.getDriver());
+        loginPage.login("user", "pass");
+        
+        HomePage homePage = new HomePage(DriverManager.getDriver());
+        Assert.assertTrue(homePage.isWelcomeMessageDisplayed());
+    }
+}
+
+### Data-Driven Test
+@Test(dataProvider = "testData")
+public void testWithData(Map<String, String> data) {
+    // Use data parameters
+}
+
+@DataProvider(name = "testData")
+public Object[][] getTestData() {
+    return ExcelUtils.readExcelData("test-data/data.xlsx", "Sheet1");
+}
+
+For complete API documentation, contact: Latorocka@gmail.com`;
+                    
+                    const newWindow = window.open('', '_blank');
+                    if (newWindow) {
+                      newWindow.document.write(`
+                        <html>
+                          <head>
+                            <title>Selenium Framework - API Reference</title>
+                            <style>
+                              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+                              h1, h2, h3, h4 { color: #2563eb; }
+                              pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+                              code { background: #f4f4f4; padding: 2px 4px; border-radius: 3px; }
+                            </style>
+                          </head>
+                          <body>
+                            <pre>${apiReferenceContent}</pre>
+                          </body>
+                        </html>
+                      `);
+                      newWindow.document.close();
+                    }
+                  }}
                 >
-                  <ExternalLink className="mr-2 h-4 w-4" />
+                  <Code className="mr-2 h-4 w-4" />
                   View API Reference
                 </Button>
               </div>
