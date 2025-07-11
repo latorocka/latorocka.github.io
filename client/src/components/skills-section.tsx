@@ -21,7 +21,7 @@ export default function SkillsSection() {
     "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
     "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
     "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
-    "Unity Game Engine": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg' },
+    "GraphQL": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg' },
     
     // Development Tools
     "IntelliJ": { type: 'devicon', value: 'devicon-intellij-plain colored' },
@@ -42,7 +42,7 @@ export default function SkillsSection() {
         { name: "Postman", description: "API development and testing platform" },
         { name: "Android Studio", description: "Mobile application testing and development" },
         { name: "Cucumber", description: "Behavior-driven development testing framework" },
-        { name: "Unity Game Engine", description: "Game development and testing environment" }
+        { name: "GraphQL", description: "Query language for APIs and runtime for executing queries" }
       ]
     },
     {
