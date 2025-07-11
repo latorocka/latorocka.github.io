@@ -1,41 +1,9 @@
 const WebSocket = require('ws');
-const { EventEmitter } = require('events');
 
-describe('WebSocket Real-time Communication', () => {
-  let server;
-  let wss;
-  const PORT = 8080;
+describe('WebSocket Real-time Communication - Echo Server', () => {
+  const echoServerURL = 'wss://echo.websocket.org';
 
-  beforeAll(async () => {
-    // Start WebSocket server for testing
-    const { createServer } = require('http');
-    server = createServer();
-    wss = new WebSocket.Server({ server });
-    
-    // Setup WebSocket server handlers
-    wss.on('connection', (ws) => {
-      ws.on('message', (message) => {
-        try {
-          const data = JSON.parse(message);
-          handleMessage(ws, data);
-        } catch (error) {
-          ws.send(JSON.stringify({ type: 'error', message: 'Invalid JSON' }));
-        }
-      });
-    });
-
-    return new Promise((resolve) => {
-      server.listen(PORT, resolve);
-    });
-  });
-
-  afterAll(async () => {
-    return new Promise((resolve) => {
-      wss.close(() => {
-        server.close(resolve);
-      });
-    });
-  });
+  // No setup required for echo server testing
 
   function handleMessage(ws, data) {
     switch (data.type) {
@@ -92,8 +60,8 @@ describe('WebSocket Real-time Communication', () => {
   }
 
   describe('Connection Management', () => {
-    test('should establish WebSocket connection', (done) => {
-      const ws = new WebSocket(`ws://localhost:${PORT}`);
+    test('should establish WebSocket connection to echo server', (done) => {
+      const ws = new WebSocket(echoServerURL);
       
       ws.on('open', () => {
         expect(ws.readyState).toBe(WebSocket.OPEN);

@@ -1,74 +1,51 @@
-const { ApolloServer } = require('apollo-server-express');
-const { createTestClient } = require('apollo-server-testing');
-const { gql } = require('apollo-server-express');
-const typeDefs = require('../../server/graphql/schema');
-const resolvers = require('../../server/graphql/resolvers');
+const axios = require('axios');
 
-describe('GraphQL User Queries', () => {
-  let server;
-  let query;
-  let mutate;
+describe('SpaceX GraphQL API Testing', () => {
+  const graphqlEndpoint = 'https://api.spacex.land/graphql/';
 
-  beforeAll(async () => {
-    server = new ApolloServer({
-      typeDefs,
-      resolvers,
-      context: ({ req }) => ({
-        user: req.user || null,
-        dataSources: {
-          userAPI: new (require('../../server/graphql/datasources/userAPI'))()
-        }
-      })
+  async function graphqlQuery(query, variables = {}) {
+    const response = await axios.post(graphqlEndpoint, {
+      query,
+      variables
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      timeout: 10000
     });
+    
+    return response.data;
+  }
 
-    const testClient = createTestClient(server);
-    query = testClient.query;
-    mutate = testClient.mutate;
-  });
-
-  afterAll(async () => {
-    await server.stop();
-  });
-
-  describe('User Queries', () => {
-    const GET_USERS = gql`
-      query GetUsers($first: Int, $after: String, $filter: UserFilter) {
-        users(first: $first, after: $after, filter: $filter) {
-          edges {
-            node {
-              id
-              name
-              email
-              role
-              createdAt
-              updatedAt
-            }
-            cursor
+  describe('SpaceX Launches Query', () => {
+    const GET_LAUNCHES = `
+      query GetLaunches($limit: Int) {
+        launches(limit: $limit) {
+          id
+          mission_name
+          launch_date_utc
+          launch_success
+          rocket {
+            rocket_name
+            rocket_type
           }
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-            startCursor
-            endCursor
+          links {
+            mission_patch_small
+            wikipedia
+            video_link
           }
-          totalCount
         }
       }
     `;
 
-    test('should fetch users with pagination', async () => {
-      const response = await query({
-        query: GET_USERS,
-        variables: {
-          first: 5
-        }
-      });
+    test('should fetch SpaceX launches with limit', async () => {
+      const result = await graphqlQuery(GET_LAUNCHES, { limit: 10 });
 
-      expect(response.errors).toBeUndefined();
-      expect(response.data.users).toBeDefined();
-      expect(response.data.users.edges).toBeInstanceOf(Array);
-      expect(response.data.users.pageInfo).toBeDefined();
-      expect(response.data.users.totalCount).toBeGreaterThan(0);
+      expect(result.errors).toBeUndefined();
+      expect(result.data.launches).toBeDefined();
+      expect(result.data.launches).toBeInstanceOf(Array);
+      expect(result.data.launches.length).toBeLessThanOrEqual(10);
+      expect(result.data.launches.length).toBeGreaterThan(0);
     });
 
     test('should fetch users with filtering', async () => {

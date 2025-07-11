@@ -12,9 +12,12 @@
     "test:integration": "jest --testPathPattern=integration",
     "test:coverage": "jest --coverage --coverageReporters=html",
     "test:performance": "jest --testPathPattern=performance",
+    "demo": "node demo/run-live-tests.js",
+    "demo:rest": "node -e \"require('./demo/run-live-tests.js').testJSONPlaceholderAPI()\"",
+    "demo:github": "node -e \"require('./demo/run-live-tests.js').testGitHubAPI()\"",
+    "demo:graphql": "node -e \"require('./demo/run-live-tests.js').testSpaceXGraphQL()\"",
+    "demo:websocket": "node -e \"require('./demo/run-live-tests.js').testWebSocketConnection()\"",
     "start:server": "node server/mock-server.js",
-    "start:graphql": "node server/graphql-server.js",
-    "start:websocket": "node server/websocket-server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -47,13 +50,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "apollo-server-express": "^3.12.1",
     "axios": "^1.6.2",
-    "csv-parser": "^3.0.0",
-    "express": "^4.18.2",
-    "graphql": "^16.8.1",
-    "json-server": "^0.17.4",
-    "jsonwebtoken": "^9.0.2",
     "ws": "^8.14.2"
   },
   "jest": {

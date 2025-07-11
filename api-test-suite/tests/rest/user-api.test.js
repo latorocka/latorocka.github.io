@@ -1,47 +1,35 @@
-const request = require('supertest');
-const app = require('../../server/mock-server');
+const axios = require('axios');
 
-describe('User API - REST Endpoints', () => {
-  const testUser = {
-    id: 1,
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    role: 'user'
-  };
+describe('Public API Testing - JSONPlaceholder', () => {
+  const baseURL = 'https://jsonplaceholder.typicode.com';
+  let createdPostId;
 
-  beforeAll(async () => {
-    // Set up test data
-    await request(app)
-      .post('/api/users')
-      .send(testUser);
+  beforeAll(() => {
+    // Configure axios for JSONPlaceholder API
+    axios.defaults.timeout = 10000;
   });
 
-  afterAll(async () => {
-    // Clean up test data
-    await request(app)
-      .delete(`/api/users/${testUser.id}`);
-  });
-
-  describe('GET /api/users', () => {
-    test('should return all users', async () => {
-      const response = await request(app)
-        .get('/api/users')
-        .expect(200);
-
-      expect(response.body).toBeInstanceOf(Array);
-      expect(response.body.length).toBeGreaterThan(0);
+  describe('GET /users - JSONPlaceholder API', () => {
+    test('should return all users from JSONPlaceholder', async () => {
+      const response = await axios.get(`${baseURL}/users`);
+      
+      expect(response.status).toBe(200);
+      expect(response.data).toBeInstanceOf(Array);
+      expect(response.data.length).toBe(10);
     });
 
-    test('should return users with correct structure', async () => {
-      const response = await request(app)
-        .get('/api/users')
-        .expect(200);
-
-      const user = response.body[0];
+    test('should return users with correct data structure', async () => {
+      const response = await axios.get(`${baseURL}/users`);
+      
+      const user = response.data[0];
       expect(user).toHaveProperty('id');
       expect(user).toHaveProperty('name');
+      expect(user).toHaveProperty('username');
       expect(user).toHaveProperty('email');
-      expect(user).toHaveProperty('role');
+      expect(user).toHaveProperty('address');
+      expect(user).toHaveProperty('phone');
+      expect(user).toHaveProperty('website');
+      expect(user).toHaveProperty('company');
     });
 
     test('should support pagination', async () => {
@@ -65,23 +53,24 @@ describe('User API - REST Endpoints', () => {
     });
   });
 
-  describe('GET /api/users/:id', () => {
-    test('should return user by ID', async () => {
-      const response = await request(app)
-        .get(`/api/users/${testUser.id}`)
-        .expect(200);
-
-      expect(response.body).toHaveProperty('id', testUser.id);
-      expect(response.body).toHaveProperty('name', testUser.name);
-      expect(response.body).toHaveProperty('email', testUser.email);
+  describe('GET /users/:id - Single User', () => {
+    test('should return specific user by ID', async () => {
+      const userId = 1;
+      const response = await axios.get(`${baseURL}/users/${userId}`);
+      
+      expect(response.status).toBe(200);
+      expect(response.data.id).toBe(userId);
+      expect(response.data.name).toBe('Leanne Graham');
+      expect(response.data.email).toBe('Sincere@april.biz');
     });
 
     test('should return 404 for non-existent user', async () => {
-      const response = await request(app)
-        .get('/api/users/999999')
-        .expect(404);
-
-      expect(response.body).toHaveProperty('error', 'User not found');
+      try {
+        await axios.get(`${baseURL}/users/999`);
+        fail('Should have thrown an error');
+      } catch (error) {
+        expect(error.response.status).toBe(404);
+      }
     });
 
     test('should return 400 for invalid ID format', async () => {
@@ -93,27 +82,23 @@ describe('User API - REST Endpoints', () => {
     });
   });
 
-  describe('POST /api/users', () => {
-    test('should create new user with valid data', async () => {
-      const newUser = {
-        name: 'Jane Smith',
-        email: 'jane.smith@example.com',
-        role: 'admin'
+  describe('POST /posts - Create Post', () => {
+    test('should create new post with valid data', async () => {
+      const newPost = {
+        title: 'Test Post from API Suite',
+        body: 'This is a test post created by the API test suite to demonstrate POST functionality.',
+        userId: 1
       };
 
-      const response = await request(app)
-        .post('/api/users')
-        .send(newUser)
-        .expect(201);
-
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('name', newUser.name);
-      expect(response.body).toHaveProperty('email', newUser.email);
-      expect(response.body).toHaveProperty('role', newUser.role);
-      expect(response.body).toHaveProperty('createdAt');
-
-      // Clean up
-      await request(app).delete(`/api/users/${response.body.id}`);
+      const response = await axios.post(`${baseURL}/posts`, newPost);
+      
+      expect(response.status).toBe(201);
+      expect(response.data).toHaveProperty('id');
+      expect(response.data.title).toBe(newPost.title);
+      expect(response.data.body).toBe(newPost.body);
+      expect(response.data.userId).toBe(newPost.userId);
+      
+      createdPostId = response.data.id;
     });
 
     test('should return 400 for missing required fields', async () => {

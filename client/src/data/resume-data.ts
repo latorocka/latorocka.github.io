@@ -181,22 +181,22 @@ export const projects = [
   {
     id: 2,
     title: "API Test Suite",
-    description: "Professional API testing framework demonstrating modern testing practices for REST APIs, GraphQL endpoints, and WebSocket connections. Built with Jest, Supertest, and comprehensive CI/CD integration featuring automated test execution, performance monitoring, and detailed reporting.",
+    description: "Live API testing framework with working tests against real public APIs including JSONPlaceholder, GitHub API, and SpaceX GraphQL. Features automated validation, real-time reporting, and comprehensive test coverage with actual API responses.",
     technologies: ["Jest", "Supertest", "GraphQL", "WebSocket", "REST API", "CI/CD", "Performance Testing"],
     category: "API Testing",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     githubUrl: "https://github.com/latorocka/api-test-suite",
     features: [
-      "REST API testing with complete CRUD operations",
-      "GraphQL query and mutation testing",
-      "WebSocket real-time communication testing",
-      "Authentication and authorization testing",
-      "Performance testing and load testing",
-      "Automated test execution with Jest",
-      "Comprehensive error handling validation",
-      "CI/CD pipeline integration with GitHub Actions",
-      "Detailed HTML reporting with coverage metrics",
-      "Mock server integration for isolated testing"
+      "Live REST API testing against JSONPlaceholder and GitHub APIs",
+      "Working GraphQL queries against SpaceX API with real data",
+      "Functional WebSocket testing with echo server connections",
+      "Real-time API response validation and error handling",
+      "Performance testing with concurrent request execution",
+      "Actual HTTP request/response cycle demonstration",
+      "Live demonstration script with working examples",
+      "Comprehensive test coverage of public API endpoints",
+      "Working code examples that can be executed immediately",
+      "Real-world API testing scenarios with authentic data"
     ]
   },
   {

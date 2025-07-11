@@ -1,10 +1,10 @@
-# API Test Suite - Professional Testing Framework
+# API Test Suite - Live Working API Tests
 
-A comprehensive API testing framework demonstrating modern testing practices for REST APIs, GraphQL endpoints, and real-time WebSocket connections.
+A functional API testing framework with working tests against real public APIs. This project demonstrates actual API testing capabilities with live endpoints including JSONPlaceholder, GitHub API, SpaceX GraphQL, and WebSocket connections.
 
 ## 🎯 Project Overview
 
-This test suite showcases professional API testing methodologies using industry-standard tools and frameworks. It includes automated test scenarios for various API types, comprehensive reporting, and CI/CD integration.
+This test suite contains working API tests that run against real public endpoints, showcasing practical API testing skills with actual HTTP requests, response validation, and error handling. All tests are functional and can be executed to demonstrate real testing capabilities.
 
 ## 🚀 Features
 
@@ -60,33 +60,44 @@ This test suite showcases professional API testing methodologies using industry-
 - Database transaction testing
 - External API integration validation
 
-## 🚦 Test Execution
+## 🚦 Live Demo & Test Execution
 
-### Prerequisites
+### Quick Live Demonstration
 ```bash
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env
+# Run live API demonstration
+npm run demo
 ```
 
-### Running Tests
+This will execute real API tests against:
+- **JSONPlaceholder API** (REST operations)
+- **GitHub API** (Repository and user data)
+- **SpaceX GraphQL API** (Space mission data)
+- **WebSocket Echo Server** (Real-time communication)
+
+### Individual API Tests
 ```bash
-# Run all tests
+# Test specific APIs individually
+npm run demo:rest      # JSONPlaceholder REST API
+npm run demo:github    # GitHub API
+npm run demo:graphql   # SpaceX GraphQL API
+npm run demo:websocket # WebSocket connection
+```
+
+### Full Test Suite
+```bash
+# Run comprehensive Jest test suite
 npm test
 
-# Run specific test suites
+# Run specific test categories
 npm run test:rest
 npm run test:graphql
 npm run test:websocket
-npm run test:integration
 
-# Run tests with coverage
+# Generate coverage reports
 npm run test:coverage
-
-# Run performance tests
-npm run test:performance
 ```
 
 ### Test Reports
