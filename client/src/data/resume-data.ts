@@ -225,7 +225,7 @@ export const projects = [
   {
     id: 4,
     title: "Cypress Test Framework",
-    description: "Comprehensive enterprise-grade Cypress test automation framework with modern JavaScript/TypeScript architecture. Features 100+ custom commands across API, UI, Performance, and Accessibility testing with professional CI/CD integration and advanced reporting capabilities.",
+    description: "Advanced end-to-end test automation framework built with Cypress 13.x, demonstrating modern testing practices and enterprise-grade architecture. This comprehensive framework showcases professional QA automation skills through multi-layered testing strategies, custom command libraries, and production-ready CI/CD integration with detailed performance and accessibility validation.",
     technologies: ["Cypress 13.x", "JavaScript/TypeScript", "Mochawesome", "Axe-core", "Visual Regression", "GitHub Actions", "Jenkins", "Cross-browser Testing"],
     category: "E2E Testing",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
