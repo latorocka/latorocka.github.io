@@ -58,6 +58,11 @@ export default function ProjectsSection() {
                     variant="outline" 
                     size="sm"
                     className="flex items-center text-primary hover:text-primary-foreground hover:bg-primary"
+                    onClick={() => {
+                      if (project.githubUrl) {
+                        window.open(project.githubUrl, '_blank');
+                      }
+                    }}
                   >
                     <Github className="mr-2 h-4 w-4" />
                     <span className="text-sm">View Code</span>

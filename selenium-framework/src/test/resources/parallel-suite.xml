@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parallel Execution Suite" parallel="tests" thread-count="3" verbose="1">
+    
+    <listeners>
+        <listener class-name="listeners.TestListener"/>
+    </listeners>
+    
+    <parameter name="browser" value="chrome"/>
+    <parameter name="environment" value="qa"/>
+    
+    <test name="Login Tests - Thread 1" preserve-order="true">
+        <classes>
+            <class name="tests.LoginTest">
+                <methods>
+                    <include name="testValidLogin"/>
+                    <include name="testInvalidLogin"/>
+                    <include name="testEmptyCredentials"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="Login Tests - Thread 2" preserve-order="true">
+        <classes>
+            <class name="tests.LoginTest">
+                <methods>
+                    <include name="testEmptyUsername"/>
+                    <include name="testEmptyPassword"/>
+                    <include name="testRememberMeFunctionality"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="Home Page Tests - Thread 3" preserve-order="true">
+        <classes>
+            <class name="tests.HomePageTest">
+                <methods>
+                    <include name="testHomePageLoad"/>
+                    <include name="testWelcomeMessage"/>
+                    <include name="testNavigationMenuLinks"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+</suite>

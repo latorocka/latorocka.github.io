@@ -1,0 +1,50 @@
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven target directory
+target/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.eclipse/
+.metadata/
+
+# Test output
+test-output/
+screenshots/
+reports/
+allure-results/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# WebDriver executables
+chromedriver*
+geckodriver*
+msedgedriver*
+
+# Test data with sensitive information
+test-data/sensitive/
+
+# Configuration files with secrets
+**/secrets.properties
+**/local.properties
+
+# Node modules (if using npm for reporting)
+node_modules/

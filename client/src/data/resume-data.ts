@@ -162,10 +162,21 @@ export const projects = [
   {
     id: 1,
     title: "Selenium Test Framework",
-    description: "Comprehensive automation framework built from scratch with page object model, data-driven testing, and CI/CD integration.",
-    technologies: ["Selenium WebDriver", "TestNG", "Maven", "Java"],
+    description: "Enterprise-grade test automation framework with Page Object Model, data-driven testing, parallel execution, and CI/CD integration. Includes comprehensive test utilities, screenshot capture, and detailed reporting.",
+    technologies: ["Selenium WebDriver 4.x", "TestNG", "Maven", "Java 11+", "Jenkins", "GitHub Actions"],
     category: "Automation",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+    githubUrl: "/selenium-framework",
+    features: [
+      "Page Object Model implementation",
+      "Cross-browser testing (Chrome, Firefox, Edge, Safari)",
+      "Data-driven testing with Excel integration",
+      "Parallel test execution",
+      "Screenshot capture on failures",
+      "Comprehensive reporting with Extent Reports",
+      "CI/CD pipeline integration",
+      "Configuration management"
+    ]
   },
   {
     id: 2,

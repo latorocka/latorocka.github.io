@@ -1,0 +1,163 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(
+            name: 'BROWSER',
+            choices: ['chrome', 'firefox', 'edge'],
+            description: 'Browser to run tests on'
+        )
+        choice(
+            name: 'ENVIRONMENT', 
+            choices: ['qa', 'staging', 'prod'],
+            description: 'Environment to test against'
+        )
+        choice(
+            name: 'SUITE',
+            choices: ['smoke', 'regression', 'parallel'],
+            description: 'Test suite to execute'
+        )
+        booleanParam(
+            name: 'HEADLESS',
+            defaultValue: true,
+            description: 'Run tests in headless mode'
+        )
+    }
+    
+    environment {
+        MAVEN_OPTS = '-Xmx1024m'
+        BROWSER = "${params.BROWSER}"
+        ENVIRONMENT = "${params.ENVIRONMENT}" 
+        HEADLESS = "${params.HEADLESS}"
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+                echo "Checked out code from repository"
+            }
+        }
+        
+        stage('Setup Environment') {
+            steps {
+                script {
+                    echo "Setting up test environment"
+                    echo "Browser: ${BROWSER}"
+                    echo "Environment: ${ENVIRONMENT}"
+                    echo "Headless: ${HEADLESS}"
+                    echo "Suite: ${params.SUITE}"
+                }
+                
+                // Install dependencies if needed
+                sh 'mvn clean compile'
+            }
+        }
+        
+        stage('Run Tests') {
+            steps {
+                script {
+                    def suiteFile = ""
+                    switch(params.SUITE) {
+                        case 'smoke':
+                            suiteFile = "src/test/resources/smoke-suite.xml"
+                            break
+                        case 'regression':
+                            suiteFile = "src/test/resources/regression-suite.xml"
+                            break
+                        case 'parallel':
+                            suiteFile = "src/test/resources/parallel-suite.xml"
+                            break
+                        default:
+                            suiteFile = "src/test/resources/testng.xml"
+                    }
+                    
+                    sh """
+                        mvn test \\
+                        -Dbrowser=${BROWSER} \\
+                        -Denvironment=${ENVIRONMENT} \\
+                        -Dheadless=${HEADLESS} \\
+                        -DsuiteXmlFile=${suiteFile}
+                    """
+                }
+            }
+            
+            post {
+                always {
+                    // Archive test results
+                    publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'
+                    
+                    // Archive screenshots
+                    archiveArtifacts artifacts: 'test-output/screenshots/**/*.png', 
+                                   allowEmptyArchive: true,
+                                   fingerprint: true
+                    
+                    // Archive test reports
+                    archiveArtifacts artifacts: 'test-output/reports/**/*',
+                                   allowEmptyArchive: true,
+                                   fingerprint: true
+                }
+            }
+        }
+        
+        stage('Generate Reports') {
+            steps {
+                script {
+                    // Generate Allure reports if configured
+                    if (fileExists('allure-results')) {
+                        allure([
+                            includeProperties: false,
+                            jdk: '',
+                            properties: [],
+                            reportBuildPolicy: 'ALWAYS',
+                            results: [[path: 'allure-results']]
+                        ])
+                    }
+                }
+            }
+        }
+        
+        stage('Notification') {
+            steps {
+                script {
+                    def testResults = currentBuild.result ?: 'SUCCESS'
+                    def color = testResults == 'SUCCESS' ? 'good' : 'danger'
+                    def message = """
+                        *Test Execution Completed*
+                        Status: ${testResults}
+                        Browser: ${BROWSER}
+                        Environment: ${ENVIRONMENT}
+                        Suite: ${params.SUITE}
+                        Build: ${env.BUILD_NUMBER}
+                    """
+                    
+                    echo message
+                    
+                    // Send notifications (configure as needed)
+                    // slackSend channel: '#qa-automation', 
+                    //          color: color, 
+                    //          message: message
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Clean workspace
+            cleanWs()
+        }
+        
+        failure {
+            echo "Pipeline failed. Check logs and screenshots for details."
+        }
+        
+        success {
+            echo "All tests passed successfully!"
+        }
+        
+        unstable {
+            echo "Some tests failed. Check reports for details."
+        }
+    }
+}

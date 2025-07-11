@@ -1,0 +1,11 @@
+username,password,expectedResult
+admin@example.com,admin123,success
+user@example.com,user123,success
+testuser@example.com,password123,success
+manager@example.com,manager456,success
+invalid@example.com,wrongpassword,failure
+admin@example.com,wrongpass,failure
+,password123,failure
+user@example.com,,failure
+,
+SQL_injection'--,password,failure

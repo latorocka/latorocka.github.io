@@ -103,3 +103,30 @@ Preferred communication style: Simple, everyday language.
 - `npm run db:push`: Database schema synchronization
 
 The application follows a monorepo structure with clear separation between client, server, and shared code, enabling efficient development and deployment workflows.
+
+## Recent Project Additions
+
+### Selenium Test Framework (January 2025)
+- **Location**: `/selenium-framework/` directory
+- **Purpose**: Comprehensive enterprise-grade test automation framework demonstrating Brian's QA automation expertise
+- **Technology Stack**: Java 11+, Selenium WebDriver 4.x, TestNG, Maven, Jenkins, GitHub Actions
+- **Key Features**:
+  - Page Object Model (POM) implementation
+  - Cross-browser testing support (Chrome, Firefox, Edge, Safari)
+  - Data-driven testing with Excel integration
+  - Parallel test execution capabilities
+  - Automatic screenshot capture on failures
+  - Comprehensive test reporting with Extent Reports
+  - CI/CD pipeline integration (Jenkins & GitHub Actions)
+  - Configuration management for multiple environments
+  - Thread-safe driver management
+  - Advanced wait utilities and helper methods
+
+**Framework Structure**:
+- `src/main/java/` - Core framework code (pages, utils, config)
+- `src/test/java/` - Test classes, base test setup, listeners
+- `test-data/` - External test data files
+- `src/test/resources/` - Configuration files and TestNG suites
+- CI/CD configuration files for Jenkins and GitHub Actions
+
+This project effectively demonstrates Brian's advanced automation skills including framework design, best practices implementation, and enterprise-level testing strategies.
