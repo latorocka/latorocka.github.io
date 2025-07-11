@@ -12,7 +12,7 @@ export const experiences = [
     title: "Software QA Engineer",
     company: "Escape AI",
     location: "Remote",
-    period: "February 2025 - May 2025",
+    period: "February 2025 - Present",
     type: "current",
     description: "AI driven mobile application",
     responsibilities: [
@@ -74,7 +74,7 @@ export const experiences = [
     title: "QA Automation Engineer",
     company: "Tatum Games",
     location: "Remote",
-    period: "October 2021 - December 2021",
+    period: "October 2021 - March 2022",
     type: "previous",
     responsibilities: [
       "Assist in developing from scratch automated regression suite",
@@ -88,7 +88,7 @@ export const experiences = [
     title: "Jr QA Analyst",
     company: "Tatum Games",
     location: "Remote",
-    period: "February 2021 - April 2021",
+    period: "February 2021 - July 2021",
     type: "previous",
     responsibilities: [
       "Tracked events, generated bug reports, and communicated QA analytics findings",
