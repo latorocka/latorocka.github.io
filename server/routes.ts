@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { sendContactEmail, type ContactFormData } from "./email";
 import path from "path";
 import fs from "fs";
 
