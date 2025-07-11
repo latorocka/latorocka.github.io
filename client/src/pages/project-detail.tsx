@@ -79,6 +79,27 @@ export default function ProjectDetail() {
         hasCodeExamples: true,
         hasProjectStructure: true
       };
+    } else if (project.id === 3) {
+      // Mobile Test Automation
+      return {
+        overview: `This enterprise-grade mobile test automation framework demonstrates advanced cross-platform testing capabilities using Appium and WebDriverIO. Designed for comprehensive mobile application validation across Android and iOS platforms with real device support, parallel execution, and professional CI/CD integration.`,
+        
+        keyFeatures: [
+          "Cross-platform testing framework for Android and iOS applications",
+          "Page Object Model implementation for maintainable test architecture",
+          "Real device and emulator/simulator support with automated setup scripts",
+          "Parallel test execution across multiple devices and platforms",
+          "Comprehensive gesture testing (tap, swipe, pinch, long press, multi-touch)",
+          "Performance testing with app launch time, memory usage, and battery impact",
+          "Accessibility testing with screen reader and ADA compliance validation",
+          "Network condition testing and app behavior under various connectivity states",
+          "Advanced device management with app lifecycle control and screenshot capture",
+          "CI/CD integration with Jenkins and GitHub Actions pipeline configurations"
+        ],
+        sectionTitle: "Mobile Testing Excellence",
+        hasCodeExamples: true,
+        hasProjectStructure: true
+      };
     } else {
       // Default/other projects
       return {
@@ -138,6 +159,31 @@ export default function ProjectDetail() {
       {
         component: "Test Runner",
         description: "Automated CLI interface with category-based execution, detailed reporting, and performance metrics"
+      }
+    ] : project.id === 3 ? [
+      {
+        component: "Page Object Model",
+        description: "Cross-platform page objects with Android and iOS specific selectors and unified test interactions"
+      },
+      {
+        component: "Device Management",
+        description: "Platform-agnostic device utilities for app lifecycle, network control, and screenshot capture"
+      },
+      {
+        component: "Test Categories",
+        description: "Functional, performance, accessibility, and gesture testing with comprehensive coverage analysis"
+      },
+      {
+        component: "Configuration",
+        description: "WebDriverIO configurations for Android, iOS, parallel execution, and CI/CD pipeline integration"
+      },
+      {
+        component: "Utilities",
+        description: "Test data management, device utilities, and automated setup scripts for Android SDK and iOS"
+      },
+      {
+        component: "Reporting",
+        description: "Allure integration with screenshot capture, device information, and comprehensive test metrics"
       }
     ] : [],
 

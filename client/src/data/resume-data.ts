@@ -202,9 +202,22 @@ export const projects = [
   {
     id: 3,
     title: "Mobile Test Automation",
-    description: "Cross-platform mobile testing framework using Appium and Android Studio for comprehensive mobile app validation.",
-    technologies: ["Appium", "Android Studio", "Espresso", "Mobile Testing"],
+    description: "Cross-platform mobile test automation framework built with Appium and WebDriverIO, designed for enterprise-level mobile application testing across Android and iOS platforms with comprehensive Page Object Model implementation and parallel execution capabilities.",
+    technologies: ["Appium", "WebDriverIO", "Android Studio", "Xcode", "iOS Simulator", "Page Object Model", "Parallel Testing", "CI/CD"],
     category: "Mobile Testing",
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400"
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+    githubUrl: "https://github.com/latorocka/mobile-test-suite",
+    features: [
+      "Cross-platform testing framework for Android and iOS applications",
+      "Page Object Model implementation for maintainable test architecture",
+      "Real device and emulator/simulator support with automated setup",
+      "Parallel test execution across multiple devices and platforms",
+      "Comprehensive gesture testing including tap, swipe, pinch, and long press",
+      "Performance testing with app launch time, memory usage, and battery impact analysis",
+      "Accessibility testing with screen reader and ADA compliance validation",
+      "Advanced reporting with Allure integration and screenshot capture",
+      "CI/CD integration with Jenkins and GitHub Actions support",
+      "Device management utilities with network control and app lifecycle management"
+    ]
   }
 ];
