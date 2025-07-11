@@ -3,15 +3,15 @@ import { skills } from "@/data/resume-data";
 
 export default function SkillsSection() {
   const languageIcons: Record<string, string> = {
-    "Java": "☕",
-    "Javascript": "🟨", 
-    "Python": "🐍",
-    "HTML5": "🌐",
-    "CSS": "🎨",
-    "PHP": "🔷",
-    "C#": "🔷",
-    "MySQL": "🗄️",
-    "Swift": "🦉"
+    "Java": "devicon-java-plain colored",
+    "Javascript": "devicon-javascript-plain colored", 
+    "Python": "devicon-python-plain colored",
+    "HTML5": "devicon-html5-plain colored",
+    "CSS": "devicon-css3-plain colored",
+    "PHP": "devicon-php-plain colored",
+    "C#": "devicon-csharp-plain colored",
+    "MySQL": "devicon-mysql-plain colored",
+    "Swift": "devicon-swift-plain colored"
   };
 
   const toolCategories = [
@@ -53,8 +53,8 @@ export default function SkillsSection() {
             {skills.languages.map((language) => (
               <Card key={language} className="skill-card">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl mb-4">
-                    {languageIcons[language] || "💻"}
+                  <div className="text-5xl mb-4">
+                    <i className={languageIcons[language] || "devicon-code-plain colored"}></i>
                   </div>
                   <h4 className="font-bold">{language}</h4>
                 </CardContent>
