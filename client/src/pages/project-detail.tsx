@@ -79,7 +79,7 @@ export default function ProjectDetail() {
         hasCodeExamples: true,
         hasProjectStructure: true
       };
-    } else {
+    } else if (project.id === 3) {
       // Mobile Test Suite
       return {
         overview: `This enterprise-grade cross-platform mobile test automation framework built with Appium and WebDriverIO demonstrates comprehensive mobile testing capabilities. Features advanced Page Object Model architecture, parallel execution across multiple devices, gesture testing, performance monitoring, and device management utilities for Android and iOS applications.`,
@@ -100,6 +100,29 @@ export default function ProjectDetail() {
         hasCodeExamples: true,
         hasProjectStructure: true
       };
+    } else {
+      // Cypress Test Framework
+      return {
+        overview: `This advanced end-to-end test automation framework built with Cypress 13.x demonstrates modern testing practices and enterprise-grade architecture. The comprehensive framework showcases professional QA automation skills through multi-layered testing strategies, 100+ custom command libraries, and production-ready CI/CD integration with detailed performance and accessibility validation.`,
+        
+        keyFeatures: [
+          "Multi-layered testing architecture with API, UI, Performance, and Accessibility test suites",
+          "100+ specialized custom commands for comprehensive testing scenarios across all categories",
+          "Professional test organization with smoke, regression, integration, and critical path testing",
+          "Cross-browser testing support for Chrome, Firefox, Edge, and Safari with parallel execution",
+          "Advanced performance testing with Core Web Vitals monitoring and load testing capabilities",
+          "WCAG 2.1 AA accessibility compliance testing with keyboard navigation and screen reader support",
+          "Comprehensive API testing with REST, GraphQL, and WebSocket endpoint validation",
+          "Visual regression testing with screenshot comparison and responsive design validation",
+          "Security testing including XSS, CSRF, and SQL injection protection verification",
+          "Professional reporting with Mochawesome, video recordings, and CI/CD artifact management",
+          "Mobile and responsive testing with touch interaction simulation and viewport testing",
+          "Enterprise-grade CI/CD integration with Jenkins pipelines and GitHub Actions workflows"
+        ],
+        sectionTitle: "Testing Architecture",
+        hasCodeExamples: true,
+        hasProjectStructure: true
+      };
     }
   };
 
@@ -108,7 +131,8 @@ export default function ProjectDetail() {
   const openDocumentation = (docType: string) => {
     const projectName = project.id === 1 ? 'Selenium Test Framework' : 
                        project.id === 2 ? 'API Test Suite' : 
-                       'Mobile Test Automation Suite';
+                       project.id === 3 ? 'Mobile Test Automation Suite' :
+                       'Cypress Test Framework';
     
     let content = '';
     
@@ -123,7 +147,9 @@ ${project.id === 1 ?
   '- Java Development Kit (JDK) 11+\n- Apache Maven 3.6+\n- IDE (IntelliJ IDEA, Eclipse, VS Code)\n- Browser support: Chrome, Firefox, Edge, Safari' :
   project.id === 2 ?
   '- Node.js 16.x or higher\n- npm or yarn package manager\n- Internet connection for live API testing\n- Jest testing framework' :
-  '- Node.js 16.x or higher\n- Android Studio with SDK Tools\n- Xcode 14.x or later (macOS)\n- Appium 2.x drivers'
+  project.id === 3 ?
+  '- Node.js 16.x or higher\n- Android Studio with SDK Tools\n- Xcode 14.x or later (macOS)\n- Appium 2.x drivers' :
+  '- Node.js 16.x or higher\n- npm or yarn package manager\n- Cypress 13.x test framework\n- Browser support: Chrome, Firefox, Edge, Safari'
 }
 
 ## Installation
@@ -131,7 +157,9 @@ ${project.id === 1 ?
   '1. Clone repository\n2. Run: mvn clean install\n3. Execute: mvn test' :
   project.id === 2 ?
   '1. Clone repository\n2. Run: npm install\n3. Execute: npm test' :
-  '1. Clone repository\n2. Run: npm install\n3. Install Appium drivers\n4. Setup Android/iOS environment'
+  project.id === 3 ?
+  '1. Clone repository\n2. Run: npm install\n3. Install Appium drivers\n4. Setup Android/iOS environment' :
+  '1. Clone repository\n2. Run: npm install\n3. Execute: npm run cy:open\n4. Run tests: npm run cy:run'
 }
 
 ## Configuration
@@ -139,7 +167,9 @@ ${project.id === 1 ?
   'Edit config.properties for environment settings.' :
   project.id === 2 ?
   'No additional configuration required. Tests run against public APIs.' :
-  'Configure device settings in wdio configuration files.'
+  project.id === 3 ?
+  'Configure device settings in wdio configuration files.' :
+  'Configure cypress.config.js for environment settings and test configuration.'
 }
 
 For complete documentation, visit: ${project.githubUrl}
