@@ -1,398 +1,339 @@
 # Mobile Test Automation Suite
 
-A comprehensive cross-platform mobile test automation framework built with Appium and WebDriverIO, designed for enterprise-level mobile application testing across Android and iOS platforms.
+Enterprise-grade mobile test automation framework built with Appium and WebDriverIO for comprehensive cross-platform mobile application testing.
 
-## 🚀 Features
+## Overview
 
-### Core Capabilities
-- **Cross-Platform Testing**: Unified test scripts for Android and iOS applications
-- **Real Device Support**: Native testing on physical devices and emulators/simulators
-- **Page Object Model**: Maintainable test architecture with reusable page objects
-- **Parallel Execution**: Concurrent testing across multiple devices and platforms
-- **Advanced Reporting**: Comprehensive test reports with Allure integration
-- **CI/CD Integration**: Seamless integration with Jenkins, GitHub Actions, and Azure DevOps
+This framework demonstrates advanced mobile testing capabilities including cross-platform test execution, Page Object Model implementation, parallel testing, and comprehensive device management. Designed for testing both Android and iOS applications with real device and emulator/simulator support.
 
-### Testing Categories
-- **Functional Testing**: Core app functionality validation
-- **UI/UX Testing**: User interface and experience verification
-- **Performance Testing**: App performance and responsiveness analysis
-- **Compatibility Testing**: Cross-device and OS version validation
-- **Accessibility Testing**: ADA compliance and accessibility features
-- **Security Testing**: App security and data protection validation
+## Key Features
 
-### Device Support
-- **Android**: Native apps, hybrid apps, mobile web
-- **iOS**: Native apps, hybrid apps, mobile web (Safari)
-- **Emulators/Simulators**: Android Virtual Devices (AVD) and iOS Simulator
-- **Real Devices**: Physical device testing via USB and wireless connections
+- **Cross-Platform Testing**: Android and iOS application testing with unified test scripts
+- **Page Object Model**: Maintainable test architecture with platform-specific implementations
+- **Parallel Execution**: Multi-device testing with concurrent test execution
+- **Real Device Support**: Physical device testing alongside emulator/simulator support
+- **Comprehensive Testing**: Functional, performance, accessibility, and gesture testing
+- **Advanced Reporting**: Allure integration with screenshot capture and device information
+- **CI/CD Ready**: Jenkins and GitHub Actions pipeline configurations included
 
-## 📋 Prerequisites
+## Technology Stack
 
-### System Requirements
-- Node.js 16+ and npm
-- Java Development Kit (JDK) 8 or 11
-- Android SDK and Android Studio (for Android testing)
-- Xcode and iOS Simulator (for iOS testing - macOS only)
-- Appium Server 2.0+
+- **Test Framework**: WebDriverIO v8.x
+- **Mobile Automation**: Appium v2.x
+- **Test Runner**: Mocha with Chai assertions
+- **Reporting**: Allure Reports
+- **Languages**: JavaScript/Node.js
+- **Device Management**: Custom utilities for Android SDK and iOS Simulator
+- **CI/CD**: Jenkins, GitHub Actions
 
-### Mobile Development Tools
-- **Android Studio**: For Android SDK, AVD Manager, and device debugging
-- **Xcode**: For iOS development and simulator access (macOS required)
-- **Android SDK Tools**: ADB, platform-tools, build-tools
-- **iOS Development Tools**: iOS SDK, Simulator, WebDriverAgent
+## Code Examples
 
-## 🛠️ Installation
+### Cross-Platform Page Object Model
 
-### 1. Clone Repository
-```bash
-git clone https://github.com/latorocka/mobile-test-suite.git
-cd mobile-test-suite
-npm install
+```javascript
+const BasePage = require('../base/BasePage');
+
+class HomePage extends BasePage {
+  constructor() {
+    super();
+    this.platform = browser.capabilities.platformName.toLowerCase();
+  }
+
+  // Cross-platform selectors
+  get appTitle() {
+    return this.platform === 'android' 
+      ? $('//android.widget.TextView[@text="API Demos"]')
+      : $('//XCUIElementTypeNavigationBar[@name="UICatalog"]');
+  }
+
+  // Unified actions
+  async selectMainOption() {
+    await this.safeClick(this.mainOption);
+    return this;
+  }
+
+  async verifyHomePageLoaded() {
+    await this.waitForDisplayed(this.appTitle, 30000);
+    return this.appTitle.isDisplayed();
+  }
+}
 ```
 
-### 2. Install Appium
-```bash
-npm install -g appium
-npm install -g appium-doctor
+### Performance Testing with Device Management
+
+```javascript
+describe('Mobile Performance Testing', () => {
+  it('should measure app performance metrics', async () => {
+    const deviceUtils = new DeviceUtils();
+    
+    // App launch time measurement
+    const launchStart = Date.now();
+    await deviceUtils.activateApp('com.example.app');
+    const launchTime = Date.now() - launchStart;
+    
+    console.log(`App launch time: ${launchTime}ms`);
+    expect(launchTime).toBeLessThan(5000);
+    
+    // Memory and battery monitoring
+    const deviceInfo = await deviceUtils.getDeviceInfo();
+    const batteryInfo = await deviceUtils.getBatteryInfo();
+    
+    if (batteryInfo) {
+      expect(batteryInfo.level).toBeGreaterThan(20);
+    }
+  });
+});
 ```
 
-### 3. Install Appium Drivers
-```bash
-appium driver install uiautomator2
-appium driver install xcuitest
+### Comprehensive Gesture Testing
+
+```javascript
+describe('Advanced Gesture Testing', () => {
+  it('should perform multi-touch interactions', async () => {
+    const screenSize = await browser.getWindowSize();
+    const centerX = screenSize.width / 2;
+    const centerY = screenSize.height / 2;
+    
+    // Multi-touch pinch gesture
+    await browser.touchAction([
+      { action: 'press', x: centerX - 50, y: centerY },
+      { action: 'moveTo', x: centerX - 100, y: centerY },
+      { action: 'release' }
+    ]);
+    
+    // Long press with validation
+    await browser.touchAction([
+      { action: 'press', element: targetElement },
+      { action: 'wait', ms: 2000 },
+      { action: 'release' }
+    ]);
+  });
+});
 ```
 
-### 4. Verify Installation
-```bash
-npm run install:doctor
+## Getting Started
+
+### Prerequisites
+
+#### For Android Testing:
+- Android Studio with SDK Tools
+- Java JDK 8 or 11
+- Android SDK (API levels 29-31)
+- Android emulator or physical device
+
+#### For iOS Testing (macOS only):
+- Xcode 14.x or later
+- iOS Simulator
+- Command Line Tools for Xcode
+- Valid Apple Developer account (for real device testing)
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd mobile-test-suite
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Install Appium and drivers**:
+   ```bash
+   npm install -g appium
+   appium driver install uiautomator2
+   appium driver install xcuitest
+   ```
+
+4. **Setup Android environment** (if testing Android):
+   ```bash
+   node scripts/setup-android.js
+   ```
+
+5. **Setup iOS environment** (if testing iOS on macOS):
+   ```bash
+   node scripts/setup-ios.js
+   ```
+
+## Configuration
+
+### Parallel Test Execution
+
+```javascript
+// wdio.parallel.conf.js
+config.capabilities = [
+  {
+    platformName: 'Android',
+    'appium:deviceName': 'Pixel_6_API_31',
+    'appium:platformVersion': '12.0',
+    'appium:automationName': 'UiAutomator2'
+  },
+  {
+    platformName: 'iOS',
+    'appium:deviceName': 'iPhone 14',
+    'appium:platformVersion': '16.0',
+    'appium:automationName': 'XCUITest'
+  }
+];
+
+config.maxInstances = 3;
+config.maxInstancesPerCapability = 1;
 ```
 
-### 5. Platform-Specific Setup
+## Running Tests
 
-#### Android Setup
-```bash
-npm run setup:android
-```
+### Single Platform Testing
 
-#### iOS Setup (macOS only)
-```bash
-npm run setup:ios
-```
-
-## 🏃‍♂️ Quick Start
-
-### Run Android Tests
+**Android Tests**:
 ```bash
 npm run test:android
 ```
 
-### Run iOS Tests
+**iOS Tests**:
 ```bash
 npm run test:ios
 ```
 
-### Run Parallel Tests
+### Cross-Platform Testing
+```bash
+npm run test:cross-platform
+```
+
+### Parallel Testing
 ```bash
 npm run test:parallel
 ```
 
-### Generate Test Reports
+### Specific Test Categories
 ```bash
-npm run report
+npm run test:gestures
+npm run test:performance
+npm run test:accessibility
 ```
 
-## 📱 Test Execution
-
-### Single Platform Testing
-```bash
-# Android testing
-npm run test:android
-
-# iOS testing  
-npm run test:ios
-```
-
-### Test Categories
-```bash
-# Smoke tests
-npm run test:smoke
-
-# Full regression suite
-npm run test:regression
-
-# Performance tests
-npx wdio config/wdio.performance.conf.js
-
-# Accessibility tests
-npx wdio config/wdio.accessibility.conf.js
-```
-
-### Device-Specific Testing
-```bash
-# Specific Android device
-npx wdio config/wdio.android.conf.js --device "Pixel_6_API_31"
-
-# Specific iOS device
-npx wdio config/wdio.ios.conf.js --device "iPhone_14_Pro"
-```
-
-## 🔧 Configuration
-
-### Test Configuration Files
-- `config/wdio.android.conf.js` - Android-specific configuration
-- `config/wdio.ios.conf.js` - iOS-specific configuration
-- `config/wdio.parallel.conf.js` - Parallel execution setup
-- `config/wdio.base.conf.js` - Base configuration shared across platforms
-
-### Device Configuration
-```javascript
-// Android configuration example
-capabilities: [{
-  platformName: 'Android',
-  'appium:deviceName': 'Pixel_6_API_31',
-  'appium:platformVersion': '12.0',
-  'appium:app': './apps/android/app-debug.apk',
-  'appium:automationName': 'UiAutomator2'
-}]
-```
-
-### Environment Variables
-```bash
-# Android SDK paths
-export ANDROID_HOME=/usr/local/android-sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-
-# iOS development (macOS)
-export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-```
-
-## 📂 Project Structure
+## Framework Structure
 
 ```
 mobile-test-suite/
-├── config/                 # WebDriverIO configuration files
+├── config/                 # WebDriverIO configurations
 │   ├── wdio.base.conf.js   # Base configuration
 │   ├── wdio.android.conf.js # Android-specific config
 │   ├── wdio.ios.conf.js    # iOS-specific config
 │   └── wdio.parallel.conf.js # Parallel execution config
+├── pages/                  # Page Object Model
+│   ├── base/               # Base page classes
+│   ├── android/            # Android-specific pages
+│   └── ios/                # iOS-specific pages
 ├── tests/                  # Test specifications
 │   ├── android/            # Android-specific tests
-│   ├── ios/               # iOS-specific tests
-│   ├── cross-platform/    # Shared test logic
-│   └── accessibility/     # Accessibility test cases
-├── pages/                 # Page Object Model classes
-│   ├── android/           # Android page objects
-│   ├── ios/              # iOS page objects
-│   └── base/             # Base page classes
-├── utils/                 # Utility functions and helpers
-│   ├── device-utils.js    # Device management utilities
-│   ├── test-data.js       # Test data management
-│   └── reporting.js       # Custom reporting utilities
-├── apps/                  # Test applications
-│   ├── android/           # Android APK files
-│   └── ios/              # iOS IPA files
-├── scripts/               # Setup and utility scripts
-│   ├── setup-android.js   # Android environment setup
-│   └── setup-ios.js      # iOS environment setup
-├── allure-results/        # Test execution results
-├── screenshots/           # Test failure screenshots
-└── README.md             # Project documentation
+│   ├── ios/                # iOS-specific tests
+│   └── cross-platform/     # Cross-platform tests
+├── utils/                  # Utility classes
+│   ├── device-utils.js     # Device management utilities
+│   └── test-data.js        # Test data management
+├── scripts/                # Setup and automation scripts
+│   ├── setup-android.js    # Android environment setup
+│   └── setup-ios.js        # iOS environment setup
+└── reports/                # Test reports and screenshots
 ```
 
-## 🧪 Test Categories
+## Test Categories
 
-### Functional Testing
-- **Login/Authentication**: User authentication flows
-- **Navigation**: App navigation and deep linking
-- **Forms**: Input validation and form submissions
-- **CRUD Operations**: Create, read, update, delete operations
-- **Offline Mode**: App behavior without network connectivity
+### Functional Tests
+- Navigation testing across platforms
+- UI interaction validation
+- Form handling and data input
+- Cross-platform compatibility verification
 
-### UI/UX Testing
-- **Layout Validation**: Screen layout and element positioning
-- **Responsive Design**: Different screen sizes and orientations
-- **Gesture Testing**: Tap, swipe, pinch, and scroll interactions
-- **Animation Testing**: UI animations and transitions
-- **Theme Testing**: Dark mode, light mode, and custom themes
+### Performance Tests
+- App launch time measurement
+- Memory usage monitoring and analysis
+- Battery impact assessment
+- Network condition testing and validation
 
-### Performance Testing
-- **App Launch Time**: Cold start and warm start performance
-- **Memory Usage**: Memory consumption monitoring
-- **Battery Usage**: Power consumption analysis
-- **Network Performance**: API response times and data usage
-- **Stress Testing**: App behavior under high load
+### Accessibility Tests
+- Screen reader compatibility testing
+- ADA compliance validation
+- Focus management and navigation testing
+- Color contrast and readability verification
 
-### Compatibility Testing
-- **OS Versions**: Testing across different Android/iOS versions
-- **Device Types**: Phones, tablets, and different screen sizes
-- **Browser Compatibility**: Mobile web testing across browsers
-- **Backward Compatibility**: Legacy device and OS support
+### Gesture Tests
+- Touch interactions (tap, long press, multi-touch)
+- Swipe gestures (directional swiping)
+- Pinch and zoom operations
+- Edge swipes and system gesture handling
 
-## 📊 Reporting
+## Device Management Features
 
-### Allure Reports
-- **Test Execution Summary**: Pass/fail rates and execution times
-- **Test Case Details**: Step-by-step execution with screenshots
-- **Device Information**: Test environment and device specifications
-- **Historical Trends**: Test execution trends over time
-- **Failure Analysis**: Detailed failure reports with stack traces
+The framework includes comprehensive device management utilities:
 
-### Custom Reports
-- **Performance Metrics**: App performance data and benchmarks
-- **Device Coverage Matrix**: Test coverage across devices and OS versions
-- **Accessibility Report**: ADA compliance and accessibility findings
-- **Security Analysis**: Security test results and recommendations
+- **App Lifecycle Management**: Install, activate, terminate, and query app states
+- **Device Control**: Lock/unlock, orientation changes, shake gestures
+- **Network Management**: WiFi/cellular control, airplane mode testing
+- **Screenshot/Recording**: Automated capture with device information
+- **Permission Handling**: Automated permission dialog management
+- **Performance Monitoring**: Memory, battery, and network usage tracking
 
-## 🔒 Security Testing
-
-### Security Test Categories
-- **Data Encryption**: Sensitive data protection validation
-- **Authentication Security**: Login security and session management
-- **API Security**: Backend API security testing
-- **Local Storage**: Secure local data storage verification
-- **Network Security**: SSL/TLS and network communication security
-
-## ♿ Accessibility Testing
-
-### Accessibility Features
-- **Screen Reader Support**: VoiceOver (iOS) and TalkBack (Android)
-- **Keyboard Navigation**: Navigation without touch input
-- **Color Contrast**: Visual accessibility compliance
-- **Font Scaling**: Dynamic text size support
-- **Alternative Text**: Image and element accessibility labels
-
-## 🚀 CI/CD Integration
+## CI/CD Integration
 
 ### Jenkins Pipeline
-```groovy
-pipeline {
-    agent any
-    stages {
-        stage('Setup') {
-            steps {
-                sh 'npm install'
-                sh 'npm run install:doctor'
-            }
-        }
-        stage('Android Tests') {
-            steps {
-                sh 'npm run test:android'
-            }
-        }
-        stage('iOS Tests') {
-            steps {
-                sh 'npm run test:ios'
-            }
-        }
-        stage('Generate Reports') {
-            steps {
-                sh 'npm run report'
-                publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'allure-report',
-                    reportFiles: 'index.html',
-                    reportName: 'Mobile Test Report'
-                ])
-            }
-        }
-    }
-}
-```
+
+The framework includes Jenkins pipeline configuration for continuous integration with parallel execution across multiple devices and comprehensive reporting.
 
 ### GitHub Actions
-```yaml
-name: Mobile Test Suite
-on: [push, pull_request]
-jobs:
-  mobile-tests:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: npm run test:android
-      - run: npm run test:ios
-      - run: npm run report
-```
 
-## 🎯 Best Practices
+Automated testing workflows for pull requests and deployments with cross-platform test execution and artifact collection.
+
+## Reporting
+
+### Allure Reports
+
+Generate comprehensive test reports with:
+- Test execution metrics and timelines
+- Device information and capabilities
+- Screenshot capture on failures
+- Performance measurements and analytics
+- Network and battery usage statistics
+
+### Custom Reporting
+
+The framework provides detailed reporting including:
+- Cross-platform test coverage analysis
+- Device-specific test results
+- Performance benchmarks and trends
+- Failure analysis with diagnostic information
+
+## Best Practices Implemented
 
 ### Test Design
-- **Page Object Model**: Maintain clean separation between test logic and page interactions
-- **Data-Driven Testing**: Use external data sources for test parameterization
-- **Explicit Waits**: Use WebDriverWait for reliable element synchronization
-- **Error Handling**: Implement comprehensive error handling and recovery
-- **Test Independence**: Ensure tests can run independently and in any order
+1. Page Object Model for maintainable cross-platform code
+2. Platform-agnostic test logic with device-specific implementations
+3. Explicit waits and robust element interaction patterns
+4. Comprehensive error handling and recovery mechanisms
 
-### Performance Optimization
-- **Parallel Execution**: Run tests concurrently across multiple devices
-- **Test Prioritization**: Execute critical tests first for faster feedback
-- **Smart Retry**: Implement intelligent retry mechanisms for flaky tests
-- **Resource Management**: Efficiently manage device resources and cleanup
+### Device Management
+1. Automated device state management between tests
+2. Permission and system dialog handling
+3. Resource monitoring and cleanup
+4. Timeout optimization for mobile operations
 
-### Maintenance
-- **Regular Updates**: Keep Appium drivers and dependencies current
-- **Test Review**: Regular review and refactoring of test cases
-- **Documentation**: Maintain comprehensive test documentation
-- **Code Quality**: Follow coding standards and conduct code reviews
+### Performance Testing
+1. Launch time optimization and monitoring
+2. Memory leak detection and analysis
+3. Battery usage impact assessment
+4. Network condition simulation and testing
 
-## 🔧 Troubleshooting
+## Enterprise Features
 
-### Common Issues
+- **Scalable Architecture**: Supports testing across multiple device farms
+- **Comprehensive Reporting**: Enterprise-grade test reporting with metrics
+- **CI/CD Integration**: Production-ready pipeline configurations
+- **Device Management**: Advanced device utilities for enterprise testing
+- **Performance Analytics**: Detailed performance monitoring and analysis
+- **Security Testing**: App security validation and compliance testing
 
-#### Android Setup Issues
-```bash
-# Fix ADB connection issues
-adb kill-server
-adb start-server
+## License
 
-# Reset Android SDK permissions
-chmod +x $ANDROID_HOME/platform-tools/adb
-```
-
-#### iOS Setup Issues
-```bash
-# Reset iOS Simulator
-xcrun simctl erase all
-
-# Rebuild WebDriverAgent
-cd /usr/local/lib/node_modules/appium/node_modules/appium-xcuitest-driver/WebDriverAgent
-xcodebuild -project WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.0' test
-```
-
-#### Appium Server Issues
-```bash
-# Check Appium installation
-appium-doctor --android
-appium-doctor --ios
-
-# Restart Appium server
-pkill -f appium
-npm run start:appium
-```
-
-## 📞 Support
-
-For questions, issues, or contributions:
-
-- **Email**: latorocka@gmail.com
-- **GitHub Issues**: [Create an Issue](https://github.com/latorocka/mobile-test-suite/issues)
-- **Documentation**: [Wiki Pages](https://github.com/latorocka/mobile-test-suite/wiki)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Appium Community**: For the powerful mobile automation framework
-- **WebDriverIO Team**: For the excellent test runner and ecosystem
-- **Mobile Testing Community**: For best practices and continuous innovation
-
----
-
-**Built with ❤️ by Brian LaTorraca - QA Automation Engineer & Developer**
+This project demonstrates enterprise-grade mobile test automation capabilities and best practices for cross-platform mobile application testing.

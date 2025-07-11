@@ -372,6 +372,172 @@ public Object[][] getLoginTestData() {
   });
 });`
       }
+    ] : project.id === 3 ? [
+      {
+        title: "Cross-Platform Page Object Model Implementation",
+        language: "javascript",
+        code: `const BasePage = require('../base/BasePage');
+
+class HomePage extends BasePage {
+  constructor() {
+    super();
+    this.platform = browser.capabilities.platformName.toLowerCase();
+  }
+
+  // Cross-platform selectors
+  get appTitle() {
+    return this.platform === 'android' 
+      ? $('//android.widget.TextView[@text="API Demos"]')
+      : $('//XCUIElementTypeNavigationBar[@name="UICatalog"]');
+  }
+
+  get mainOption() {
+    return this.platform === 'android'
+      ? $('//android.widget.TextView[@text="Views"]')
+      : $('//XCUIElementTypeCell[@name="Buttons"]');
+  }
+
+  // Unified actions
+  async selectMainOption() {
+    await this.safeClick(this.mainOption);
+    return this;
+  }
+
+  async verifyHomePageLoaded() {
+    await this.waitForDisplayed(this.appTitle, 30000);
+    return this.appTitle.isDisplayed();
+  }
+}`
+      },
+      {
+        title: "Comprehensive Gesture Testing Framework",
+        language: "javascript",
+        code: `describe('Cross-Platform Gesture Tests', () => {
+  let basePage;
+  
+  beforeEach(async () => {
+    basePage = new BasePage();
+    await basePage.waitForAppToLoad();
+  });
+
+  it('should perform advanced gesture interactions', async () => {
+    // Multi-touch pinch gesture
+    const screenSize = await browser.getWindowSize();
+    const centerX = screenSize.width / 2;
+    const centerY = screenSize.height / 2;
+    
+    await browser.touchAction([
+      { action: 'press', x: centerX - 50, y: centerY },
+      { action: 'moveTo', x: centerX - 100, y: centerY },
+      { action: 'release' }
+    ]);
+    
+    // Long press with context validation
+    const targetElement = await basePage.getMainNavigationElement();
+    await browser.touchAction([
+      { action: 'press', element: targetElement },
+      { action: 'wait', ms: 2000 },
+      { action: 'release' }
+    ]);
+    
+    // Swipe gestures with performance tracking
+    const swipeStart = Date.now();
+    await basePage.swipeLeft();
+    const swipeTime = Date.now() - swipeStart;
+    
+    expect(swipeTime).toBeLessThan(1000);
+  });
+});`
+      },
+      {
+        title: "Performance & Device Management Testing",
+        language: "javascript",
+        code: `describe('Mobile Performance & Device Management', () => {
+  let deviceUtils;
+  
+  beforeEach(async () => {
+    deviceUtils = new DeviceUtils();
+  });
+
+  it('should measure app performance metrics', async () => {
+    // App launch time measurement
+    const launchStart = Date.now();
+    await deviceUtils.activateApp('com.example.app');
+    
+    const appTitle = await deviceUtils.waitForAppToLoad();
+    const launchTime = Date.now() - launchStart;
+    
+    console.log(\`App launch time: \${launchTime}ms\`);
+    expect(launchTime).toBeLessThan(5000);
+    
+    // Memory usage monitoring
+    const memoryInfo = await deviceUtils.getDeviceInfo();
+    console.log('Device memory info:', memoryInfo);
+    
+    // Battery impact analysis
+    const batteryInfo = await deviceUtils.getBatteryInfo();
+    if (batteryInfo) {
+      expect(batteryInfo.level).toBeGreaterThan(20);
+    }
+    
+    // Network condition testing
+    if (deviceUtils.isAndroid) {
+      await deviceUtils.setNetworkConnection({
+        airplaneMode: false,
+        wifi: false,
+        data: true
+      });
+      
+      const networkInfo = await deviceUtils.getNetworkConnection();
+      expect(networkInfo.data).toBe(true);
+    }
+  });
+});`
+      },
+      {
+        title: "Parallel Test Execution Configuration",
+        language: "javascript",
+        code: `// wdio.parallel.conf.js
+const { config } = require('./wdio.base.conf');
+
+config.capabilities = [
+  {
+    platformName: 'Android',
+    'appium:deviceName': 'Pixel_6_API_31',
+    'appium:platformVersion': '12.0',
+    'appium:automationName': 'UiAutomator2',
+    'appium:app': './apps/ApiDemos.apk'
+  },
+  {
+    platformName: 'iOS',
+    'appium:deviceName': 'iPhone 14',
+    'appium:platformVersion': '16.0',
+    'appium:automationName': 'XCUITest',
+    'appium:app': './apps/UICatalog.app'
+  },
+  {
+    platformName: 'Android',
+    'appium:deviceName': 'Samsung_Galaxy_S21',
+    'appium:platformVersion': '11.0',
+    'appium:automationName': 'UiAutomator2',
+    'appium:app': './apps/ApiDemos.apk'
+  }
+];
+
+config.maxInstances = 3;
+config.maxInstancesPerCapability = 1;
+
+// Enable parallel execution reporting
+config.reporters = [
+  ['allure', {
+    outputDir: 'allure-results',
+    disableWebdriverStepsReporting: true,
+    disableWebdriverScreenshotsReporting: false,
+  }]
+];
+
+exports.config = config;`
+      }
     ] : []
   };
 
