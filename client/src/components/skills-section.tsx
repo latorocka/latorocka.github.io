@@ -30,6 +30,7 @@ export default function SkillsSection() {
     "Visual Studio": { type: 'devicon', value: 'devicon-visualstudio-plain colored' },
     "WordPress": { type: 'devicon', value: 'devicon-wordpress-plain colored' },
     "FlutterFlow": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg' },
+    "Unity Game Engine": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg' },
     "CircleCI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg' }
   };
 
