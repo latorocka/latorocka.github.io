@@ -221,5 +221,28 @@ export const projects = [
       "Test data management with cross-platform test scenarios and device configuration support",
       "Advanced debugging capabilities with detailed logging, retry mechanisms, and error handling"
     ]
+  },
+  {
+    id: 4,
+    title: "Cypress Test Framework",
+    description: "Comprehensive enterprise-grade Cypress test automation framework with modern JavaScript/TypeScript architecture. Features 100+ custom commands across API, UI, Performance, and Accessibility testing with professional CI/CD integration and advanced reporting capabilities.",
+    technologies: ["Cypress 13.x", "JavaScript/TypeScript", "Mochawesome", "Axe-core", "Visual Regression", "GitHub Actions", "Jenkins", "Cross-browser Testing"],
+    category: "E2E Testing",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+    githubUrl: "https://github.com/latorocka/cypress-test-framework",
+    features: [
+      "Multi-layered testing architecture with API, UI, Performance, and Accessibility test suites",
+      "100+ specialized custom commands for comprehensive testing scenarios across all categories",
+      "Professional test organization with smoke, regression, integration, and critical path testing",
+      "Cross-browser testing support for Chrome, Firefox, Edge, and Safari with parallel execution",
+      "Advanced performance testing with Core Web Vitals, load testing, and memory monitoring",
+      "WCAG 2.1 AA accessibility compliance testing with keyboard navigation and screen reader support",
+      "Comprehensive API testing with REST, GraphQL, and WebSocket endpoint validation",
+      "Visual regression testing with screenshot comparison and responsive design validation",
+      "Security testing including XSS, CSRF, and SQL injection protection verification",
+      "Professional reporting with Mochawesome, video recordings, and CI/CD artifact management",
+      "Mobile and responsive testing with touch interaction simulation and viewport testing",
+      "Enterprise-grade CI/CD integration with Jenkins pipelines and GitHub Actions workflows"
+    ]
   }
 ];

@@ -1,0 +1,346 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "username": "johndoe",
+      "password": "TestPassword123!",
+      "role": "admin",
+      "active": true,
+      "profile": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "phone": "+1-555-0123",
+        "address": {
+          "street": "123 Main St",
+          "city": "Anytown",
+          "state": "CA",
+          "zipCode": "12345",
+          "country": "USA"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "username": "janesmith",
+      "password": "TestPassword456!",
+      "role": "user",
+      "active": true,
+      "profile": {
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "phone": "+1-555-0456",
+        "address": {
+          "street": "456 Oak Ave",
+          "city": "Somewhere",
+          "state": "NY",
+          "zipCode": "67890",
+          "country": "USA"
+        }
+      }
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop Computer",
+      "description": "High-performance laptop for professional use",
+      "price": 1299.99,
+      "category": "Electronics",
+      "inStock": true,
+      "quantity": 25,
+      "sku": "LAP-001",
+      "features": ["16GB RAM", "512GB SSD", "Intel i7", "15.6 inch display"]
+    },
+    {
+      "id": 2,
+      "name": "Wireless Mouse",
+      "description": "Ergonomic wireless mouse with precision tracking",
+      "price": 29.99,
+      "category": "Accessories",
+      "inStock": true,
+      "quantity": 100,
+      "sku": "MOU-002",
+      "features": ["Wireless", "Ergonomic", "Precision tracking", "Long battery life"]
+    },
+    {
+      "id": 3,
+      "name": "Mechanical Keyboard",
+      "description": "RGB mechanical keyboard with cherry switches",
+      "price": 149.99,
+      "category": "Accessories",
+      "inStock": false,
+      "quantity": 0,
+      "sku": "KEY-003",
+      "features": ["RGB backlighting", "Cherry switches", "Programmable keys", "USB-C"]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "orderDate": "2024-01-15T10:30:00Z",
+      "status": "completed",
+      "total": 1329.98,
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 1,
+          "price": 1299.99
+        },
+        {
+          "productId": 2,
+          "quantity": 1,
+          "price": 29.99
+        }
+      ],
+      "shipping": {
+        "address": "123 Main St, Anytown, CA 12345",
+        "method": "standard",
+        "cost": 0,
+        "estimatedDelivery": "2024-01-20"
+      },
+      "payment": {
+        "method": "credit_card",
+        "lastFourDigits": "1234",
+        "status": "paid"
+      }
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "body": "This is a test comment for automated testing purposes."
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "body": "Another test comment to verify comment functionality."
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Test Post Title",
+      "body": "This is the body of a test post used for automated testing.",
+      "userId": 1,
+      "tags": ["test", "automation", "cypress"],
+      "published": true,
+      "publishedDate": "2024-01-15T09:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Another Test Post",
+      "body": "This is another test post with different content for testing purposes.",
+      "userId": 2,
+      "tags": ["testing", "qa", "automation"],
+      "published": false,
+      "publishedDate": null
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "Complete project documentation",
+      "completed": false,
+      "priority": "high",
+      "dueDate": "2024-02-01"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "Review code changes",
+      "completed": true,
+      "priority": "medium",
+      "dueDate": "2024-01-20"
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "title": "Update test cases",
+      "completed": false,
+      "priority": "low",
+      "dueDate": "2024-01-25"
+    }
+  ],
+  "formData": {
+    "contactForm": {
+      "name": "Test User",
+      "email": "test@example.com",
+      "subject": "Test Subject",
+      "message": "This is a test message for form submission testing."
+    },
+    "registrationForm": {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "password": "TestPassword123!",
+      "confirmPassword": "TestPassword123!",
+      "phone": "+1-555-0123",
+      "agreeToTerms": true
+    },
+    "loginForm": {
+      "username": "testuser",
+      "password": "TestPassword123!",
+      "rememberMe": true
+    }
+  },
+  "api": {
+    "baseUrl": "https://jsonplaceholder.typicode.com",
+    "endpoints": {
+      "users": "/users",
+      "posts": "/posts",
+      "comments": "/comments",
+      "albums": "/albums",
+      "photos": "/photos",
+      "todos": "/todos"
+    },
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    }
+  },
+  "testScenarios": {
+    "validInputs": [
+      {
+        "field": "email",
+        "value": "test@example.com",
+        "expected": "valid"
+      },
+      {
+        "field": "phone",
+        "value": "+1-555-0123",
+        "expected": "valid"
+      },
+      {
+        "field": "url",
+        "value": "https://example.com",
+        "expected": "valid"
+      }
+    ],
+    "invalidInputs": [
+      {
+        "field": "email",
+        "value": "invalid-email",
+        "expected": "invalid"
+      },
+      {
+        "field": "phone",
+        "value": "123",
+        "expected": "invalid"
+      },
+      {
+        "field": "url",
+        "value": "not-a-url",
+        "expected": "invalid"
+      }
+    ],
+    "boundaryValues": [
+      {
+        "field": "age",
+        "values": [0, 1, 17, 18, 65, 66, 120],
+        "validRange": [18, 65]
+      },
+      {
+        "field": "password",
+        "values": ["1234567", "12345678", "very-long-password-that-exceeds-maximum-length"],
+        "validRange": [8, 50]
+      }
+    ]
+  },
+  "performance": {
+    "thresholds": {
+      "pageLoadTime": 3000,
+      "apiResponseTime": 1000,
+      "firstContentfulPaint": 1500,
+      "largestContentfulPaint": 2500,
+      "cumulativeLayoutShift": 0.1,
+      "firstInputDelay": 100
+    },
+    "networkConditions": {
+      "slow3g": {
+        "downloadThroughput": 50000,
+        "uploadThroughput": 50000,
+        "latency": 2000
+      },
+      "fast3g": {
+        "downloadThroughput": 200000,
+        "uploadThroughput": 200000,
+        "latency": 1000
+      }
+    }
+  },
+  "accessibility": {
+    "testCases": [
+      {
+        "name": "Color contrast",
+        "rule": "color-contrast",
+        "level": "AA"
+      },
+      {
+        "name": "Alt text on images",
+        "rule": "image-alt",
+        "level": "A"
+      },
+      {
+        "name": "Form labels",
+        "rule": "label",
+        "level": "A"
+      },
+      {
+        "name": "Keyboard navigation",
+        "rule": "keyboard",
+        "level": "A"
+      }
+    ]
+  },
+  "browser": {
+    "viewports": {
+      "mobile": {
+        "width": 375,
+        "height": 667
+      },
+      "tablet": {
+        "width": 768,
+        "height": 1024
+      },
+      "desktop": {
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    "userAgents": {
+      "chrome": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      "firefox": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+      "safari": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
+    }
+  },
+  "security": {
+    "testCases": [
+      {
+        "name": "SQL Injection",
+        "payload": "' OR '1'='1",
+        "expected": "blocked"
+      },
+      {
+        "name": "XSS",
+        "payload": "<script>alert('XSS')</script>",
+        "expected": "sanitized"
+      },
+      {
+        "name": "CSRF",
+        "payload": "malicious-token",
+        "expected": "rejected"
+      }
+    ]
+  }
+}
