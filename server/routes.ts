@@ -18,17 +18,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // In a real application, this would send an email or save to database
-      console.log("Contact form submission:", { name, email, subject, message });
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({ 
+          message: "Please enter a valid email address" 
+        });
+      }
+
+      // Send email
+      const emailSent = await sendContactEmail({ name, email, subject, message });
       
-      res.json({ 
-        message: "Message sent successfully",
-        success: true 
-      });
+      if (emailSent) {
+        res.json({ 
+          message: "Message sent successfully! I'll get back to you soon.",
+          success: true 
+        });
+      } else {
+        res.status(500).json({ 
+          message: "Failed to send message. Please try again later." 
+        });
+      }
     } catch (error) {
       console.error("Contact form error:", error);
       res.status(500).json({ 
-        message: "Failed to send message" 
+        message: "Failed to send message. Please try again later." 
       });
     }
   });
