@@ -1,8 +1,7 @@
-import sgMail from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 
 // Email service configuration
 const YOUR_EMAIL = 'latorocka@gmail.com';
-const FROM_EMAIL = 'noreply@portfolio.com'; // This will be overridden by SendGrid if configured
 
 export interface ContactFormData {
   name: string;
@@ -14,14 +13,22 @@ export interface ContactFormData {
 export async function sendContactEmail(formData: ContactFormData): Promise<boolean> {
   const { name, email, subject, message } = formData;
   
-  // Check if SendGrid is configured
-  if (process.env.SENDGRID_API_KEY) {
+  // Check if Gmail credentials are configured
+  if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
     try {
-      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      
+      // Create transporter using Gmail SMTP
+      const transporter = nodemailer.createTransporter({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_APP_PASSWORD
+        }
+      });
+
       const emailContent = {
+        from: process.env.GMAIL_USER,
         to: YOUR_EMAIL,
-        from: FROM_EMAIL,
+        replyTo: email, // This allows you to reply directly to the sender
         subject: `Portfolio Contact: ${subject}`,
         html: `
           <h2>New Contact Form Submission</h2>
@@ -48,11 +55,11 @@ This email was sent from your portfolio contact form.
         `
       };
       
-      await sgMail.send(emailContent);
-      console.log('Email sent successfully via SendGrid');
+      await transporter.sendMail(emailContent);
+      console.log('Email sent successfully via Gmail SMTP');
       return true;
     } catch (error) {
-      console.error('SendGrid email error:', error);
+      console.error('Gmail SMTP email error:', error);
       return false;
     }
   } else {
