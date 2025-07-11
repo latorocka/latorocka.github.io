@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.brianlatorraca</groupId>
-    <artifactId>selenium-test-framework</artifactId>
+    <groupId>com.latorocka</groupId>
+    <artifactId>selenium-framework</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Selenium Test Framework</name>
-    <description>Comprehensive Selenium WebDriver test automation framework</description>
+    <description>Enterprise-grade Selenium Test Automation Framework</description>
+    <url>https://github.com/latorocka/selenium-framework</url>
+
+    <developers>
+        <developer>
+            <id>latorocka</id>
+            <name>Brian LaTorraca</name>
+            <email>Latorocka@gmail.com</email>
+            <url>https://github.com/latorocka</url>
+            <roles>
+                <role>QA Automation Engineer</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -22,10 +36,15 @@
         <selenium.version>4.15.0</selenium.version>
         <testng.version>7.8.0</testng.version>
         <webdrivermanager.version>5.6.2</webdrivermanager.version>
-        <extentreports.version>5.0.9</extentreports.version>
-        <apache.poi.version>5.2.4</apache.poi.version>
-        <jackson.version>2.15.2</jackson.version>
+        <poi.version>5.2.4</poi.version>
+        <extentreports.version>5.1.1</extentreports.version>
         <log4j.version>2.20.0</log4j.version>
+        <jackson.version>2.15.2</jackson.version>
+        
+        <!-- Plugin Versions -->
+        <maven.compiler.version>3.11.0</maven.compiler.version>
+        <maven.surefire.version>3.1.2</maven.surefire.version>
+        <maven.failsafe.version>3.1.2</maven.failsafe.version>
     </properties>
 
     <dependencies>
@@ -36,13 +55,6 @@
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- TestNG -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-        </dependency>
-
         <!-- WebDriverManager for automatic driver management -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
@@ -50,30 +62,30 @@
             <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- Extent Reports -->
+        <!-- TestNG Testing Framework -->
         <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>${extentreports.version}</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
         </dependency>
 
-        <!-- Apache POI for Excel operations -->
+        <!-- Apache POI for Excel handling -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>${apache.poi.version}</version>
+            <version>${poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>${apache.poi.version}</version>
+            <version>${poi.version}</version>
         </dependency>
 
-        <!-- Jackson for JSON processing -->
+        <!-- ExtentReports for enhanced reporting -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
         </dependency>
 
         <!-- Log4j for logging -->
@@ -87,6 +99,27 @@
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
+        <!-- Jackson for JSON handling -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- AssertJ for fluent assertions -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+        </dependency>
+
+        <!-- Apache Commons IO for file operations -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -95,10 +128,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
@@ -106,7 +140,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
@@ -114,38 +148,35 @@
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
                         <environment>${environment}</environment>
+                        <headless>${headless}</headless>
                     </systemPropertyVariables>
+                    <argLine>
+                        -Xmx2048m
+                        -XX:MaxPermSize=512m
+                        -Dfile.encoding=UTF-8
+                    </argLine>
                 </configuration>
             </plugin>
 
-            <!-- Maven Site Plugin for documentation -->
+            <!-- Maven Failsafe Plugin for integration tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>4.0.0-M9</version>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven.failsafe.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
-        <!-- Different execution profiles -->
-        <profile>
-            <id>regression</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/regression-suite.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
+        <!-- Smoke Test Profile -->
         <profile>
             <id>smoke</id>
             <build>
@@ -163,6 +194,25 @@
             </build>
         </profile>
 
+        <!-- Regression Test Profile -->
+        <profile>
+            <id>regression</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/regression-suite.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Parallel Test Profile -->
         <profile>
             <id>parallel</id>
             <build>

@@ -2,88 +2,112 @@ package base;
 
 import config.ConfigManager;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import utils.DriverManager;
 import utils.ScreenshotUtils;
 
 import java.lang.reflect.Method;
 
 /**
- * Base Test class providing common test setup and teardown
- * Author: Brian LaTorraca
+ * Base test class providing setup and teardown functionality
+ * 
+ * @author Brian LaTorraca
  */
-public class BaseTest {
+public abstract class BaseTest {
+    
     protected ConfigManager config;
-
-    @BeforeSuite(alwaysRun = true)
+    
+    @BeforeSuite
     public void suiteSetup() {
+        System.out.println("=== Test Suite Starting ===");
         config = ConfigManager.getInstance();
-        System.out.println("===== Test Suite Started =====");
+        
+        // Create output directories
+        createOutputDirectories();
+        
         System.out.println("Browser: " + config.getBrowser());
-        System.out.println("Environment: " + config.getBaseUrl());
+        System.out.println("Environment: " + config.getEnvironment());
+        System.out.println("Base URL: " + config.getBaseUrl());
         System.out.println("Headless: " + config.isHeadless());
     }
-
-    @BeforeMethod(alwaysRun = true)
+    
+    @BeforeMethod
     public void testSetup(Method method) {
-        System.out.println("\n===== Starting Test: " + method.getName() + " =====");
+        System.out.println("\n--- Starting Test: " + method.getName() + " ---");
         
         // Initialize WebDriver
         DriverManager.setDriver();
         
-        // Navigate to base URL
+        // Navigate to base URL if specified
         String baseUrl = config.getBaseUrl();
         if (baseUrl != null && !baseUrl.isEmpty()) {
-            DriverManager.getDriver().get(baseUrl);
+            navigateToUrl(baseUrl);
         }
-        
-        System.out.println("Driver initialized and navigated to: " + baseUrl);
     }
-
-    @AfterMethod(alwaysRun = true)
+    
+    @AfterMethod
     public void testTeardown(ITestResult result) {
         String testName = result.getMethod().getMethodName();
         
-        if (result.getStatus() == ITestResult.FAILURE) {
-            System.out.println("Test FAILED: " + testName);
-            
-            // Take screenshot on failure
-            if (DriverManager.isDriverInitialized()) {
-                ScreenshotUtils.takeFailureScreenshot(DriverManager.getDriver(), testName);
-            }
-        } else if (result.getStatus() == ITestResult.SUCCESS) {
-            System.out.println("Test PASSED: " + testName);
-        } else if (result.getStatus() == ITestResult.SKIP) {
-            System.out.println("Test SKIPPED: " + testName);
+        // Take screenshot if test failed or if configured to take on pass
+        if (result.getStatus() == ITestResult.FAILURE && config.isScreenshotOnFailure()) {
+            ScreenshotUtils.takeFailureScreenshot(DriverManager.getDriver(), testName);
         }
         
-        // Quit driver
+        // Print test result
+        switch (result.getStatus()) {
+            case ITestResult.SUCCESS:
+                System.out.println("✓ Test PASSED: " + testName);
+                break;
+            case ITestResult.FAILURE:
+                System.out.println("✗ Test FAILED: " + testName);
+                System.out.println("Failure Reason: " + result.getThrowable().getMessage());
+                break;
+            case ITestResult.SKIP:
+                System.out.println("⊘ Test SKIPPED: " + testName);
+                break;
+        }
+        
+        // Quit WebDriver
         DriverManager.quitDriver();
-        System.out.println("===== Finished Test: " + testName + " =====\n");
+        
+        System.out.println("--- Test Completed: " + testName + " ---\n");
     }
-
-    @AfterSuite(alwaysRun = true)
+    
+    @AfterSuite
     public void suiteTeardown() {
-        System.out.println("===== Test Suite Completed =====");
+        System.out.println("=== Test Suite Completed ===");
     }
-
-    // Utility methods for tests
+    
+    /**
+     * Navigate to specified URL
+     * 
+     * @param url Target URL
+     */
     protected void navigateToUrl(String url) {
+        System.out.println("Navigating to: " + url);
         DriverManager.getDriver().get(url);
     }
-
-    protected String getCurrentUrl() {
-        return DriverManager.getDriver().getCurrentUrl();
+    
+    /**
+     * Take screenshot manually during test execution
+     * 
+     * @param screenshotName Name for the screenshot file
+     */
+    protected void takeScreenshot(String screenshotName) {
+        ScreenshotUtils.takeScreenshot(DriverManager.getDriver(), screenshotName);
     }
-
-    protected String getPageTitle() {
-        return DriverManager.getDriver().getTitle();
-    }
-
-    protected void takeScreenshot(String testName) {
-        ScreenshotUtils.takeScreenshot(DriverManager.getDriver(), testName);
+    
+    /**
+     * Create necessary output directories
+     */
+    private void createOutputDirectories() {
+        try {
+            java.nio.file.Files.createDirectories(java.nio.file.Paths.get(config.getScreenshotPath()));
+            java.nio.file.Files.createDirectories(java.nio.file.Paths.get(config.getReportPath()));
+            System.out.println("Output directories created successfully");
+        } catch (Exception e) {
+            System.err.println("Failed to create output directories: " + e.getMessage());
+        }
     }
 }

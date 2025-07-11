@@ -14,79 +14,74 @@ import org.openqa.selenium.safari.SafariDriver;
 import java.time.Duration;
 
 /**
- * WebDriver Manager for handling browser instantiation and configuration
- * Author: Brian LaTorraca
+ * Thread-safe WebDriver management for parallel test execution
+ * 
+ * @author Brian LaTorraca
  */
 public class DriverManager {
+    
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
     private static final ConfigManager config = ConfigManager.getInstance();
-
+    
+    /**
+     * Private constructor to prevent instantiation
+     */
+    private DriverManager() {}
+    
+    /**
+     * Initialize WebDriver based on configuration
+     */
     public static void setDriver() {
-        String browserName = config.getBrowser().toLowerCase();
+        String browserName = getBrowserName().toLowerCase();
         WebDriver driver;
-
+        
         switch (browserName) {
             case "chrome":
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                if (config.isHeadless()) {
-                    chromeOptions.addArguments("--headless");
-                }
-                chromeOptions.addArguments("--disable-dev-shm-usage");
-                chromeOptions.addArguments("--no-sandbox");
-                chromeOptions.addArguments("--disable-extensions");
-                chromeOptions.addArguments("--disable-gpu");
-                chromeOptions.addArguments("--window-size=1920,1080");
-                driver = new ChromeDriver(chromeOptions);
+                driver = createChromeDriver();
                 break;
-
             case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                if (config.isHeadless()) {
-                    firefoxOptions.addArguments("--headless");
-                }
-                firefoxOptions.addArguments("--width=1920");
-                firefoxOptions.addArguments("--height=1080");
-                driver = new FirefoxDriver(firefoxOptions);
+                driver = createFirefoxDriver();
                 break;
-
             case "edge":
-                WebDriverManager.edgedriver().setup();
-                EdgeOptions edgeOptions = new EdgeOptions();
-                if (config.isHeadless()) {
-                    edgeOptions.addArguments("--headless");
-                }
-                edgeOptions.addArguments("--disable-dev-shm-usage");
-                edgeOptions.addArguments("--no-sandbox");
-                edgeOptions.addArguments("--window-size=1920,1080");
-                driver = new EdgeDriver(edgeOptions);
+                driver = createEdgeDriver();
                 break;
-
             case "safari":
-                driver = new SafariDriver();
+                driver = createSafariDriver();
                 break;
-
             default:
                 throw new IllegalArgumentException("Browser not supported: " + browserName);
         }
-
-        // Set timeouts
+        
+        // Configure timeouts
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(config.getImplicitWait()));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        driver.manage().window().maximize();
-
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(config.getPageLoadTimeout()));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(config.getScriptTimeout()));
+        
+        // Maximize window if specified
+        if (config.shouldMaximize()) {
+            driver.manage().window().maximize();
+        }
+        
         driverThreadLocal.set(driver);
     }
-
+    
+    /**
+     * Get the current WebDriver instance for this thread
+     * 
+     * @return WebDriver instance
+     * @throws IllegalStateException if driver not initialized
+     */
     public static WebDriver getDriver() {
         WebDriver driver = driverThreadLocal.get();
         if (driver == null) {
-            throw new IllegalStateException("Driver not initialized. Call setDriver() first.");
+            throw new IllegalStateException("WebDriver not initialized. Call setDriver() first.");
         }
         return driver;
     }
-
+    
+    /**
+     * Quit the current WebDriver instance and remove from ThreadLocal
+     */
     public static void quitDriver() {
         WebDriver driver = driverThreadLocal.get();
         if (driver != null) {
@@ -94,8 +89,112 @@ public class DriverManager {
             driverThreadLocal.remove();
         }
     }
-
+    
+    /**
+     * Check if WebDriver is initialized for current thread
+     * 
+     * @return true if driver exists, false otherwise
+     */
     public static boolean isDriverInitialized() {
         return driverThreadLocal.get() != null;
+    }
+    
+    /**
+     * Create Chrome WebDriver with options
+     */
+    private static WebDriver createChromeDriver() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        
+        if (config.isHeadless()) {
+            options.addArguments("--headless=new");
+        }
+        
+        // Add Chrome options from config
+        String chromeOptions = config.getProperty("chrome.options");
+        if (chromeOptions != null && !chromeOptions.isEmpty()) {
+            String[] optionArray = chromeOptions.split(",");
+            for (String option : optionArray) {
+                options.addArguments(option.trim());
+            }
+        }
+        
+        // Additional Chrome options for stability
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-plugins");
+        options.addArguments("--disable-images");
+        options.addArguments("--disable-javascript");
+        options.setExperimentalOption("useAutomationExtension", false);
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        
+        return new ChromeDriver(options);
+    }
+    
+    /**
+     * Create Firefox WebDriver with options
+     */
+    private static WebDriver createFirefoxDriver() {
+        WebDriverManager.firefoxdriver().setup();
+        FirefoxOptions options = new FirefoxOptions();
+        
+        if (config.isHeadless()) {
+            options.addArguments("--headless");
+        }
+        
+        // Add Firefox options from config
+        String firefoxOptions = config.getProperty("firefox.options");
+        if (firefoxOptions != null && !firefoxOptions.isEmpty()) {
+            String[] optionArray = firefoxOptions.split(",");
+            for (String option : optionArray) {
+                options.addArguments(option.trim());
+            }
+        }
+        
+        return new FirefoxDriver(options);
+    }
+    
+    /**
+     * Create Edge WebDriver with options
+     */
+    private static WebDriver createEdgeDriver() {
+        WebDriverManager.edgedriver().setup();
+        EdgeOptions options = new EdgeOptions();
+        
+        if (config.isHeadless()) {
+            options.addArguments("--headless=new");
+        }
+        
+        // Add Edge options from config
+        String edgeOptions = config.getProperty("edge.options");
+        if (edgeOptions != null && !edgeOptions.isEmpty()) {
+            String[] optionArray = edgeOptions.split(",");
+            for (String option : optionArray) {
+                options.addArguments(option.trim());
+            }
+        }
+        
+        return new EdgeDriver(options);
+    }
+    
+    /**
+     * Create Safari WebDriver (macOS only)
+     */
+    private static WebDriver createSafariDriver() {
+        if (!System.getProperty("os.name").toLowerCase().contains("mac")) {
+            throw new UnsupportedOperationException("Safari is only supported on macOS");
+        }
+        return new SafariDriver();
+    }
+    
+    /**
+     * Get browser name from system property or config
+     */
+    private static String getBrowserName() {
+        String browser = System.getProperty("browser");
+        if (browser == null || browser.isEmpty()) {
+            browser = config.getBrowser();
+        }
+        return browser;
     }
 }

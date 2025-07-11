@@ -4,69 +4,93 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
-import utils.WaitUtils;
+import config.ConfigManager;
 
+import java.time.Duration;
 import java.util.List;
 
 /**
- * Base Page class containing common page methods and utilities
- * Author: Brian LaTorraca
+ * Abstract base class for Page Object Model implementation
+ * 
+ * @author Brian LaTorraca
  */
 public abstract class BasePage {
+    
     protected WebDriver driver;
-    protected WaitUtils waitUtils;
+    protected WebDriverWait wait;
     protected Actions actions;
     protected JavascriptExecutor jsExecutor;
-
+    protected ConfigManager config;
+    
+    /**
+     * Constructor for BasePage
+     * 
+     * @param driver WebDriver instance
+     */
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        this.waitUtils = new WaitUtils();
+        this.config = ConfigManager.getInstance();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(config.getExplicitWait()));
         this.actions = new Actions(driver);
         this.jsExecutor = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver, this);
     }
-
-    // Basic element interactions
+    
+    /**
+     * Click on element after waiting for it to be clickable
+     * 
+     * @param locator Element locator
+     */
     protected void click(By locator) {
-        WaitUtils.waitForElementToBeClickable(driver, locator).click();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        scrollToElement(element);
+        element.click();
     }
-
-    protected void click(WebElement element) {
-        WaitUtils.waitForElementToBeClickable(driver, element).click();
-    }
-
+    
+    /**
+     * Enter text into field after clearing it
+     * 
+     * @param locator Element locator
+     * @param text Text to enter
+     */
     protected void sendKeys(By locator, String text) {
-        WebElement element = WaitUtils.waitForElementToBeVisible(driver, locator);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         element.clear();
         element.sendKeys(text);
     }
-
-    protected void sendKeys(WebElement element, String text) {
-        WaitUtils.waitForElementToBeVisible(driver, element);
-        element.clear();
-        element.sendKeys(text);
-    }
-
+    
+    /**
+     * Get text content of element
+     * 
+     * @param locator Element locator
+     * @return Element text
+     */
     protected String getText(By locator) {
-        return WaitUtils.waitForElementToBeVisible(driver, locator).getText();
-    }
-
-    protected String getText(WebElement element) {
-        WaitUtils.waitForElementToBeVisible(driver, element);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return element.getText();
     }
-
-    protected String getAttribute(By locator, String attributeName) {
-        return WaitUtils.waitForElementToBeVisible(driver, locator).getAttribute(attributeName);
+    
+    /**
+     * Get attribute value of element
+     * 
+     * @param locator Element locator
+     * @param attribute Attribute name
+     * @return Attribute value
+     */
+    protected String getAttribute(By locator, String attribute) {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return element.getAttribute(attribute);
     }
-
-    protected String getAttribute(WebElement element, String attributeName) {
-        WaitUtils.waitForElementToBeVisible(driver, element);
-        return element.getAttribute(attributeName);
-    }
-
+    
+    /**
+     * Check if element is displayed
+     * 
+     * @param locator Element locator
+     * @return true if element is displayed
+     */
     protected boolean isElementDisplayed(By locator) {
         try {
             return driver.findElement(locator).isDisplayed();
@@ -74,129 +98,194 @@ public abstract class BasePage {
             return false;
         }
     }
-
-    protected boolean isElementDisplayed(WebElement element) {
+    
+    /**
+     * Check if element is enabled
+     * 
+     * @param locator Element locator
+     * @return true if element is enabled
+     */
+    protected boolean isElementEnabled(By locator) {
         try {
-            return element.isDisplayed();
+            return driver.findElement(locator).isEnabled();
         } catch (Exception e) {
             return false;
         }
     }
-
-    protected boolean isElementEnabled(By locator) {
-        return WaitUtils.waitForElementToBeVisible(driver, locator).isEnabled();
+    
+    /**
+     * Wait for element to be visible
+     * 
+     * @param locator Element locator
+     * @return WebElement
+     */
+    protected WebElement waitForElementToBeVisible(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
-
-    protected boolean isElementSelected(By locator) {
-        return WaitUtils.waitForElementToBeVisible(driver, locator).isSelected();
+    
+    /**
+     * Wait for element to be invisible
+     * 
+     * @param locator Element locator
+     */
+    protected void waitForElementToBeInvisible(By locator) {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
     }
-
-    protected List<WebElement> getElements(By locator) {
-        return WaitUtils.waitForElementsPresence(driver, locator);
+    
+    /**
+     * Scroll element into view
+     * 
+     * @param locator Element locator
+     */
+    protected void scrollToElement(By locator) {
+        WebElement element = driver.findElement(locator);
+        scrollToElement(element);
     }
-
-    // Advanced interactions
-    protected void doubleClick(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeClickable(driver, locator);
-        actions.doubleClick(element).perform();
+    
+    /**
+     * Scroll element into view
+     * 
+     * @param element WebElement
+     */
+    protected void scrollToElement(WebElement element) {
+        jsExecutor.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
     }
-
-    protected void rightClick(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeClickable(driver, locator);
-        actions.contextClick(element).perform();
-    }
-
+    
+    /**
+     * Hover mouse over element
+     * 
+     * @param locator Element locator
+     */
     protected void hoverOver(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeVisible(driver, locator);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         actions.moveToElement(element).perform();
     }
-
-    protected void dragAndDrop(By sourceLocator, By targetLocator) {
-        WebElement source = WaitUtils.waitForElementToBeVisible(driver, sourceLocator);
-        WebElement target = WaitUtils.waitForElementToBeVisible(driver, targetLocator);
-        actions.dragAndDrop(source, target).perform();
+    
+    /**
+     * Select option from dropdown by visible text
+     * 
+     * @param locator Dropdown locator
+     * @param text Option text
+     */
+    protected void selectByText(By locator, String text) {
+        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        Select select = new Select(dropdown);
+        select.selectByVisibleText(text);
     }
-
-    // JavaScript utilities
-    protected void clickUsingJS(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeVisible(driver, locator);
-        jsExecutor.executeScript("arguments[0].click();", element);
+    
+    /**
+     * Select option from dropdown by value
+     * 
+     * @param locator Dropdown locator
+     * @param value Option value
+     */
+    protected void selectByValue(By locator, String value) {
+        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        Select select = new Select(dropdown);
+        select.selectByValue(value);
     }
-
-    protected void clickUsingJS(WebElement element) {
-        jsExecutor.executeScript("arguments[0].click();", element);
+    
+    /**
+     * Get all options from dropdown
+     * 
+     * @param locator Dropdown locator
+     * @return List of option texts
+     */
+    protected List<WebElement> getDropdownOptions(By locator) {
+        WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(locator));
+        Select select = new Select(dropdown);
+        return select.getOptions();
     }
-
-    protected void scrollToElement(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeVisible(driver, locator);
-        jsExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+    
+    /**
+     * Execute JavaScript code
+     * 
+     * @param script JavaScript code
+     * @param args Arguments
+     * @return Script result
+     */
+    protected Object executeScript(String script, Object... args) {
+        return jsExecutor.executeScript(script, args);
     }
-
-    protected void scrollToElement(WebElement element) {
-        jsExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+    
+    /**
+     * Switch to frame by index
+     * 
+     * @param index Frame index
+     */
+    protected void switchToFrame(int index) {
+        driver.switchTo().frame(index);
     }
-
-    protected void scrollToTop() {
-        jsExecutor.executeScript("window.scrollTo(0, 0);");
+    
+    /**
+     * Switch to frame by name or id
+     * 
+     * @param nameOrId Frame name or id
+     */
+    protected void switchToFrame(String nameOrId) {
+        driver.switchTo().frame(nameOrId);
     }
-
-    protected void scrollToBottom() {
-        jsExecutor.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+    
+    /**
+     * Switch to frame by element
+     * 
+     * @param locator Frame element locator
+     */
+    protected void switchToFrame(By locator) {
+        WebElement frame = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        driver.switchTo().frame(frame);
     }
-
-    protected void highlightElement(By locator) {
-        WebElement element = WaitUtils.waitForElementToBeVisible(driver, locator);
-        jsExecutor.executeScript("arguments[0].style.border='3px solid red'", element);
+    
+    /**
+     * Switch back to default content
+     */
+    protected void switchToDefaultContent() {
+        driver.switchTo().defaultContent();
     }
-
-    protected void removeHighlight(By locator) {
-        WebElement element = driver.findElement(locator);
-        jsExecutor.executeScript("arguments[0].style.border=''", element);
-    }
-
-    // Navigation utilities
-    protected void navigateToUrl(String url) {
-        driver.navigate().to(url);
-    }
-
-    protected void refreshPage() {
-        driver.navigate().refresh();
-    }
-
-    protected void navigateBack() {
-        driver.navigate().back();
-    }
-
-    protected void navigateForward() {
-        driver.navigate().forward();
-    }
-
-    protected String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-
+    
+    /**
+     * Get current page title
+     * 
+     * @return Page title
+     */
     protected String getPageTitle() {
         return driver.getTitle();
     }
-
-    // Wait utilities
+    
+    /**
+     * Get current page URL
+     * 
+     * @return Page URL
+     */
+    protected String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+    
+    /**
+     * Refresh the current page
+     */
+    protected void refreshPage() {
+        driver.navigate().refresh();
+    }
+    
+    /**
+     * Navigate back in browser history
+     */
+    protected void navigateBack() {
+        driver.navigate().back();
+    }
+    
+    /**
+     * Navigate forward in browser history
+     */
+    protected void navigateForward() {
+        driver.navigate().forward();
+    }
+    
+    /**
+     * Wait for page to load completely
+     */
     protected void waitForPageLoad() {
-        WaitUtils.waitForPageToLoad(driver);
-    }
-
-    protected void waitForAjaxComplete() {
-        WaitUtils.waitForAjaxToComplete(driver);
-    }
-
-    protected void waitForElementToDisappear(By locator) {
-        WaitUtils.waitForElementToBeInvisible(driver, locator);
-    }
-
-    protected boolean waitForTextInElement(By locator, String text) {
-        return WaitUtils.waitForTextToBePresentInElement(driver, locator, text);
-    }
-
-    protected boolean waitForUrlToContain(String urlFraction) {
-        return WaitUtils.waitForUrlContains(driver, urlFraction);
+        wait.until(webDriver -> jsExecutor.executeScript("return document.readyState").equals("complete"));
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Selenium Test Framework Suite" verbose="1">
+<suite name="Selenium Test Suite" verbose="1">
     
     <listeners>
         <listener class-name="listeners.TestListener"/>
@@ -8,16 +8,17 @@
     
     <parameter name="browser" value="chrome"/>
     <parameter name="environment" value="qa"/>
+    <parameter name="headless" value="false"/>
     
-    <test name="Login Tests" preserve-order="true">
+    <test name="Login Tests">
         <classes>
             <class name="tests.LoginTest"/>
         </classes>
     </test>
     
-    <test name="Home Page Tests" preserve-order="true">
+    <test name="Sample Tests">
         <classes>
-            <class name="tests.HomePageTest"/>
+            <class name="tests.SampleTest"/>
         </classes>
     </test>
     
