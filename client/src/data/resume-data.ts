@@ -228,7 +228,7 @@ export const projects = [
     description: "Comprehensive enterprise-grade Cypress test automation framework with modern JavaScript/TypeScript architecture. Features 100+ custom commands across API, UI, Performance, and Accessibility testing with professional CI/CD integration and advanced reporting capabilities.",
     technologies: ["Cypress 13.x", "JavaScript/TypeScript", "Mochawesome", "Axe-core", "Visual Regression", "GitHub Actions", "Jenkins", "Cross-browser Testing"],
     category: "E2E Testing",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     githubUrl: "https://github.com/latorocka/cypress-test-framework",
     features: [
       "Multi-layered testing architecture with API, UI, Performance, and Accessibility test suites",
