@@ -1,4 +1,5 @@
 import { useRoute } from "wouter";
+import { useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,11 @@ export default function ProjectDetail() {
   const [match, params] = useRoute("/project/:id");
   const projectId = params?.id ? parseInt(params.id) : null;
   const project = projects.find(p => p.id === projectId);
+
+  // Scroll to top when component mounts or project changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [projectId]);
 
   if (!project) {
     return (
