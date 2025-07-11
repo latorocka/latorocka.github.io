@@ -17,7 +17,7 @@ export default function Footer() {
               <Mail className="h-6 w-6" />
             </a>
             <a 
-              href="https://www.linkedin.com/in/brian-latorraca-22713783/" 
+              href={personalInfo.linkedin} 
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-white transition-colors"
@@ -25,7 +25,7 @@ export default function Footer() {
               <Linkedin className="h-6 w-6" />
             </a>
             <a 
-              href="https://github.com/latorocka" 
+              href={personalInfo.github} 
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-300 hover:text-white transition-colors"

@@ -3,7 +3,9 @@ export const personalInfo = {
   title: "QA Automation Engineer & Developer",
   location: "Long Beach, CA 90804",
   email: "Latorocka@gmail.com",
-  phone: "714-316-3506"
+  phone: "714-316-3506",
+  linkedin: "https://www.linkedin.com/in/brian-latorraca-22713783/",
+  github: "https://github.com/latorocka"
 };
 
 export const experiences = [
