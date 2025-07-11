@@ -70,18 +70,14 @@ export default function HeroSection() {
           
           <div className="animate-in fade-in duration-1000">
             <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                alt="Professional developer workspace with modern setup and coding environment" 
-                className="rounded-2xl shadow-2xl w-full" 
-              />
-              
-              {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg">
-                <span className="text-2xl">✓</span>
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-accent text-white p-4 rounded-xl shadow-lg">
-                <Code className="h-6 w-6" />
+              {/* Professional border effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl"></div>
+              <div className="relative bg-gradient-to-br from-white/10 to-transparent p-1 rounded-2xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                  alt="Professional developer workspace with modern setup and coding environment" 
+                  className="rounded-2xl shadow-2xl w-full relative z-10" 
+                />
               </div>
             </div>
           </div>
