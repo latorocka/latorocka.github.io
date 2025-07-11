@@ -1916,7 +1916,15 @@ Contact: Latorocka@gmail.com`;
                     View on GitHub
                   </a>
                 </Button>
-                <Button variant="outline" onClick={() => openDocumentation('setup')}>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    const docSection = document.getElementById('documentation-section');
+                    if (docSection) {
+                      docSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Documentation
                 </Button>
@@ -1961,7 +1969,7 @@ Contact: Latorocka@gmail.com`;
         </Card>
 
         {/* Documentation */}
-        <Card className="mb-12">
+        <Card className="mb-12" id="documentation-section">
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold mb-6">Documentation</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
