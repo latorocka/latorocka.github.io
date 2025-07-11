@@ -164,12 +164,12 @@ ${project.id === 1 ?
 
 ## Configuration
 ${project.id === 1 ?
-  'Edit config.properties for environment settings.' :
+  'Edit config.properties for environment settings and browser configurations.' :
   project.id === 2 ?
-  'No additional configuration required. Tests run against public APIs.' :
+  'Configure API endpoints and test parameters in configuration files.' :
   project.id === 3 ?
-  'Configure device settings in wdio configuration files.' :
-  'Configure cypress.config.js for environment settings and test configuration.'
+  'Configure device settings in wdio configuration files for Android and iOS testing.' :
+  'Configure cypress.config.js for environment settings, browser options, and test configuration.'
 }
 
 For complete documentation, visit: ${project.githubUrl}
@@ -305,27 +305,28 @@ Contact: Latorocka@gmail.com`;
                   <h3 className="font-bold text-lg">User Guide</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Comprehensive guide for using the framework.
+                  Comprehensive guide covering test writing, execution, configuration, and best practices.
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    window.open(project.githubUrl, '_blank');
+                    const userGuideUrl = `${project.githubUrl}/blob/main/USER_GUIDE.md`;
+                    window.open(userGuideUrl, '_blank');
                   }}
                 >
                   <Users className="mr-2 h-4 w-4" />
-                  View on GitHub
+                  View User Guide
                 </Button>
               </div>
 
               <div className="border rounded-lg p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Code className="h-6 w-6 text-orange-500" />
-                  <h3 className="font-bold text-lg">Code Examples</h3>
+                  <h3 className="font-bold text-lg">API Reference</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Working code examples and implementation patterns.
+                  Complete API documentation with code examples and implementation patterns.
                 </p>
                 <Button 
                   variant="outline" 
@@ -335,7 +336,7 @@ Contact: Latorocka@gmail.com`;
                   }}
                 >
                   <Code className="mr-2 h-4 w-4" />
-                  View Examples
+                  View Documentation
                 </Button>
               </div>
             </div>
