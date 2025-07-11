@@ -3696,11 +3696,11 @@ Contact: Latorocka@gmail.com`;
 
               <div className="border rounded-lg p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <Code className="h-6 w-6 text-orange-500" />
-                  <h3 className="font-bold text-lg">API Reference</h3>
+                  <Github className="h-6 w-6 text-orange-500" />
+                  <h3 className="font-bold text-lg">View on GitHub</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Complete API documentation with code examples and implementation patterns.
+                  Explore the complete source code, documentation, and implementation examples in the live repository.
                 </p>
                 <Button variant="outline" size="sm" asChild>
                   <a 
@@ -3709,8 +3709,8 @@ Contact: Latorocka@gmail.com`;
                     rel="noopener noreferrer"
                     className="inline-flex items-center"
                   >
-                    <Code className="mr-2 h-4 w-4" />
-                    View Code Examples
+                    <Github className="mr-2 h-4 w-4" />
+                    View Repository
                   </a>
                 </Button>
               </div>
