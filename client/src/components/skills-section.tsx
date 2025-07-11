@@ -14,16 +14,25 @@ export default function SkillsSection() {
     "Swift": "devicon-swift-plain colored"
   };
 
+  const toolIcons: Record<string, { type: 'devicon' | 'image', value: string }> = {
+    "Selenium": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/selenium.svg' },
+    "Cypress.io": { type: 'devicon', value: 'devicon-cypressio-plain colored' },
+    "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
+    "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
+    "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
+    "Unity Game Engine": { type: 'devicon', value: 'devicon-unity-original colored' }
+  };
+
   const toolCategories = [
     {
       title: "Testing Tools & Frameworks",
       items: [
-        { name: "Selenium", description: "Web automation testing framework with Java integration", icon: "🤖" },
-        { name: "Cypress.io", description: "Modern JavaScript testing framework for frontend automation", icon: "🧪" },
-        { name: "Postman", description: "API development and testing platform", icon: "📡" },
-        { name: "Android Studio", description: "Mobile application testing and development", icon: "📱" },
-        { name: "Cucumber", description: "Behavior-driven development testing framework", icon: "🥒" },
-        { name: "Unity Game Engine", description: "Game development and testing environment", icon: "🎮" }
+        { name: "Selenium", description: "Web automation testing framework with Java integration" },
+        { name: "Cypress.io", description: "Modern JavaScript testing framework for frontend automation" },
+        { name: "Postman", description: "API development and testing platform" },
+        { name: "Android Studio", description: "Mobile application testing and development" },
+        { name: "Cucumber", description: "Behavior-driven development testing framework" },
+        { name: "Unity Game Engine", description: "Game development and testing environment" }
       ]
     },
     {
@@ -68,19 +77,38 @@ export default function SkillsSection() {
           <div key={categoryIndex} className="mb-16">
             <h3 className="text-2xl font-bold mb-8 text-center">{category.title}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {category.items.map((tool, index) => (
-                <Card key={index} className="skill-card">
-                  <CardContent className="p-6">
-                    <div className="flex items-center mb-4">
-                      <div className="text-2xl mr-4">
-                        {tool.icon}
+              {category.items.map((tool, index) => {
+                const iconConfig = category.title === "Testing Tools & Frameworks" 
+                  ? toolIcons[tool.name] 
+                  : null;
+                
+                return (
+                  <Card key={index} className="skill-card">
+                    <CardContent className="p-6">
+                      <div className="flex items-center mb-4">
+                        <div className="w-8 h-8 mr-4 flex items-center justify-center">
+                          {iconConfig ? (
+                            iconConfig.type === 'devicon' ? (
+                              <i className={`${iconConfig.value} text-2xl`}></i>
+                            ) : (
+                              <img 
+                                src={iconConfig.value} 
+                                alt={tool.name}
+                                className="w-6 h-6 object-contain"
+                                style={{ filter: 'invert(1)' }}
+                              />
+                            )
+                          ) : (
+                            <span className="text-2xl">{tool.icon || "🛠️"}</span>
+                          )}
+                        </div>
+                        <h4 className="font-bold">{tool.name}</h4>
                       </div>
-                      <h4 className="font-bold">{tool.name}</h4>
-                    </div>
-                    <p className="text-secondary text-sm">{tool.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+                      <p className="text-secondary text-sm">{tool.description}</p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         ))}
