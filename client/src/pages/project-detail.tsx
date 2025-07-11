@@ -126,6 +126,1637 @@ export default function ProjectDetail() {
     }
   };
 
+  const getApiReferenceContent = (projectId: number) => {
+    if (projectId === 1) {
+      // Selenium Framework API Reference
+      return `# Selenium Test Framework - API Reference & Code Examples
+
+## Core Framework APIs
+
+### WebDriver Management
+\`\`\`java
+// DriverManager.java
+public class DriverManager {
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    
+    public static void setDriver(String browserName) {
+        switch (browserName.toLowerCase()) {
+            case "chrome":
+                driver.set(new ChromeDriver());
+                break;
+            case "firefox":
+                driver.set(new FirefoxDriver());
+                break;
+            default:
+                throw new IllegalArgumentException("Browser not supported: " + browserName);
+        }
+    }
+    
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+    
+    public static void quitDriver() {
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
+        }
+    }
+}
+\`\`\`
+
+### Base Page Object
+\`\`\`java
+// BasePage.java
+public abstract class BasePage {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        PageFactory.initElements(driver, this);
+    }
+    
+    protected void clickElement(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
+    }
+    
+    protected void sendKeys(WebElement element, String text) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text);
+    }
+    
+    protected String getText(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return element.getText();
+    }
+    
+    protected boolean isElementDisplayed(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+}
+\`\`\`
+
+### Test Base Class
+\`\`\`java
+// BaseTest.java
+@Listeners({TestListener.class})
+public class BaseTest {
+    protected WebDriver driver;
+    
+    @BeforeMethod
+    @Parameters({"browser"})
+    public void setUp(@Optional("chrome") String browser) {
+        DriverManager.setDriver(browser);
+        driver = DriverManager.getDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+    
+    @AfterMethod
+    public void tearDown() {
+        DriverManager.quitDriver();
+    }
+    
+    protected void navigateTo(String url) {
+        driver.get(ConfigReader.getProperty("base.url") + url);
+    }
+}
+\`\`\`
+
+### Configuration Management
+\`\`\`java
+// ConfigReader.java
+public class ConfigReader {
+    private static Properties properties;
+    
+    static {
+        try {
+            properties = new Properties();
+            FileInputStream file = new FileInputStream("src/test/resources/config.properties");
+            properties.load(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+    
+    public static String getBrowser() {
+        return getProperty("browser");
+    }
+    
+    public static String getBaseUrl() {
+        return getProperty("base.url");
+    }
+}
+\`\`\`
+
+### Wait Utilities
+\`\`\`java
+// WaitUtils.java
+public class WaitUtils {
+    private WebDriver driver;
+    private WebDriverWait wait;
+    
+    public WaitUtils(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    }
+    
+    public WebElement waitForElement(By locator) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+    
+    public WebElement waitForClickableElement(By locator) {
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+    
+    public boolean waitForTextToBePresentInElement(WebElement element, String text) {
+        return wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+    
+    public void waitForPageLoad() {
+        wait.until(driver -> ((JavascriptExecutor) driver)
+            .executeScript("return document.readyState").equals("complete"));
+    }
+}
+\`\`\`
+
+### Data Provider Utilities
+\`\`\`java
+// ExcelUtils.java
+public class ExcelUtils {
+    private static Workbook workbook;
+    private static Sheet sheet;
+    
+    public static Object[][] getTestData(String fileName, String sheetName) {
+        try {
+            FileInputStream file = new FileInputStream("test-data/" + fileName + ".xlsx");
+            workbook = new XSSFWorkbook(file);
+            sheet = workbook.getSheet(sheetName);
+            
+            int rowCount = sheet.getLastRowNum();
+            int colCount = sheet.getRow(0).getLastCellNum();
+            
+            Object[][] data = new Object[rowCount][colCount];
+            
+            for (int i = 1; i <= rowCount; i++) {
+                for (int j = 0; j < colCount; j++) {
+                    data[i-1][j] = sheet.getRow(i).getCell(j).toString();
+                }
+            }
+            
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
+\`\`\`
+
+### Screenshot Utilities
+\`\`\`java
+// ScreenshotUtils.java
+public class ScreenshotUtils {
+    public static String captureScreenshot(String testName) {
+        TakesScreenshot screenshot = (TakesScreenshot) DriverManager.getDriver();
+        byte[] sourceFile = screenshot.getScreenshotAs(OutputType.BYTES);
+        
+        String fileName = testName + "_" + System.currentTimeMillis() + ".png";
+        String filePath = "target/screenshots/" + fileName;
+        
+        try {
+            Files.write(Paths.get(filePath), sourceFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return filePath;
+    }
+    
+    public static void attachScreenshotToReport(String testName) {
+        String screenshotPath = captureScreenshot(testName);
+        ExtentTestManager.getTest().addScreenCaptureFromPath(screenshotPath);
+    }
+}
+\`\`\`
+
+## Example Usage
+
+### Sample Test Implementation
+\`\`\`java
+public class LoginTest extends BaseTest {
+    private LoginPage loginPage;
+    private HomePage homePage;
+    
+    @BeforeMethod
+    public void setUpTest() {
+        loginPage = new LoginPage(driver);
+        homePage = new HomePage(driver);
+        navigateTo("/login");
+    }
+    
+    @Test(dataProvider = "loginData")
+    public void testValidLogin(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+        
+        Assert.assertTrue(homePage.isWelcomeMessageDisplayed(),
+            "Welcome message should be displayed after successful login");
+    }
+    
+    @DataProvider(name = "loginData")
+    public Object[][] getLoginData() {
+        return ExcelUtils.getTestData("LoginData", "Sheet1");
+    }
+}
+\`\`\`
+
+For complete source code and more examples, visit: ${project.githubUrl}
+
+## GitHub Repository
+View the complete implementation, additional utilities, and comprehensive test examples:
+
+[**🔗 View Full Source Code on GitHub**](${project.githubUrl})
+
+Contact: latorocka@gmail.com`;
+    } else if (projectId === 2) {
+      // API Test Suite API Reference
+      return `# API Test Suite - API Reference & Code Examples
+
+## Core Testing APIs
+
+### API Test Base Class
+\`\`\`javascript
+// base/ApiTestBase.js
+const request = require('supertest');
+const config = require('../config/test.config');
+
+class ApiTestBase {
+  constructor(app) {
+    this.app = app;
+    this.request = request(app);
+  }
+  
+  async get(endpoint, headers = {}) {
+    return await this.request
+      .get(endpoint)
+      .set(headers)
+      .expect(200);
+  }
+  
+  async post(endpoint, data, headers = {}) {
+    return await this.request
+      .post(endpoint)
+      .send(data)
+      .set(headers)
+      .expect(201);
+  }
+  
+  async put(endpoint, data, headers = {}) {
+    return await this.request
+      .put(endpoint)
+      .send(data)
+      .set(headers)
+      .expect(200);
+  }
+  
+  async delete(endpoint, headers = {}) {
+    return await this.request
+      .delete(endpoint)
+      .set(headers)
+      .expect(204);
+  }
+}
+
+module.exports = ApiTestBase;
+\`\`\`
+
+### GraphQL Testing Utilities
+\`\`\`javascript
+// utils/GraphQLUtils.js
+class GraphQLUtils {
+  constructor(endpoint) {
+    this.endpoint = endpoint;
+  }
+  
+  async query(query, variables = {}) {
+    const response = await fetch(this.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+        variables
+      })
+    });
+    
+    return await response.json();
+  }
+  
+  async mutation(mutation, variables = {}) {
+    return await this.query(mutation, variables);
+  }
+  
+  validateSchema(response, expectedSchema) {
+    const errors = [];
+    
+    function validate(obj, schema, path = '') {
+      for (const key in schema) {
+        const currentPath = path ? \`\${path}.\${key}\` : key;
+        
+        if (!(key in obj)) {
+          errors.push(\`Missing field: \${currentPath}\`);
+          continue;
+        }
+        
+        if (typeof schema[key] === 'object' && schema[key] !== null) {
+          validate(obj[key], schema[key], currentPath);
+        } else if (typeof obj[key] !== schema[key]) {
+          errors.push(\`Type mismatch at \${currentPath}: expected \${schema[key]}, got \${typeof obj[key]}\`);
+        }
+      }
+    }
+    
+    validate(response, expectedSchema);
+    return errors;
+  }
+}
+
+module.exports = GraphQLUtils;
+\`\`\`
+
+### Performance Testing Framework
+\`\`\`javascript
+// performance/PerformanceTest.js
+class PerformanceTest {
+  constructor(endpoint, options = {}) {
+    this.endpoint = endpoint;
+    this.options = {
+      concurrentUsers: options.concurrentUsers || 10,
+      duration: options.duration || 30000, // 30 seconds
+      rampUp: options.rampUp || 5000, // 5 seconds
+      ...options
+    };
+    this.metrics = {
+      requests: 0,
+      responses: 0,
+      errors: 0,
+      responseTimes: [],
+      startTime: null,
+      endTime: null
+    };
+  }
+  
+  async runLoadTest() {
+    this.metrics.startTime = Date.now();
+    const promises = [];
+    
+    for (let i = 0; i < this.options.concurrentUsers; i++) {
+      promises.push(this.simulateUser());
+    }
+    
+    await Promise.all(promises);
+    this.metrics.endTime = Date.now();
+    
+    return this.generateReport();
+  }
+  
+  async simulateUser() {
+    const endTime = Date.now() + this.options.duration;
+    
+    while (Date.now() < endTime) {
+      try {
+        const startTime = Date.now();
+        this.metrics.requests++;
+        
+        const response = await fetch(this.endpoint);
+        
+        const responseTime = Date.now() - startTime;
+        this.metrics.responseTimes.push(responseTime);
+        this.metrics.responses++;
+        
+        if (!response.ok) {
+          this.metrics.errors++;
+        }
+      } catch (error) {
+        this.metrics.errors++;
+      }
+      
+      // Small delay between requests
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+  
+  generateReport() {
+    const totalTime = this.metrics.endTime - this.metrics.startTime;
+    const avgResponseTime = this.metrics.responseTimes.reduce((a, b) => a + b, 0) / this.metrics.responseTimes.length;
+    
+    return {
+      totalRequests: this.metrics.requests,
+      successfulResponses: this.metrics.responses,
+      errors: this.metrics.errors,
+      errorRate: (this.metrics.errors / this.metrics.requests) * 100,
+      averageResponseTime: avgResponseTime,
+      requestsPerSecond: this.metrics.requests / (totalTime / 1000),
+      p95ResponseTime: this.percentile(this.metrics.responseTimes, 95),
+      p99ResponseTime: this.percentile(this.metrics.responseTimes, 99)
+    };
+  }
+  
+  percentile(arr, p) {
+    const sorted = arr.sort((a, b) => a - b);
+    const index = Math.ceil((p / 100) * sorted.length) - 1;
+    return sorted[index];
+  }
+}
+
+module.exports = PerformanceTest;
+\`\`\`
+
+### Security Testing Utilities
+\`\`\`javascript
+// security/SecurityTestUtils.js
+class SecurityTestUtils {
+  static sqlInjectionPayloads = [
+    "'; DROP TABLE users; --",
+    "' OR '1'='1",
+    "'; SELECT * FROM users; --",
+    "' UNION SELECT NULL, username, password FROM users; --"
+  ];
+  
+  static xssPayloads = [
+    "<script>alert('xss')</script>",
+    "<img src=x onerror=alert('xss')>",
+    "javascript:alert('xss')",
+    "<svg onload=alert('xss')>"
+  ];
+  
+  static async testSqlInjection(apiBase, endpoint, paramName) {
+    const results = [];
+    
+    for (const payload of this.sqlInjectionPayloads) {
+      try {
+        const response = await apiBase.post(endpoint, {
+          [paramName]: payload
+        });
+        
+        results.push({
+          payload,
+          status: response.status,
+          vulnerable: response.status === 200 && !response.body.error
+        });
+      } catch (error) {
+        results.push({
+          payload,
+          status: error.status || 'ERROR',
+          vulnerable: false
+        });
+      }
+    }
+    
+    return results;
+  }
+  
+  static async testXSS(apiBase, endpoint, paramName) {
+    const results = [];
+    
+    for (const payload of this.xssPayloads) {
+      try {
+        const response = await apiBase.post(endpoint, {
+          [paramName]: payload
+        });
+        
+        const responseText = JSON.stringify(response.body);
+        const containsPayload = responseText.includes(payload);
+        
+        results.push({
+          payload,
+          status: response.status,
+          vulnerable: containsPayload && !responseText.includes('&lt;') // Not encoded
+        });
+      } catch (error) {
+        results.push({
+          payload,
+          status: error.status || 'ERROR',
+          vulnerable: false
+        });
+      }
+    }
+    
+    return results;
+  }
+  
+  static validateJWT(token) {
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return false;
+      
+      const header = JSON.parse(atob(parts[0]));
+      const payload = JSON.parse(atob(parts[1]));
+      
+      return {
+        valid: true,
+        header,
+        payload,
+        expired: payload.exp && payload.exp < Date.now() / 1000
+      };
+    } catch (error) {
+      return { valid: false, error: error.message };
+    }
+  }
+}
+
+module.exports = SecurityTestUtils;
+\`\`\`
+
+### WebSocket Testing Framework
+\`\`\`javascript
+// websocket/WebSocketTest.js
+const WebSocket = require('ws');
+
+class WebSocketTest {
+  constructor(url) {
+    this.url = url;
+    this.ws = null;
+    this.messages = [];
+    this.connected = false;
+  }
+  
+  connect() {
+    return new Promise((resolve, reject) => {
+      this.ws = new WebSocket(this.url);
+      
+      this.ws.on('open', () => {
+        this.connected = true;
+        resolve();
+      });
+      
+      this.ws.on('message', (data) => {
+        this.messages.push({
+          timestamp: Date.now(),
+          data: JSON.parse(data)
+        });
+      });
+      
+      this.ws.on('error', reject);
+    });
+  }
+  
+  send(message) {
+    if (!this.connected) {
+      throw new Error('WebSocket not connected');
+    }
+    
+    this.ws.send(JSON.stringify(message));
+  }
+  
+  waitForMessage(timeout = 5000) {
+    return new Promise((resolve, reject) => {
+      const startTime = Date.now();
+      
+      const checkForMessage = () => {
+        if (this.messages.length > 0) {
+          resolve(this.messages.shift());
+        } else if (Date.now() - startTime > timeout) {
+          reject(new Error('Timeout waiting for message'));
+        } else {
+          setTimeout(checkForMessage, 100);
+        }
+      };
+      
+      checkForMessage();
+    });
+  }
+  
+  close() {
+    if (this.ws) {
+      this.ws.close();
+      this.connected = false;
+    }
+  }
+}
+
+module.exports = WebSocketTest;
+\`\`\`
+
+## Example Usage
+
+### Complete API Test Suite
+\`\`\`javascript
+const ApiTestBase = require('../base/ApiTestBase');
+const PerformanceTest = require('../performance/PerformanceTest');
+const SecurityTestUtils = require('../security/SecurityTestUtils');
+
+describe('Complete API Test Suite', () => {
+  let apiBase;
+  
+  beforeAll(() => {
+    apiBase = new ApiTestBase(app);
+  });
+  
+  describe('Functional Tests', () => {
+    test('should perform CRUD operations', async () => {
+      // Create
+      const createResponse = await apiBase.post('/api/users', {
+        name: 'John Doe',
+        email: 'john@example.com'
+      });
+      
+      expect(createResponse.body.id).toBeDefined();
+      const userId = createResponse.body.id;
+      
+      // Read
+      const getResponse = await apiBase.get(\`/api/users/\${userId}\`);
+      expect(getResponse.body.name).toBe('John Doe');
+      
+      // Update
+      const updateResponse = await apiBase.put(\`/api/users/\${userId}\`, {
+        name: 'John Smith'
+      });
+      expect(updateResponse.body.name).toBe('John Smith');
+      
+      // Delete
+      await apiBase.delete(\`/api/users/\${userId}\`);
+    });
+  });
+  
+  describe('Performance Tests', () => {
+    test('should handle load testing', async () => {
+      const perfTest = new PerformanceTest('/api/users', {
+        concurrentUsers: 50,
+        duration: 10000
+      });
+      
+      const report = await perfTest.runLoadTest();
+      
+      expect(report.errorRate).toBeLessThan(5); // Less than 5% error rate
+      expect(report.averageResponseTime).toBeLessThan(500); // Less than 500ms
+    });
+  });
+  
+  describe('Security Tests', () => {
+    test('should prevent SQL injection', async () => {
+      const results = await SecurityTestUtils.testSqlInjection(
+        apiBase, 
+        '/api/users', 
+        'name'
+      );
+      
+      const vulnerabilities = results.filter(r => r.vulnerable);
+      expect(vulnerabilities).toHaveLength(0);
+    });
+  });
+});
+\`\`\`
+
+For complete source code and more examples, visit: ${project.githubUrl}
+
+## GitHub Repository
+View the complete implementation, test runners, and live API demonstrations:
+
+[**🔗 View Full Source Code on GitHub**](${project.githubUrl})
+
+Contact: latorocka@gmail.com`;
+    } else if (projectId === 3) {
+      // Mobile Test Suite API Reference
+      return `# Mobile Test Automation Suite - API Reference & Code Examples
+
+## Core Framework APIs
+
+### Device Management API
+\`\`\`javascript
+// utils/DeviceUtils.js
+class DeviceUtils {
+  static async getDeviceInfo() {
+    const capabilities = await driver.getCapabilities();
+    return {
+      platform: capabilities.platformName,
+      version: capabilities.platformVersion,
+      deviceName: capabilities.deviceName,
+      udid: capabilities.udid,
+      screenSize: await driver.getWindowSize()
+    };
+  }
+  
+  static async installApp(appPath) {
+    await driver.installApp(appPath);
+  }
+  
+  static async launchApp(bundleId) {
+    await driver.activateApp(bundleId);
+  }
+  
+  static async closeApp(bundleId) {
+    await driver.terminateApp(bundleId);
+  }
+  
+  static async resetApp() {
+    await driver.reset();
+  }
+  
+  static async takeScreenshot(testName) {
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = \`\${testName}_\${timestamp}.png\`;
+    await driver.saveScreenshot(\`./screenshots/\${filename}\`);
+    return filename;
+  }
+  
+  static getPlatformSelector(androidSelector, iosSelector) {
+    const platform = driver.capabilities.platformName;
+    return platform === 'Android' ? androidSelector : iosSelector;
+  }
+}
+
+module.exports = DeviceUtils;
+\`\`\`
+
+### Base Page Object
+\`\`\`javascript
+// pages/base/BasePage.js
+class BasePage {
+  constructor() {
+    this.platform = driver.capabilities.platformName;
+  }
+  
+  async waitForElement(element, timeout = 10000) {
+    await element.waitForDisplayed({ timeout });
+  }
+  
+  async tapElement(element) {
+    await this.waitForElement(element);
+    await element.touchAction('tap');
+  }
+  
+  async enterText(element, text) {
+    await this.waitForElement(element);
+    await element.clearValue();
+    await element.setValue(text);
+  }
+  
+  async swipeElement(element, direction = 'up') {
+    await this.waitForElement(element);
+    const { x, y, width, height } = await element.getLocation();
+    
+    let startX = x + width / 2;
+    let startY = y + height / 2;
+    let endX = startX;
+    let endY = startY;
+    
+    switch (direction) {
+      case 'up':
+        endY = startY - height / 2;
+        break;
+      case 'down':
+        endY = startY + height / 2;
+        break;
+      case 'left':
+        endX = startX - width / 2;
+        break;
+      case 'right':
+        endX = startX + width / 2;
+        break;
+    }
+    
+    await driver.touchPerform([
+      { action: 'press', options: { x: startX, y: startY } },
+      { action: 'wait', options: { ms: 500 } },
+      { action: 'moveTo', options: { x: endX, y: endY } },
+      { action: 'release' }
+    ]);
+  }
+  
+  async longPress(element, duration = 1000) {
+    await this.waitForElement(element);
+    await element.touchAction([
+      { action: 'press' },
+      { action: 'wait', options: { ms: duration } },
+      { action: 'release' }
+    ]);
+  }
+  
+  getPlatformSelector(androidSelector, iosSelector) {
+    return this.platform === 'Android' ? androidSelector : iosSelector;
+  }
+}
+
+module.exports = BasePage;
+\`\`\`
+
+### Gesture Testing Framework
+\`\`\`javascript
+// utils/GestureUtils.js
+class GestureUtils {
+  static async swipe(startX, startY, endX, endY, duration = 500) {
+    await driver.touchPerform([
+      { action: 'press', options: { x: startX, y: startY } },
+      { action: 'wait', options: { ms: duration } },
+      { action: 'moveTo', options: { x: endX, y: endY } },
+      { action: 'release' }
+    ]);
+  }
+  
+  static async pinchZoom(element, scale = 2.0) {
+    const { x, y, width, height } = await element.getLocation();
+    const centerX = x + width / 2;
+    const centerY = y + height / 2;
+    
+    const finger1StartX = centerX - 50;
+    const finger1StartY = centerY;
+    const finger2StartX = centerX + 50;
+    const finger2StartY = centerY;
+    
+    const finger1EndX = centerX - (50 * scale);
+    const finger1EndY = centerY;
+    const finger2EndX = centerX + (50 * scale);
+    const finger2EndY = centerY;
+    
+    await driver.multiTouchPerform([
+      [
+        { action: 'press', options: { x: finger1StartX, y: finger1StartY } },
+        { action: 'moveTo', options: { x: finger1EndX, y: finger1EndY } },
+        { action: 'release' }
+      ],
+      [
+        { action: 'press', options: { x: finger2StartX, y: finger2StartY } },
+        { action: 'moveTo', options: { x: finger2EndX, y: finger2EndY } },
+        { action: 'release' }
+      ]
+    ]);
+  }
+  
+  static async multiTouchDraw(points) {
+    const actions = points.map(point => [
+      { action: 'press', options: { x: point.x, y: point.y } },
+      { action: 'wait', options: { ms: 100 } },
+      { action: 'release' }
+    ]);
+    
+    await driver.multiTouchPerform(actions);
+  }
+  
+  static async dragAndDrop(sourceElement, targetElement) {
+    const sourceLocation = await sourceElement.getLocation();
+    const targetLocation = await targetElement.getLocation();
+    
+    await this.swipe(
+      sourceLocation.x,
+      sourceLocation.y,
+      targetLocation.x,
+      targetLocation.y,
+      1000
+    );
+  }
+}
+
+module.exports = GestureUtils;
+\`\`\`
+
+### Performance Testing API
+\`\`\`javascript
+// performance/AppPerformance.js
+class AppPerformance {
+  static async measureLaunchTime(bundleId) {
+    const startTime = Date.now();
+    await driver.activateApp(bundleId);
+    
+    // Wait for app to be fully loaded
+    await driver.waitUntil(
+      async () => {
+        const state = await driver.queryAppState(bundleId);
+        return state === 4; // RUNNING_IN_FOREGROUND
+      },
+      { timeout: 30000, timeoutMsg: 'App did not launch within 30 seconds' }
+    );
+    
+    const launchTime = Date.now() - startTime;
+    return launchTime;
+  }
+  
+  static async getMemoryUsage(bundleId) {
+    if (driver.capabilities.platformName === 'Android') {
+      const memoryInfo = await driver.getPerformanceData(bundleId, 'memoryinfo', 5);
+      return {
+        totalPss: memoryInfo[0][0],
+        nativePss: memoryInfo[0][1],
+        dalvikPss: memoryInfo[0][2]
+      };
+    } else {
+      // iOS memory monitoring
+      const memoryInfo = await driver.execute('mobile: getMemoryInfo');
+      return memoryInfo;
+    }
+  }
+  
+  static async getCPUUsage(bundleId) {
+    if (driver.capabilities.platformName === 'Android') {
+      const cpuInfo = await driver.getPerformanceData(bundleId, 'cpuinfo', 5);
+      return {
+        user: cpuInfo[0][0],
+        kernel: cpuInfo[0][1]
+      };
+    } else {
+      const cpuInfo = await driver.execute('mobile: getCPUInfo');
+      return cpuInfo;
+    }
+  }
+  
+  static async getBatteryInfo() {
+    if (driver.capabilities.platformName === 'Android') {
+      const batteryInfo = await driver.getBatteryInfo();
+      return batteryInfo;
+    } else {
+      const batteryInfo = await driver.execute('mobile: batteryInfo');
+      return batteryInfo;
+    }
+  }
+  
+  static async monitorPerformance(bundleId, duration = 60000) {
+    const metrics = {
+      memory: [],
+      cpu: [],
+      battery: [],
+      timestamps: []
+    };
+    
+    const startTime = Date.now();
+    const interval = 5000; // Collect metrics every 5 seconds
+    
+    while (Date.now() - startTime < duration) {
+      const timestamp = Date.now();
+      const memory = await this.getMemoryUsage(bundleId);
+      const cpu = await this.getCPUUsage(bundleId);
+      const battery = await this.getBatteryInfo();
+      
+      metrics.memory.push(memory);
+      metrics.cpu.push(cpu);
+      metrics.battery.push(battery);
+      metrics.timestamps.push(timestamp);
+      
+      await new Promise(resolve => setTimeout(resolve, interval));
+    }
+    
+    return metrics;
+  }
+}
+
+module.exports = AppPerformance;
+\`\`\`
+
+### Network Management API
+\`\`\`javascript
+// utils/NetworkUtils.js
+class NetworkUtils {
+  static async setNetworkConnection(connectionType) {
+    // Connection types:
+    // 0: No network
+    // 1: Airplane mode
+    // 2: WiFi only
+    // 4: Data only
+    // 6: WiFi + Data
+    await driver.setNetworkConnection(connectionType);
+  }
+  
+  static async getNetworkConnection() {
+    return await driver.getNetworkConnection();
+  }
+  
+  static async simulateSlowNetwork() {
+    if (driver.capabilities.platformName === 'Android') {
+      await this.setNetworkConnection(2); // WiFi only
+      await driver.execute('mobile: setNetworkSpeed', { netspeed: 'edge' });
+    } else {
+      await driver.execute('mobile: throttleNetwork', {
+        downlinkKbps: 50,
+        uplinkKbps: 20,
+        latency: 500
+      });
+    }
+  }
+  
+  static async resetNetworkConditions() {
+    await this.setNetworkConnection(6); // WiFi + Data
+    
+    if (driver.capabilities.platformName === 'iOS') {
+      await driver.execute('mobile: resetNetworkThrottle');
+    }
+  }
+  
+  static async toggleAirplaneMode() {
+    await this.setNetworkConnection(1);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    await this.setNetworkConnection(6);
+  }
+}
+
+module.exports = NetworkUtils;
+\`\`\`
+
+### Test Data Management
+\`\`\`javascript
+// data/TestDataManager.js
+class TestDataManager {
+  static getRandomUser() {
+    const users = [
+      { firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com' },
+      { firstName: 'Jane', lastName: 'Smith', email: 'jane.smith@example.com' },
+      { firstName: 'Bob', lastName: 'Johnson', email: 'bob.johnson@example.com' }
+    ];
+    
+    return users[Math.floor(Math.random() * users.length)];
+  }
+  
+  static generateRandomEmail() {
+    const domains = ['gmail.com', 'yahoo.com', 'hotmail.com'];
+    const name = Math.random().toString(36).substring(7);
+    const domain = domains[Math.floor(Math.random() * domains.length)];
+    return \`\${name}@\${domain}\`;
+  }
+  
+  static generateRandomPhone() {
+    const areaCode = Math.floor(Math.random() * 900) + 100;
+    const prefix = Math.floor(Math.random() * 900) + 100;
+    const number = Math.floor(Math.random() * 9000) + 1000;
+    return \`(\${areaCode}) \${prefix}-\${number}\`;
+  }
+  
+  static getCoordinate(position = 'center') {
+    const screenSize = { width: 375, height: 667 }; // Default iPhone size
+    
+    const coordinates = {
+      center: { x: screenSize.width / 2, y: screenSize.height / 2 },
+      topLeft: { x: 50, y: 50 },
+      topRight: { x: screenSize.width - 50, y: 50 },
+      bottomLeft: { x: 50, y: screenSize.height - 50 },
+      bottomRight: { x: screenSize.width - 50, y: screenSize.height - 50 }
+    };
+    
+    return coordinates[position] || coordinates.center;
+  }
+  
+  static async getDeviceSpecificData() {
+    const deviceInfo = await DeviceUtils.getDeviceInfo();
+    
+    return {
+      platform: deviceInfo.platform,
+      testData: {
+        swipeDistance: deviceInfo.platform === 'iOS' ? 100 : 150,
+        tapDelay: deviceInfo.platform === 'iOS' ? 100 : 200,
+        animationWait: deviceInfo.platform === 'iOS' ? 300 : 500
+      }
+    };
+  }
+}
+
+module.exports = TestDataManager;
+\`\`\`
+
+## Example Usage
+
+### Complete Mobile Test Suite
+\`\`\`javascript
+const BasePage = require('../pages/base/BasePage');
+const DeviceUtils = require('../utils/DeviceUtils');
+const GestureUtils = require('../utils/GestureUtils');
+const AppPerformance = require('../performance/AppPerformance');
+
+describe('Mobile App Test Suite', () => {
+  let loginPage;
+  
+  beforeEach(async () => {
+    loginPage = new LoginPage();
+    await DeviceUtils.launchApp('com.example.app');
+  });
+  
+  afterEach(async () => {
+    await DeviceUtils.takeScreenshot(jasmine.currentSpec.fullName);
+    await DeviceUtils.closeApp('com.example.app');
+  });
+  
+  describe('Gesture Testing', () => {
+    it('should handle swipe gestures', async () => {
+      await GestureUtils.swipe(200, 400, 200, 100); // Swipe up
+      await expect($('//android.widget.TextView[@text="Next Screen"]')).toBeDisplayed();
+    });
+    
+    it('should handle pinch zoom', async () => {
+      const imageElement = await $('//android.widget.ImageView');
+      await GestureUtils.pinchZoom(imageElement, 2.0);
+      
+      // Verify zoom level changed
+      const zoomLevel = await $('//android.widget.TextView[@resource-id="zoom-level"]').getText();
+      expect(zoomLevel).toBe('200%');
+    });
+  });
+  
+  describe('Performance Testing', () => {
+    it('should measure app launch time', async () => {
+      const launchTime = await AppPerformance.measureLaunchTime('com.example.app');
+      expect(launchTime).toBeLessThan(5000); // Less than 5 seconds
+    });
+    
+    it('should monitor memory usage', async () => {
+      const initialMemory = await AppPerformance.getMemoryUsage('com.example.app');
+      
+      // Perform memory-intensive operations
+      await performHeavyOperations();
+      
+      const finalMemory = await AppPerformance.getMemoryUsage('com.example.app');
+      const memoryIncrease = finalMemory.totalPss - initialMemory.totalPss;
+      
+      expect(memoryIncrease).toBeLessThan(50000); // Less than 50MB increase
+    });
+  });
+  
+  describe('Cross-Platform Testing', () => {
+    it('should work on both Android and iOS', async () => {
+      const platform = driver.capabilities.platformName;
+      
+      if (platform === 'Android') {
+        await androidSpecificTest();
+      } else {
+        await iosSpecificTest();
+      }
+      
+      // Common assertions
+      await expect(successElement).toBeDisplayed();
+    });
+  });
+});
+\`\`\`
+
+For complete source code and device setup scripts, visit: ${project.githubUrl}
+
+## GitHub Repository
+View the complete implementation, configuration files, and platform-specific utilities:
+
+[**🔗 View Full Source Code on GitHub**](${project.githubUrl})
+
+Contact: latorocka@gmail.com`;
+    } else {
+      // Cypress Framework API Reference
+      return `# Cypress Test Framework - API Reference & Code Examples
+
+## Core Custom Commands
+
+### API Testing Commands
+\`\`\`javascript
+// cypress/support/commands/api.js
+Cypress.Commands.add('api', (method, url, body = null, headers = {}) => {
+  return cy.request({
+    method,
+    url: Cypress.env('API_BASE_URL') + url,
+    body,
+    headers: {
+      'Authorization': \`Bearer \${Cypress.env('AUTH_TOKEN')}\`,
+      'Content-Type': 'application/json',
+      ...headers
+    },
+    failOnStatusCode: false
+  });
+});
+
+Cypress.Commands.add('apiLogin', (username, password) => {
+  return cy.api('POST', '/auth/login', { username, password })
+    .then((response) => {
+      expect(response.status).to.eq(200);
+      Cypress.env('AUTH_TOKEN', response.body.token);
+      return response;
+    });
+});
+
+Cypress.Commands.add('graphql', (query, variables = {}) => {
+  return cy.request({
+    method: 'POST',
+    url: Cypress.env('GRAPHQL_URL'),
+    body: { query, variables },
+    headers: { 'Content-Type': 'application/json' }
+  });
+});
+
+Cypress.Commands.add('websocket', (url, message) => {
+  return cy.window().then((win) => {
+    return new Promise((resolve, reject) => {
+      const ws = new win.WebSocket(url);
+      
+      ws.onopen = () => ws.send(JSON.stringify(message));
+      ws.onmessage = (event) => {
+        resolve(JSON.parse(event.data));
+        ws.close();
+      };
+      ws.onerror = reject;
+      
+      setTimeout(() => reject(new Error('WebSocket timeout')), 5000);
+    });
+  });
+});
+\`\`\`
+
+### UI Automation Commands
+\`\`\`javascript
+// cypress/support/commands/ui.js
+Cypress.Commands.add('login', (email, password) => {
+  cy.get('[data-cy="email-input"]').type(email);
+  cy.get('[data-cy="password-input"]').type(password);
+  cy.get('[data-cy="login-button"]').click();
+});
+
+Cypress.Commands.add('fillForm', (formData) => {
+  Object.keys(formData).forEach(key => {
+    cy.get(\`[data-cy="\${key}-input"]\`).type(formData[key]);
+  });
+});
+
+Cypress.Commands.add('selectDropdown', (selector, value) => {
+  cy.get(selector).click();
+  cy.get(\`[data-value="\${value}"]\`).click();
+});
+
+Cypress.Commands.add('uploadFile', (selector, fileName, fileType = '') => {
+  cy.get(selector).selectFile({
+    contents: Cypress.Buffer.from('file contents'),
+    fileName: fileName,
+    mimeType: fileType
+  });
+});
+
+Cypress.Commands.add('dragAndDrop', (sourceSelector, targetSelector) => {
+  cy.get(sourceSelector).trigger('mousedown', { which: 1 });
+  cy.get(targetSelector).trigger('mousemove').trigger('mouseup');
+});
+
+Cypress.Commands.add('scrollToElement', (selector) => {
+  cy.get(selector).scrollIntoView();
+});
+
+Cypress.Commands.add('waitForLoader', () => {
+  cy.get('[data-cy="loading-spinner"]').should('not.exist');
+});
+\`\`\`
+
+### Performance Testing Commands
+\`\`\`javascript
+// cypress/support/commands/performance.js
+Cypress.Commands.add('measurePageLoad', () => {
+  cy.window().then((win) => {
+    const performance = win.performance;
+    const timing = performance.timing;
+    
+    const metrics = {
+      domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart,
+      loadComplete: timing.loadEventEnd - timing.navigationStart,
+      firstByte: timing.responseStart - timing.navigationStart
+    };
+    
+    cy.wrap(metrics).as('performanceMetrics');
+  });
+});
+
+Cypress.Commands.add('checkCoreWebVitals', () => {
+  cy.window().then((win) => {
+    return new Promise((resolve) => {
+      const observer = new win.PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const vitals = {};
+        
+        entries.forEach(entry => {
+          if (entry.entryType === 'largest-contentful-paint') {
+            vitals.LCP = entry.renderTime || entry.loadTime;
+          }
+          if (entry.entryType === 'first-input') {
+            vitals.FID = entry.processingStart - entry.startTime;
+          }
+          if (entry.entryType === 'layout-shift' && !entry.hadRecentInput) {
+            vitals.CLS = (vitals.CLS || 0) + entry.value;
+          }
+        });
+        
+        resolve(vitals);
+      });
+      
+      observer.observe({ 
+        entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] 
+      });
+      
+      // Fallback timeout
+      setTimeout(() => resolve({}), 5000);
+    });
+  });
+});
+
+Cypress.Commands.add('simulateSlowNetwork', () => {
+  cy.intercept('**', (req) => {
+    req.reply((res) => {
+      res.delay(2000); // 2 second delay
+    });
+  });
+});
+
+Cypress.Commands.add('measureResourceLoading', () => {
+  cy.window().then((win) => {
+    const resources = win.performance.getEntriesByType('resource');
+    const analysis = {
+      totalResources: resources.length,
+      totalSize: 0,
+      loadTimes: resources.map(r => r.duration),
+      largestResource: null,
+      slowestResource: null
+    };
+    
+    analysis.largestResource = resources.reduce((prev, current) => 
+      (current.transferSize > prev.transferSize) ? current : prev
+    );
+    
+    analysis.slowestResource = resources.reduce((prev, current) => 
+      (current.duration > prev.duration) ? current : prev
+    );
+    
+    cy.wrap(analysis).as('resourceAnalysis');
+  });
+});
+\`\`\`
+
+### Accessibility Testing Commands
+\`\`\`javascript
+// cypress/support/commands/accessibility.js
+Cypress.Commands.add('checkA11y', (selector = null, options = {}) => {
+  cy.injectAxe();
+  cy.checkA11y(selector, {
+    rules: {
+      'color-contrast': { enabled: true },
+      'keyboard-navigation': { enabled: true },
+      'aria-labels': { enabled: true },
+      'heading-order': { enabled: true },
+      ...options.rules
+    },
+    tags: ['wcag2a', 'wcag2aa'],
+    ...options
+  });
+});
+
+Cypress.Commands.add('testKeyboardNavigation', () => {
+  cy.get('body').tab();
+  
+  cy.get('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    .each(($el) => {
+      cy.wrap($el).focus().should('be.focused');
+      cy.wrap($el).should('have.attr', 'tabindex').or('match', 'button, a, input, select, textarea');
+    });
+});
+
+Cypress.Commands.add('testScreenReader', () => {
+  cy.get('[aria-label], [aria-labelledby], [aria-describedby]')
+    .should('exist')
+    .each(($el) => {
+      const ariaLabel = $el.attr('aria-label');
+      const ariaLabelledby = $el.attr('aria-labelledby');
+      const ariaDescribedby = $el.attr('aria-describedby');
+      
+      expect(ariaLabel || ariaLabelledby || ariaDescribedby).to.exist;
+    });
+  
+  cy.get('img').each(($img) => {
+    expect($img.attr('alt')).to.exist;
+  });
+});
+
+Cypress.Commands.add('checkColorContrast', () => {
+  cy.get('*').each(($el) => {
+    const computedStyle = win.getComputedStyle($el[0]);
+    const bgColor = computedStyle.backgroundColor;
+    const textColor = computedStyle.color;
+    
+    if (bgColor !== 'rgba(0, 0, 0, 0)' && textColor !== 'rgba(0, 0, 0, 0)') {
+      const contrast = calculateContrast(textColor, bgColor);
+      expect(contrast).to.be.at.least(4.5); // WCAG AA standard
+    }
+  });
+});
+\`\`\`
+
+### Visual Testing Commands
+\`\`\`javascript
+// cypress/support/commands/visual.js
+Cypress.Commands.add('compareSnapshot', (name, options = {}) => {
+  const defaultOptions = {
+    threshold: 0.1,
+    thresholdType: 'percent',
+    ...options
+  };
+  
+  cy.screenshot(name, { 
+    capture: 'viewport',
+    overwrite: true 
+  });
+  
+  // Compare with baseline (implementation depends on visual testing tool)
+  cy.task('compareImages', { 
+    name, 
+    options: defaultOptions 
+  }).then((result) => {
+    if (result.mismatchPercentage > defaultOptions.threshold) {
+      throw new Error(\`Visual regression detected: \${result.mismatchPercentage}% difference\`);
+    }
+  });
+});
+
+Cypress.Commands.add('testResponsiveDesign', (breakpoints = [375, 768, 1024, 1920]) => {
+  breakpoints.forEach(width => {
+    cy.viewport(width, 800);
+    cy.wait(500); // Allow time for responsive changes
+    cy.compareSnapshot(\`responsive-\${width}px\`);
+  });
+});
+
+Cypress.Commands.add('testElementPositions', (elements) => {
+  elements.forEach(({ selector, expectedPosition }) => {
+    cy.get(selector).then(($el) => {
+      const rect = $el[0].getBoundingClientRect();
+      expect(rect.top).to.be.closeTo(expectedPosition.top, 5);
+      expect(rect.left).to.be.closeTo(expectedPosition.left, 5);
+    });
+  });
+});
+\`\`\`
+
+### Security Testing Commands
+\`\`\`javascript
+// cypress/support/commands/security.js
+Cypress.Commands.add('testXSS', (inputSelector, payloads = []) => {
+  const defaultPayloads = [
+    '<script>alert("xss")</script>',
+    '<img src=x onerror=alert("xss")>',
+    'javascript:alert("xss")',
+    '<svg onload=alert("xss")>'
+  ];
+  
+  const testPayloads = payloads.length > 0 ? payloads : defaultPayloads;
+  
+  testPayloads.forEach(payload => {
+    cy.get(inputSelector).clear().type(payload);
+    cy.get('form').submit();
+    
+    // Check that payload is not executed
+    cy.get('body').should('not.contain', payload);
+    
+    // Check that payload is properly encoded
+    cy.get('body').then(($body) => {
+      const html = $body.html();
+      expect(html).to.not.include('<script>');
+      expect(html).to.not.include('javascript:');
+    });
+  });
+});
+
+Cypress.Commands.add('testCSRF', () => {
+  cy.getCookie('csrf-token').should('exist');
+  
+  cy.get('form').should('have.attr', 'data-csrf')
+    .or('contain', 'input[name="csrf_token"]')
+    .or('contain', 'input[name="_token"]');
+});
+
+Cypress.Commands.add('testSQLInjection', (inputSelector) => {
+  const sqlPayloads = [
+    "'; DROP TABLE users; --",
+    "' OR '1'='1",
+    "'; SELECT * FROM users; --"
+  ];
+  
+  sqlPayloads.forEach(payload => {
+    cy.get(inputSelector).clear().type(payload);
+    cy.get('form').submit();
+    
+    // Should show error or sanitize input
+    cy.get('body').should('not.contain', 'SQL').and('not.contain', 'database error');
+  });
+});
+
+Cypress.Commands.add('checkSecurityHeaders', () => {
+  cy.request('/').then((response) => {
+    expect(response.headers).to.have.property('x-frame-options');
+    expect(response.headers).to.have.property('x-content-type-options');
+    expect(response.headers).to.have.property('x-xss-protection');
+    expect(response.headers).to.have.property('strict-transport-security');
+  });
+});
+\`\`\`
+
+## Test Organization Framework
+
+### Page Object Implementation
+\`\`\`javascript
+// cypress/support/pages/LoginPage.js
+class LoginPage {
+  get emailInput() { return cy.get('[data-cy="email-input"]'); }
+  get passwordInput() { return cy.get('[data-cy="password-input"]'); }
+  get loginButton() { return cy.get('[data-cy="login-button"]'); }
+  get errorMessage() { return cy.get('[data-cy="error-message"]'); }
+  
+  login(email, password) {
+    this.emailInput.type(email);
+    this.passwordInput.type(password);
+    this.loginButton.click();
+    return this;
+  }
+  
+  verifyErrorMessage(message) {
+    this.errorMessage.should('contain', message);
+    return this;
+  }
+}
+
+export default new LoginPage();
+\`\`\`
+
+### Test Suite Example
+\`\`\`javascript
+// cypress/e2e/comprehensive-test-suite.cy.js
+import LoginPage from '../support/pages/LoginPage';
+
+describe('Comprehensive Test Suite', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+  
+  context('API Testing', () => {
+    it('should perform CRUD operations', () => {
+      cy.api('POST', '/api/users', { name: 'John', email: 'john@example.com' })
+        .then((response) => {
+          expect(response.status).to.eq(201);
+          const userId = response.body.id;
+          
+          cy.api('GET', \`/api/users/\${userId}\`)
+            .its('status').should('eq', 200);
+            
+          cy.api('DELETE', \`/api/users/\${userId}\`)
+            .its('status').should('eq', 204);
+        });
+    });
+  });
+  
+  context('Performance Testing', () => {
+    it('should meet performance thresholds', () => {
+      cy.measurePageLoad();
+      cy.checkCoreWebVitals().then((vitals) => {
+        expect(vitals.LCP).to.be.lessThan(2500);
+        expect(vitals.FID).to.be.lessThan(100);
+        expect(vitals.CLS).to.be.lessThan(0.1);
+      });
+    });
+  });
+  
+  context('Accessibility Testing', () => {
+    it('should meet WCAG 2.1 AA standards', () => {
+      cy.checkA11y();
+      cy.testKeyboardNavigation();
+      cy.testScreenReader();
+    });
+  });
+  
+  context('Security Testing', () => {
+    it('should prevent XSS attacks', () => {
+      cy.testXSS('[data-cy="comment-input"]');
+      cy.testCSRF();
+      cy.checkSecurityHeaders();
+    });
+  });
+  
+  context('Visual Testing', () => {
+    it('should maintain visual consistency', () => {
+      cy.compareSnapshot('homepage');
+      cy.testResponsiveDesign();
+    });
+  });
+});
+\`\`\`
+
+For complete source code and advanced configurations, visit: ${project.githubUrl}
+
+## GitHub Repository
+View the complete implementation, custom commands, and CI/CD configurations:
+
+[**🔗 View Full Source Code on GitHub**](${project.githubUrl})
+
+Contact: latorocka@gmail.com`;
+    }
+    
+    return '';
+  };
+
   const getUserGuideContent = (projectId: number) => {
     if (projectId === 1) {
       // Selenium Framework User Guide
@@ -1858,6 +3489,8 @@ For complete documentation, visit: ${project.githubUrl}
 Contact: Latorocka@gmail.com`;
     } else if (docType === 'user-guide') {
       content = getUserGuideContent(project.id);
+    } else if (docType === 'api-reference') {
+      content = getApiReferenceContent(project.id);
     }
     
     const newWindow = window.open('', '_blank');
@@ -1865,15 +3498,67 @@ Contact: Latorocka@gmail.com`;
       newWindow.document.write(`
         <html>
           <head>
-            <title>${projectName} - ${docType.charAt(0).toUpperCase() + docType.slice(1)} Guide</title>
+            <title>${projectName} - ${docType.charAt(0).toUpperCase() + docType.slice(1).replace('-', ' ')} Guide</title>
             <style>
-              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
-              h1, h2, h3 { color: #2563eb; }
-              pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; }
+              body { 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+                max-width: 900px; 
+                margin: 0 auto; 
+                padding: 30px; 
+                line-height: 1.6; 
+                background-color: #fafafa;
+                color: #333;
+              }
+              h1 { color: #1e40af; border-bottom: 3px solid #3b82f6; padding-bottom: 10px; }
+              h2 { color: #1e40af; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px; margin-top: 30px; }
+              h3 { color: #374151; margin-top: 25px; }
+              pre { 
+                background: #1f2937; 
+                color: #f9fafb; 
+                padding: 20px; 
+                border-radius: 8px; 
+                overflow-x: auto; 
+                white-space: pre-wrap; 
+                border-left: 4px solid #3b82f6;
+                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                font-size: 14px;
+              }
+              code { 
+                background: #e5e7eb; 
+                padding: 2px 6px; 
+                border-radius: 4px; 
+                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                color: #1f2937;
+              }
+              a { 
+                color: #3b82f6; 
+                text-decoration: none; 
+                font-weight: 600;
+              }
+              a:hover { 
+                text-decoration: underline; 
+              }
+              .github-section {
+                background: #f3f4f6;
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 30px;
+                border-left: 4px solid #10b981;
+              }
+              ul { margin-left: 20px; }
+              li { margin-bottom: 5px; }
             </style>
           </head>
           <body>
-            <pre>${content}</pre>
+            <div style="white-space: pre-wrap;">${content}</div>
+            ${docType === 'api-reference' ? `
+              <div class="github-section">
+                <h2>🔗 View Full Source Code</h2>
+                <p>Access the complete implementation, additional examples, and project files:</p>
+                <p><a href="${project.githubUrl}" target="_blank" style="font-size: 18px;">**📚 View on GitHub →**</a></p>
+                <p style="margin-top: 15px; font-style: italic;">Contact: latorocka@gmail.com</p>
+              </div>
+            ` : ''}
           </body>
         </html>
       `);
@@ -2020,12 +3705,10 @@ Contact: Latorocka@gmail.com`;
                 <Button 
                   variant="outline" 
                   size="sm"
-                  onClick={() => {
-                    window.open(project.githubUrl, '_blank');
-                  }}
+                  onClick={() => openDocumentation('api-reference')}
                 >
                   <Code className="mr-2 h-4 w-4" />
-                  View Documentation
+                  View Code Examples
                 </Button>
               </div>
             </div>
