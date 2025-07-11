@@ -31,7 +31,8 @@ export default function SkillsSection() {
     "WordPress": { type: 'devicon', value: 'devicon-wordpress-plain colored' },
     "FlutterFlow": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg' },
     "Unity Game Engine": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg' },
-    "CircleCI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg' }
+    "CircleCI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg' },
+    "PowerBI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/powerbi.svg' }
   };
 
   const toolCategories = [

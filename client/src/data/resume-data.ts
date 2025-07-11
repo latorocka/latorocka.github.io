@@ -111,7 +111,8 @@ export const skills = {
     "WordPress",
     "FlutterFlow",
     "Unity Game Engine",
-    "CircleCI"
+    "CircleCI",
+    "PowerBI"
   ],
   frameworks: [
     "Selenium",
