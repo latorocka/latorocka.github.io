@@ -70,12 +70,12 @@ export default function HeroSection() {
           
           <div className="animate-in fade-in duration-1000">
             <div className="relative">
-              {/* Professional subtle border */}
-              <div className="relative border border-white/20 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-800/50 to-slate-900/50 p-2">
+              {/* Very subtle professional border */}
+              <div className="relative border border-white/5 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900/20 to-slate-800/10 p-1">
                 <img 
                   src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
                   alt="Professional software engineer at modern workstation with multiple monitors and clean setup" 
-                  className="rounded-xl shadow-2xl w-full" 
+                  className="rounded-2xl shadow-2xl w-full" 
                 />
               </div>
             </div>
