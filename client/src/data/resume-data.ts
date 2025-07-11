@@ -187,16 +187,16 @@ export const projects = [
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
     githubUrl: "https://github.com/latorocka/api-test-suite",
     features: [
-      "Live REST API testing against JSONPlaceholder and GitHub APIs",
-      "Working GraphQL queries against SpaceX API with real data",
-      "Functional WebSocket testing with echo server connections",
-      "Real-time API response validation and error handling",
-      "Performance testing with concurrent request execution",
-      "Actual HTTP request/response cycle demonstration",
-      "Live demonstration script with working examples",
-      "Comprehensive test coverage of public API endpoints",
-      "Working code examples that can be executed immediately",
-      "Real-world API testing scenarios with authentic data"
+      "Comprehensive test suite with 8 specialized testing categories",
+      "Functional testing with complete CRUD operations validation",
+      "Integration testing across multiple API systems with data consistency checks",
+      "Performance testing including load, throughput, and scalability analysis",
+      "Security testing with input validation, SQL injection, and vulnerability assessment",
+      "Data validation with schema verification and cross-API consistency checks",
+      "Live API endpoints: JSONPlaceholder, GitHub, SpaceX GraphQL, WebSocket servers",
+      "Automated test runner with detailed reporting and category-based execution",
+      "Real-time demonstration capabilities with immediate execution verification",
+      "Production-ready test framework with professional error handling and metrics"
     ]
   },
   {

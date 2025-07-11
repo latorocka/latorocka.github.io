@@ -91,17 +91,29 @@ npm run demo:graphql   # SpaceX GraphQL API
 npm run demo:websocket # WebSocket connection
 ```
 
-### Full Test Suite
+### Comprehensive Test Suite
 ```bash
-# Run comprehensive Jest test suite
+# Run all test categories with detailed reporting
 npm test
 
 # Run specific test categories
-npm run test:rest
-npm run test:graphql
-npm run test:websocket
+npm run test:functional    # CRUD operations and core API functionality
+npm run test:integration   # Cross-API workflows and data consistency
+npm run test:performance   # Response times, throughput, and scalability
+npm run test:security      # Input validation and security vulnerabilities
+npm run test:data          # Schema validation and data structure verification
+npm run test:graphql       # GraphQL query validation and schema testing
+npm run test:websocket     # Real-time communication and connection management
+npm run test:github        # GitHub repository and user data validation
 
-# Generate coverage reports
+# List all available test categories
+npm run test:list
+
+# Run specific category using the test runner
+npm run test:category "Functional Tests"
+npm run test:category "Performance Tests"
+
+# Generate detailed coverage reports
 npm run test:coverage
 ```
 
