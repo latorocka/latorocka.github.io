@@ -1,9 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Gamepad2 } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
   const getIcon = (index: number) => {
+    // Check if this is a Tatum Games position
+    const experience = experiences[index];
+    if (experience && experience.company === "Tatum Games") {
+      return <Gamepad2 className="h-6 w-6 text-white" />;
+    }
     return <Briefcase className="h-6 w-6 text-white" />;
   };
 
