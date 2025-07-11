@@ -181,7 +181,7 @@ export const projects = [
   {
     id: 2,
     title: "API Test Suite",
-    description: "Professional API testing framework featuring working implementations against live public endpoints. Demonstrates practical testing expertise through executable tests that validate real GitHub repository data, SpaceX mission information, and WebSocket communication with immediate execution capability.",
+    description: "Comprehensive enterprise-grade API testing framework with 8 specialized testing categories: Functional, Integration, Performance, Security, and Data Validation testing. Features automated test runner with detailed reporting, live API endpoint validation against JSONPlaceholder, GitHub, and SpaceX APIs, and production-ready error handling with metrics analysis.",
     technologies: ["Jest", "Supertest", "GraphQL", "WebSocket", "REST API", "CI/CD", "Performance Testing"],
     category: "API Testing",
     image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
