@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, ExternalLink, FileText, Play } from "lucide-react";
 import { projects } from "@/data/resume-data";
+import { Link } from "wouter";
 
 export default function ProjectsSection() {
   const getProjectIcon = (index: number) => {
@@ -54,10 +55,21 @@ export default function ProjectsSection() {
                 </div>
                 
                 <div className="flex gap-3">
+                  <Link href={`/project/${project.id}`}>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="flex items-center text-primary hover:text-primary-foreground hover:bg-primary"
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      <span className="text-sm">View Details</span>
+                    </Button>
+                  </Link>
+                  
                   <Button 
                     variant="outline" 
                     size="sm"
-                    className="flex items-center text-primary hover:text-primary-foreground hover:bg-primary"
+                    className="flex items-center text-accent hover:text-accent-foreground hover:bg-accent"
                     onClick={() => {
                       if (project.githubUrl) {
                         window.open(project.githubUrl, '_blank');
@@ -65,22 +77,7 @@ export default function ProjectsSection() {
                     }}
                   >
                     <Github className="mr-2 h-4 w-4" />
-                    <span className="text-sm">View Code</span>
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    className="flex items-center text-accent hover:text-accent-foreground hover:bg-accent"
-                  >
-                    {index === 0 && <ExternalLink className="mr-2 h-4 w-4" />}
-                    {index === 1 && <FileText className="mr-2 h-4 w-4" />}
-                    {index === 2 && <Play className="mr-2 h-4 w-4" />}
-                    <span className="text-sm">
-                      {index === 0 && "Live Demo"}
-                      {index === 1 && "Documentation"}
-                      {index === 2 && "Demo Video"}
-                    </span>
+                    <span className="text-sm">GitHub</span>
                   </Button>
                 </div>
               </CardContent>
