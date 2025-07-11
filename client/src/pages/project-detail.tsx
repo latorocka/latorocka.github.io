@@ -3702,13 +3702,16 @@ Contact: Latorocka@gmail.com`;
                 <p className="text-secondary text-sm mb-4">
                   Complete API documentation with code examples and implementation patterns.
                 </p>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => openDocumentation('api-reference')}
-                >
-                  <Code className="mr-2 h-4 w-4" />
-                  View Code Examples
+                <Button variant="outline" size="sm" asChild>
+                  <a 
+                    href={project.githubUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center"
+                  >
+                    <Code className="mr-2 h-4 w-4" />
+                    View Code Examples
+                  </a>
                 </Button>
               </div>
             </div>
