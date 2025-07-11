@@ -74,8 +74,8 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl"></div>
               <div className="relative bg-gradient-to-br from-white/10 to-transparent p-1 rounded-2xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-                  alt="Professional developer workspace with modern setup and coding environment" 
+                  src="https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
+                  alt="Professional software engineer at modern workstation with multiple monitors and clean setup" 
                   className="rounded-2xl shadow-2xl w-full relative z-10" 
                 />
               </div>
