@@ -704,6 +704,35 @@ exports.config = config;`
 │   └── run-live-tests.js        # Live API demonstration script
 ├── jest.config.js               # Jest testing framework config
 ├── package.json                 # Dependencies & scripts
+└── README.md                    # Comprehensive documentation` : project.id === 3 ? `mobile-test-suite/
+├── config/                      # WebDriverIO configurations
+│   ├── wdio.base.conf.js           # Base configuration
+│   ├── wdio.android.conf.js        # Android-specific config
+│   ├── wdio.ios.conf.js            # iOS-specific config
+│   └── wdio.parallel.conf.js       # Parallel execution config
+├── pages/                       # Page Object Model
+│   ├── base/                       # Base page classes
+│   │   └── BasePage.js                # Common page functionality
+│   ├── android/                    # Android-specific pages
+│   │   └── HomePage.js                # Android home page
+│   └── ios/                        # iOS-specific pages
+│       └── HomePage.js                # iOS home page
+├── tests/                       # Test specifications
+│   ├── android/                    # Android-specific tests
+│   │   └── home.spec.js               # Android home tests
+│   ├── ios/                        # iOS-specific tests
+│   │   └── home.spec.js               # iOS home tests
+│   └── cross-platform/             # Cross-platform tests
+│       ├── gestures.spec.js           # Gesture testing
+│       └── performance.spec.js        # Performance testing
+├── utils/                       # Utility classes
+│   ├── device-utils.js             # Device management utilities
+│   └── test-data.js                # Test data management
+├── scripts/                     # Setup and automation scripts
+│   ├── setup-android.js            # Android environment setup
+│   └── setup-ios.js                # iOS environment setup
+├── package.json                 # Dependencies & npm scripts
+├── .gitignore                   # Git ignore rules
 └── README.md                    # Comprehensive documentation` : ''}</code>
                 </pre>
               </div>
