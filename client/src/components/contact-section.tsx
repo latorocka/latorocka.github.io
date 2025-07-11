@@ -48,91 +48,78 @@ export default function ContactSection() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <Mail className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Email</p>
-                    <a 
-                      href={`mailto:${personalInfo.email}`}
-                      className="text-secondary hover:text-primary transition-colors"
-                    >
-                      {personalInfo.email}
-                    </a>
-                  </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Contact Information */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold mb-4 text-center">Contact Information</h3>
+              <div className="space-y-3">
+                <div className="flex flex-col items-center text-center">
+                  <Mail className="h-5 w-5 text-primary mb-2" />
+                  <a 
+                    href={`mailto:${personalInfo.email}`}
+                    className="text-sm text-secondary hover:text-primary transition-colors"
+                  >
+                    {personalInfo.email}
+                  </a>
                 </div>
                 
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Phone</p>
-                    <a 
-                      href={`tel:${personalInfo.phone}`}
-                      className="text-secondary hover:text-primary transition-colors"
-                    >
-                      {personalInfo.phone}
-                    </a>
-                  </div>
+                <div className="flex flex-col items-center text-center">
+                  <Phone className="h-5 w-5 text-primary mb-2" />
+                  <a 
+                    href={`tel:${personalInfo.phone}`}
+                    className="text-sm text-secondary hover:text-primary transition-colors"
+                  >
+                    {personalInfo.phone}
+                  </a>
                 </div>
                 
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-secondary">{personalInfo.location}</p>
-                  </div>
+                <div className="flex flex-col items-center text-center">
+                  <MapPin className="h-5 w-5 text-primary mb-2" />
+                  <p className="text-sm text-secondary">{personalInfo.location}</p>
                 </div>
               </div>
             </div>
             
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Connect With Me</h3>
-              <div className="flex space-x-4">
+            {/* Social Links */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold mb-4 text-center">Connect</h3>
+              <div className="space-y-3">
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex-1"
+                  size="sm"
+                  className="w-full"
                   onClick={() => window.open(personalInfo.linkedin, '_blank')}
                 >
-                  <Linkedin className="mr-2 h-5 w-5" />
+                  <Linkedin className="mr-2 h-4 w-4" />
                   LinkedIn
                 </Button>
                 
                 <Button
                   variant="outline"
-                  size="lg"
-                  className="flex-1"
+                  size="sm"
+                  className="w-full"
                   onClick={() => window.open(personalInfo.github, '_blank')}
                 >
-                  <Github className="mr-2 h-5 w-5" />
+                  <Github className="mr-2 h-4 w-4" />
                   GitHub
                 </Button>
               </div>
-              
-              <div className="mt-6">
-                <Button 
-                  onClick={handleDownloadResume}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
-                  size="lg"
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Download Resume
-                </Button>
-              </div>
+            </div>
+            
+            {/* Resume Download */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold mb-4 text-center">Resume</h3>
+              <Button 
+                onClick={handleDownloadResume}
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl"
+                size="sm"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PDF
+              </Button>
             </div>
           </div>
-
         </div>
       </div>
     </section>
