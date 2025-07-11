@@ -504,14 +504,17 @@ public Object[][] getLoginTestData() {
                   <h3 className="font-bold text-lg">Setup Guide</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Complete installation and configuration instructions for getting the framework up and running.
+                  {project.id === 1 ? 
+                    "Complete installation and configuration instructions for getting the framework up and running." :
+                    "Complete installation and configuration instructions for setting up the API test suite and running tests."
+                  }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
                     // Create a new window/tab with the setup guide content
-                    const setupContent = `# Setup Guide - Selenium Test Framework
+                    const setupContent = project.id === 1 ? `# Setup Guide - Selenium Test Framework
 
 ## Prerequisites
 - Java Development Kit (JDK) 11 or higher
@@ -534,6 +537,49 @@ public Object[][] getLoginTestData() {
 ## Configuration
 Edit src/test/resources/config.properties for your environment settings.
 
+For complete setup instructions, contact: Latorocka@gmail.com` : `# Setup Guide - API Test Suite
+
+## Prerequisites
+- Node.js 16.x or higher
+- npm or yarn package manager
+- Internet connection for live API testing
+- Jest testing framework (installed via npm)
+
+## Installation Steps
+1. Clone the repository
+   git clone https://github.com/latorocka/api-test-suite.git
+   cd api-test-suite
+
+2. Install dependencies
+   npm install
+
+3. Verify installation
+   npm test
+
+4. Run specific test categories
+   node tests/test-runner.js --category functional
+   node tests/test-runner.js --category performance
+
+## Quick Start
+# Run all tests
+npm test
+
+# Run live API demonstration
+node demo/run-live-tests.js
+
+# Run specific test category
+node tests/test-runner.js --category security
+
+# Run with detailed reporting
+node tests/test-runner.js --verbose
+
+## Configuration
+No additional configuration required. Tests run against public APIs:
+- JSONPlaceholder (REST API testing)
+- GitHub API (Repository validation)
+- SpaceX API (GraphQL testing)
+- WebSocket Echo Server (Real-time testing)
+
 For complete setup instructions, contact: Latorocka@gmail.com`;
                     
                     const newWindow = window.open('', '_blank');
@@ -541,7 +587,7 @@ For complete setup instructions, contact: Latorocka@gmail.com`;
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>Selenium Framework - Setup Guide</title>
+                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - Setup Guide</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
@@ -569,13 +615,16 @@ For complete setup instructions, contact: Latorocka@gmail.com`;
                   <h3 className="font-bold text-lg">User Guide</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Comprehensive guide for writing, executing, and managing automated tests with the framework.
+                  {project.id === 1 ?
+                    "Comprehensive guide for writing, executing, and managing automated tests with the framework." :
+                    "Comprehensive guide for executing test categories, analyzing results, and using the automated test runner."
+                  }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    const userGuideContent = `# User Guide - Selenium Test Framework
+                    const userGuideContent = project.id === 1 ? `# User Guide - Selenium Test Framework
 
 ## Test Execution
 
@@ -627,6 +676,92 @@ Edit config.properties for environment settings:
 - environment=qa
 - headless=false
 
+For detailed usage examples, contact: Latorocka@gmail.com` : `# User Guide - API Test Suite
+
+## Test Execution
+
+### Running All Tests
+# Execute complete test suite
+npm test
+
+# Run all tests with detailed output
+npm test -- --verbose
+
+# Run specific test file
+npm test tests/rest/user-api.test.js
+
+### Category-Based Execution
+# Run specific test category
+node tests/test-runner.js --category functional
+node tests/test-runner.js --category integration
+node tests/test-runner.js --category performance
+node tests/test-runner.js --category security
+
+# Run multiple categories
+node tests/test-runner.js --category functional,performance
+
+# List all available categories
+node tests/test-runner.js --list
+
+### Live API Demonstration
+# Run live API demo (all endpoints)
+node demo/run-live-tests.js
+
+# This demonstrates working tests against:
+# - JSONPlaceholder (REST API)
+# - GitHub API (Repository data)
+# - SpaceX GraphQL API (Mission data)
+# - WebSocket Echo Server (Real-time)
+
+## Test Categories
+
+### 1. Functional Tests
+- CRUD operations validation
+- Input validation testing
+- Response structure verification
+- Error handling validation
+
+### 2. Integration Tests
+- Cross-API workflow testing
+- Data consistency validation
+- Cascading request scenarios
+- Failure recovery testing
+
+### 3. Performance Tests
+- Response time analysis
+- Concurrent load testing (1, 5, 10, 20+ requests)
+- Throughput measurement
+- Scalability validation
+
+### 4. Security Tests
+- SQL injection prevention
+- XSS protection validation
+- Authentication testing
+- Rate limiting validation
+
+### 5. Data Validation Tests
+- Schema verification
+- Type consistency checks
+- Cross-API data integrity
+- Custom validation rules
+
+## Test Results & Reporting
+The test runner provides:
+- Category-specific success rates
+- Performance metrics and timing
+- Detailed error reporting
+- Summary statistics
+
+## Advanced Usage
+# Run with performance profiling
+node tests/test-runner.js --category performance --profile
+
+# Generate detailed HTML report
+node tests/test-runner.js --report-html
+
+# Run in CI/CD mode
+node tests/test-runner.js --ci
+
 For detailed usage examples, contact: Latorocka@gmail.com`;
                     
                     const newWindow = window.open('', '_blank');
@@ -634,7 +769,7 @@ For detailed usage examples, contact: Latorocka@gmail.com`;
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>Selenium Framework - User Guide</title>
+                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - User Guide</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
@@ -662,13 +797,16 @@ For detailed usage examples, contact: Latorocka@gmail.com`;
                   <h3 className="font-bold text-lg">Architecture</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Detailed technical documentation covering framework design, patterns, and implementation details.
+                  {project.id === 1 ?
+                    "Detailed technical documentation covering framework design, patterns, and implementation details." :
+                    "Comprehensive technical documentation covering test suite architecture, design patterns, and implementation strategies."
+                  }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    const architectureContent = `# Architecture Documentation - Selenium Test Framework
+                    const architectureContent = project.id === 1 ? `# Architecture Documentation - Selenium Test Framework
 
 ## Framework Components
 
@@ -726,6 +864,74 @@ For detailed usage examples, contact: Latorocka@gmail.com`;
 - Multi-browser testing matrix
 - Automated reporting and artifacts
 
+Contact: Latorocka@gmail.com for architecture details` : `# Architecture Documentation - API Test Suite
+
+## Framework Components
+
+### 1. Test Runner Layer
+- TestRunner: Central orchestration of test execution
+- Category-based test organization and execution
+- CLI interface with detailed reporting
+- Performance metrics collection and analysis
+
+### 2. Test Category Layer
+- Functional Tests: CRUD operations and input validation
+- Integration Tests: Cross-API workflow validation
+- Performance Tests: Load testing and scalability analysis
+- Security Tests: Injection prevention and authentication validation
+- Data Validation Tests: Schema verification and integrity checks
+
+### 3. API Client Layer
+- HTTP Client: Axios-based REST API communication
+- GraphQL Client: Query execution and response validation
+- WebSocket Client: Real-time communication testing
+- Request/Response interceptors for logging and metrics
+
+### 4. Validation Layer
+- Response Validators: Schema and data structure verification
+- Performance Validators: Timing and throughput analysis
+- Security Validators: Injection attempt detection
+- Error Validators: Proper error response handling
+
+### 5. Reporting Layer
+- Test Results Aggregation: Category-specific success rates
+- Performance Metrics: Response time and throughput analysis
+- Error Reporting: Detailed failure analysis and debugging
+- Summary Generation: Comprehensive test execution reports
+
+### 6. Configuration Layer
+- Environment Configuration: API endpoint management
+- Test Configuration: Category-specific settings
+- Runtime Configuration: Dynamic parameter handling
+- Credential Management: API key and authentication handling
+
+## Design Patterns
+- Strategy Pattern: Test execution strategies per category
+- Factory Pattern: Test runner and validator creation
+- Observer Pattern: Test result collection and reporting
+- Template Method: Base test structure and lifecycle
+- Command Pattern: CLI command processing
+
+## API Integration Architecture
+- Live API Endpoints: JSONPlaceholder, GitHub, SpaceX, WebSocket
+- Error Handling: Comprehensive error scenarios and validation
+- Rate Limiting: API quota management and retry logic
+- Authentication: Token-based and header authentication support
+
+## Performance Architecture
+- Concurrent Testing: Multi-threaded request execution
+- Load Testing: Scalable request volume handling
+- Metrics Collection: Real-time performance data capture
+- Bottleneck Analysis: Response time and throughput optimization
+
+## Test Execution Flow
+1. Test Runner initialization with category selection
+2. Test discovery and dependency resolution
+3. Parallel test execution with resource management
+4. Real-time result collection and validation
+5. Performance metrics calculation and reporting
+6. Comprehensive summary generation and output
+
 Contact: Latorocka@gmail.com for architecture details`;
                     
                     const newWindow = window.open('', '_blank');
@@ -733,7 +939,7 @@ Contact: Latorocka@gmail.com for architecture details`;
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>Selenium Framework - Architecture</title>
+                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - Architecture</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3 { color: #2563eb; }
@@ -761,13 +967,16 @@ Contact: Latorocka@gmail.com for architecture details`;
                   <h3 className="font-bold text-lg">API Reference</h3>
                 </div>
                 <p className="text-secondary text-sm mb-4">
-                  Complete API documentation with class references, method signatures, and usage examples.
+                  {project.id === 1 ?
+                    "Complete API documentation with class references, method signatures, and usage examples." :
+                    "Complete API reference with test runner methods, category execution, and reporting interfaces."
+                  }
                 </p>
                 <Button 
                   variant="outline" 
                   size="sm"
                   onClick={() => {
-                    const apiReferenceContent = `# API Reference - Selenium Test Framework
+                    const apiReferenceContent = project.id === 1 ? `# API Reference - Selenium Test Framework
 
 ## Core Classes
 
@@ -873,6 +1082,121 @@ public Object[][] getTestData() {
     return ExcelUtils.readExcelData("test-data/data.xlsx", "Sheet1");
 }
 
+For complete API documentation, contact: Latorocka@gmail.com` : `# API Reference - API Test Suite
+
+## Core Classes
+
+### TestRunner
+Central test execution orchestrator with CLI interface.
+
+#### Constructor
+- TestRunner(): Initializes test runner with default configuration
+
+#### Methods
+- runAllTests(): Executes all test categories with comprehensive reporting
+- runTestCategory(category): Runs specific test category with detailed metrics
+- runSpecificCategory(categoryName): Executes single category with validation
+- listCategories(): Lists all available test categories
+- generateSummaryReport(): Creates comprehensive execution summary
+
+#### Properties
+- results: Array of test execution results with metrics
+- categories: Available test categories (functional, integration, performance, etc.)
+
+### APIClient
+HTTP client wrapper for REST API testing.
+
+#### Methods
+- get(url, config): Performs GET request with error handling
+- post(url, data, config): Performs POST request with validation
+- put(url, data, config): Performs PUT request with response verification
+- delete(url, config): Performs DELETE request with status validation
+- performConcurrentRequests(requests, count): Executes concurrent API calls
+
+#### Properties
+- baseURL: Configured API endpoint base URL
+- timeout: Request timeout configuration
+- headers: Default headers for all requests
+
+### PerformanceAnalyzer
+Performance metrics collection and analysis.
+
+#### Methods
+- measureResponseTime(testFunction): Measures execution time of API calls
+- analyzeConcurrentLoad(requestCount): Analyzes load testing results
+- calculateThroughput(requests, duration): Calculates API throughput metrics
+- generatePerformanceReport(): Creates detailed performance analysis
+
+#### Properties
+- metrics: Collection of performance measurements
+- thresholds: Configurable performance thresholds
+- results: Performance analysis results
+
+### SecurityValidator
+Security testing validation utilities.
+
+#### Methods
+- validateSQLInjectionPrevention(inputs): Tests SQL injection prevention
+- validateXSSProtection(inputs): Tests cross-site scripting protection
+- validateAuthenticationHandling(credentials): Tests authentication mechanisms
+- validateRateLimiting(requests): Tests rate limiting implementation
+
+#### Properties
+- maliciousInputs: Collection of security test payloads
+- vulnerabilities: Detected security issues
+- recommendations: Security improvement suggestions
+
+### SchemaValidator
+API response schema validation.
+
+#### Methods
+- validateResponseSchema(response, schema): Validates API response structure
+- validateDataTypes(data, expectedTypes): Validates data type consistency
+- validateRequiredFields(data, requiredFields): Validates required field presence
+- validateCrossAPIConsistency(responses): Validates data consistency across APIs
+
+#### Properties
+- schemas: Collection of expected API schemas
+- validationRules: Custom validation rule definitions
+- errors: Schema validation errors
+
+## CLI Commands
+
+### Test Execution
+- node tests/test-runner.js: Run all test categories
+- node tests/test-runner.js --category <name>: Run specific category
+- node tests/test-runner.js --list: List available categories
+- node tests/test-runner.js --verbose: Run with detailed output
+
+### Reporting
+- node tests/test-runner.js --report: Generate summary report
+- node tests/test-runner.js --report-html: Generate HTML report
+- node tests/test-runner.js --profile: Run with performance profiling
+
+### Live Demonstration
+- node demo/run-live-tests.js: Run live API demonstration
+- npm test: Execute Jest test suite
+- npm test -- --verbose: Run tests with detailed output
+
+## Usage Examples
+
+### Basic Test Execution
+const testRunner = new TestRunner();
+await testRunner.runAllTests();
+
+### Category-Specific Execution
+const testRunner = new TestRunner();
+await testRunner.runTestCategory('performance');
+
+### Performance Analysis
+const analyzer = new PerformanceAnalyzer();
+const metrics = analyzer.measureResponseTime(apiCall);
+const report = analyzer.generatePerformanceReport();
+
+### Security Testing
+const validator = new SecurityValidator();
+const results = validator.validateSQLInjectionPrevention(inputs);
+
 For complete API documentation, contact: Latorocka@gmail.com`;
                     
                     const newWindow = window.open('', '_blank');
@@ -880,7 +1204,7 @@ For complete API documentation, contact: Latorocka@gmail.com`;
                       newWindow.document.write(`
                         <html>
                           <head>
-                            <title>Selenium Framework - API Reference</title>
+                            <title>${project.id === 1 ? 'Selenium Framework' : 'API Test Suite'} - API Reference</title>
                             <style>
                               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
                               h1, h2, h3, h4 { color: #2563eb; }
