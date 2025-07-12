@@ -394,19 +394,21 @@
               ),
               React.createElement('div', 
                 { className: "flex flex-col sm:flex-row gap-4" },
-                React.createElement('a', 
+                React.createElement('button', 
                   { 
-                    href: "#contact",
-                    className: "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center" 
+                    onClick: () => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }),
+                    className: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 shadow-lg hover:shadow-xl"
                   }, 
-                  "✉️ Get In Touch"
+                  React.createElement('span', { className: "mr-2" }, "✉"),
+                  "Get In Touch"
                 ),
-                React.createElement('a', 
+                React.createElement('button', 
                   { 
-                    href: "#projects",
-                    className: "border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center" 
+                    onClick: () => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }),
+                    className: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                   }, 
-                  "💻 View My Work"
+                  React.createElement('span', { className: "mr-2" }, "💻"),
+                  "View My Work"
                 )
               ),
               React.createElement('div', 
