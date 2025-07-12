@@ -3657,7 +3657,7 @@ Contact: Latorocka@gmail.com`;
         <Card className="mb-12" id="documentation-section">
           <CardContent className="p-8">
             <h2 className="text-2xl font-bold mb-6">Documentation</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="border rounded-lg p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <Book className="h-6 w-6 text-blue-500" />
@@ -3691,42 +3691,6 @@ Contact: Latorocka@gmail.com`;
                 >
                   <Users className="mr-2 h-4 w-4" />
                   View User Guide
-                </Button>
-              </div>
-
-              <div className="border rounded-lg p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Settings className="h-6 w-6 text-indigo-500" />
-                  <h3 className="font-bold text-lg">Architecture</h3>
-                </div>
-                <p className="text-secondary text-sm mb-4">
-                  Framework architecture, design patterns, and enterprise-grade implementation structure.
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => openDocumentation('architecture')}
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  View Architecture
-                </Button>
-              </div>
-
-              <div className="border rounded-lg p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Code className="h-6 w-6 text-purple-500" />
-                  <h3 className="font-bold text-lg">API Reference</h3>
-                </div>
-                <p className="text-secondary text-sm mb-4">
-                  Comprehensive code examples, framework APIs, and implementation patterns with real working examples.
-                </p>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => openDocumentation('api-reference')}
-                >
-                  <Code className="mr-2 h-4 w-4" />
-                  View API Reference
                 </Button>
               </div>
 
