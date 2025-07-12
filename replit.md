@@ -269,6 +269,7 @@ This project effectively demonstrates Brian's advanced automation skills includi
 - ✅ **All 6 Positions Added**: Includes SQaaS and Jr QA Analyst positions that were missing from GitHub Pages
 - ✅ **Enhanced Text Readability**: Improved text contrast and sizing for better readability
 - ✅ **Proper Icon Rendering**: Fixed emoji icons with proper sizing and React element structure
+- ✅ **Testing Tools Section Fixed**: Added TestNG and Appium to match GitHub Pages version with all 8 testing tools
 - Portfolio features smooth navigation, professional styling, and mobile-responsive design
 - Deployment uses React with Babel for full component functionality matching Replit preview exactly
 - All framework links point to actual GitHub repositories with complete documentation and working code
