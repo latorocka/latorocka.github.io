@@ -21,8 +21,6 @@ export default function SkillsSection() {
     "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
     "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
     "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
-    "TestNG": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/testinglibrary.svg' },
-    "Appium": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/appium.svg' },
     "GraphQL": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg' },
     
     // Development Tools
@@ -46,8 +44,6 @@ export default function SkillsSection() {
         { name: "Postman", description: "API development and testing platform" },
         { name: "Android Studio", description: "Mobile application testing and development" },
         { name: "Cucumber", description: "Behavior-driven development testing framework" },
-        { name: "TestNG", description: "Testing framework for Java with advanced features" },
-        { name: "Appium", description: "Cross-platform mobile test automation framework" },
         { name: "GraphQL", description: "Query language for APIs and runtime for executing queries" }
       ]
     },
