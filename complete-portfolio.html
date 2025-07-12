@@ -899,7 +899,7 @@
       const getDocumentationContent = (projectId, type) => {
         const docMap = {
           '1': { // Selenium Framework
-            'setup': \`# Selenium Test Framework - Setup Guide
+            'setup': `# Selenium Test Framework - Setup Guide
 
 ## Prerequisites
 - Java Development Kit (JDK) 11 or higher
@@ -919,9 +919,9 @@
 - Set up test data in test-data/ directory
 - Configure TestNG suites in src/test/resources/
 
-Contact: latorocka@gmail.com\`,
+Contact: latorocka@gmail.com`,
             
-            'user-guide': \`# Selenium Test Framework - User Guide
+            'user-guide': `# Selenium Test Framework - User Guide
 
 ## Writing Tests
 1. Create page objects in src/main/java/pages/
@@ -940,10 +940,10 @@ Contact: latorocka@gmail.com\`,
 - Test suite: mvn test -DsuiteXmlFile=smoke-tests.xml
 - Parallel execution: mvn test -Dparallel=methods
 
-Contact: latorocka@gmail.com\`
+Contact: latorocka@gmail.com`
           },
           '2': { // API Test Suite
-            'setup': \`# API Test Suite - Setup Guide
+            'setup': `# API Test Suite - Setup Guide
 
 ## Prerequisites
 - Node.js 16.x or higher
@@ -963,9 +963,9 @@ Contact: latorocka@gmail.com\`
 - Configure test data in test-data/ directory
 - Update authentication settings if needed
 
-Contact: latorocka@gmail.com\`,
+Contact: latorocka@gmail.com`,
             
-            'user-guide': \`# API Test Suite - User Guide
+            'user-guide': `# API Test Suite - User Guide
 
 ## Running Test Categories
 - Functional tests: npm run test:functional
@@ -985,10 +985,10 @@ Contact: latorocka@gmail.com\`,
 - Performance: Load, throughput, scalability
 - Security: SQL injection, XSS protection
 
-Contact: latorocka@gmail.com\`
+Contact: latorocka@gmail.com`
           },
           '3': { // Mobile Test Suite
-            'setup': \`# Mobile Test Automation Suite - Setup Guide
+            'setup': `# Mobile Test Automation Suite - Setup Guide
 
 ## Prerequisites
 - Node.js 16.x or higher
@@ -1009,9 +1009,9 @@ Contact: latorocka@gmail.com\`
 - iOS: Install Xcode, set up simulators
 - Real devices: Enable developer options
 
-Contact: latorocka@gmail.com\`,
+Contact: latorocka@gmail.com`,
             
-            'user-guide': \`# Mobile Test Automation Suite - User Guide
+            'user-guide': `# Mobile Test Automation Suite - User Guide
 
 ## Device Configuration
 - Configure Android devices in config/android.config.js
@@ -1029,10 +1029,10 @@ Contact: latorocka@gmail.com\`,
 - iOS tests: npm run test:ios
 - Parallel execution: npm run test:parallel
 
-Contact: latorocka@gmail.com\`
+Contact: latorocka@gmail.com`
           },
           '4': { // Cypress Framework
-            'setup': \`# Cypress Test Framework - Setup Guide
+            'setup': `# Cypress Test Framework - Setup Guide
 
 ## Prerequisites
 - Node.js 16.x or higher
@@ -1052,9 +1052,9 @@ Contact: latorocka@gmail.com\`
 - Configure test data in cypress/fixtures/
 - Set up custom commands in cypress/support/
 
-Contact: latorocka@gmail.com\`,
+Contact: latorocka@gmail.com`,
             
-            'user-guide': \`# Cypress Test Framework - User Guide
+            'user-guide': `# Cypress Test Framework - User Guide
 
 ## Test Categories
 - API tests: npm run test:api
@@ -1074,7 +1074,7 @@ Contact: latorocka@gmail.com\`,
 - Add proper wait strategies
 - Use fixtures for test data management
 
-Contact: latorocka@gmail.com\`
+Contact: latorocka@gmail.com`
           }
         };
 
