@@ -9,16 +9,501 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(220, 15%, 8%)',
+                        foreground: 'hsl(210, 40%, 98%)',
+                        muted: 'hsl(217, 32%, 17%)',
+                        accent: 'hsl(210, 40%, 88%)',
+                        border: 'hsl(217, 32%, 20%)'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
       body { font-family: 'Inter', sans-serif; }
       .font-mono { font-family: 'JetBrains Mono', Monaco, Consolas, monospace; }
     </style>
-    <script type="module" crossorigin src="/assets/index-BrLUcv_g.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DJ0SG1ho.css">
   </head>
-  <body>
-    <div id="root"></div>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+  <body class="dark bg-background text-foreground min-h-screen">
+    <div id="root">
+      <!-- Portfolio content inline to match Replit exactly -->
+      <nav class="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b border-border z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex items-center">
+              <h2 class="text-xl font-bold">Brian LaTorraca</h2>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+              <a href="#about" class="hover:text-accent transition-colors">About</a>
+              <a href="#skills" class="hover:text-accent transition-colors">Skills</a>
+              <a href="#experience" class="hover:text-accent transition-colors">Experience</a>
+              <a href="#projects" class="hover:text-accent transition-colors">Projects</a>
+              <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main class="pt-16">
+        <!-- Hero Section -->
+        <section class="py-20 px-4">
+          <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-6">QA Automation Engineer & Developer</h1>
+            <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Specializing in comprehensive test frameworks, automated testing solutions, and software quality engineering
+            </p>
+            <div class="flex justify-center gap-4">
+              <a href="#projects" class="bg-foreground text-background px-6 py-3 rounded-lg font-medium hover:bg-accent transition-colors">
+                View Projects
+              </a>
+              <a href="https://github.com/latorocka" target="_blank" class="border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+                GitHub Profile
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 px-4 bg-muted/30">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-8 text-center">About Me</h2>
+            <div class="prose prose-invert max-w-none">
+              <p class="text-lg leading-relaxed mb-6">
+                My journey into programming began in an unexpected place: the kitchen. As a chef, I learned the value of precision, creativity under pressure, and the importance of following systematic processes to achieve consistent results. When a recipe called for exact timing, temperatures, and measurements, I developed an eye for detail that would later prove invaluable in software development.
+              </p>
+              <p class="text-lg leading-relaxed">
+                Today, I bring that same methodical approach to QA automation and software testing. I specialize in building comprehensive test automation frameworks and ensuring software quality through systematic testing approaches. My unique background combines culinary precision with technical expertise, resulting in thorough, reliable testing solutions that help teams ship better software.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 px-4">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Technical Skills</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <i class="devicon-java-plain colored text-2xl"></i>
+                  Programming Languages
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-java-plain colored text-xl"></i>
+                    <span>Java</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-javascript-plain colored text-xl"></i>
+                    <span>JavaScript</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-typescript-plain colored text-xl"></i>
+                    <span>TypeScript</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-python-plain colored text-xl"></i>
+                    <span>Python</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <i class="devicon-selenium-original text-2xl text-green-500"></i>
+                  Testing Frameworks
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-selenium-original text-xl text-green-500"></i>
+                    <span>Selenium WebDriver</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cypress.svg" alt="Cypress" class="w-5 h-5 invert">
+                    <span>Cypress</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/appium.svg" alt="Appium" class="w-5 h-5 invert">
+                    <span>Appium</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-jest-plain colored text-xl"></i>
+                    <span>Jest</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg" alt="GraphQL" class="w-5 h-5 text-pink-500">
+                    <span>GraphQL</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <i class="devicon-git-plain colored text-2xl"></i>
+                  Development Tools
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-3">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/powerbi.svg" alt="PowerBI" class="w-5 h-5 text-yellow-500">
+                    <span>PowerBI</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-git-plain colored text-xl"></i>
+                    <span>Git</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-jenkins-line colored text-xl"></i>
+                    <span>Jenkins</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <i class="devicon-github-original text-xl text-white"></i>
+                    <span>GitHub Actions</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg" alt="CircleCI" class="w-5 h-5 invert">
+                    <span>CircleCI</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 px-4 bg-muted/30">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Experience</h2>
+            <div class="space-y-8">
+              <div class="border-l-4 border-foreground pl-6">
+                <h3 class="text-xl font-semibold">QA Automation Engineer</h3>
+                <p class="text-muted-foreground mb-2">Escape AI • 2024 - Present</p>
+                <p>Developed comprehensive test automation frameworks for AI-powered applications, ensuring quality and reliability across multiple platforms. Implemented end-to-end testing strategies for machine learning workflows and AI model validation.</p>
+              </div>
+              <div class="border-l-4 border-muted pl-6">
+                <h3 class="text-xl font-semibold">Senior QA Engineer</h3>
+                <p class="text-muted-foreground mb-2">Tatum Games • 2022 - 2024</p>
+                <p>Led quality assurance initiatives for gaming applications, implementing automated testing solutions and performance monitoring systems. Developed cross-platform testing frameworks for mobile and web gaming experiences.</p>
+              </div>
+              <div class="border-l-4 border-muted pl-6">
+                <h3 class="text-xl font-semibold">Chef & Kitchen Manager</h3>
+                <p class="text-muted-foreground mb-2">Various Restaurants • 2018 - 2022</p>
+                <p>Managed kitchen operations with precision timing and systematic processes. Developed attention to detail and problem-solving skills that directly translate to software quality assurance and debugging complex systems.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 px-4">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Testing Framework Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Selenium Test Framework</h3>
+                <p class="text-muted-foreground mb-4">Enterprise-grade Java automation framework with Page Object Model implementation, cross-browser testing capabilities, and comprehensive reporting with Extent Reports.</p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="bg-border px-2 py-1 rounded text-sm">Java</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Selenium</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">TestNG</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Maven</span>
+                </div>
+                <div class="flex gap-2">
+                  <a href="https://github.com/latorocka/selenium-framework" target="_blank" class="text-accent hover:underline">View on GitHub →</a>
+                  <button onclick="showDocumentation('selenium')" class="text-muted-foreground hover:text-accent">Documentation</button>
+                </div>
+              </div>
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">API Test Suite</h3>
+                <p class="text-muted-foreground mb-4">Comprehensive REST and GraphQL API testing framework with live demonstrations, performance monitoring, and security validation against real endpoints.</p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="bg-border px-2 py-1 rounded text-sm">JavaScript</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Jest</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">GraphQL</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">WebSocket</span>
+                </div>
+                <div class="flex gap-2">
+                  <a href="https://github.com/latorocka/api-test-suite" target="_blank" class="text-accent hover:underline">View on GitHub →</a>
+                  <button onclick="showDocumentation('api')" class="text-muted-foreground hover:text-accent">Documentation</button>
+                </div>
+              </div>
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Mobile Test Suite</h3>
+                <p class="text-muted-foreground mb-4">Cross-platform Appium framework for Android and iOS testing with device management, gesture automation, and parallel execution capabilities.</p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="bg-border px-2 py-1 rounded text-sm">JavaScript</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Appium</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">WebDriverIO</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Android</span>
+                </div>
+                <div class="flex gap-2">
+                  <a href="https://github.com/latorocka/mobile-test-suite" target="_blank" class="text-accent hover:underline">View on GitHub →</a>
+                  <button onclick="showDocumentation('mobile')" class="text-muted-foreground hover:text-accent">Documentation</button>
+                </div>
+              </div>
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-3">Cypress Test Framework</h3>
+                <p class="text-muted-foreground mb-4">Modern E2E testing framework with accessibility testing, performance monitoring, visual regression capabilities, and 100+ custom commands.</p>
+                <div class="flex gap-2 mb-4 flex-wrap">
+                  <span class="bg-border px-2 py-1 rounded text-sm">JavaScript</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">Cypress</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">TypeScript</span>
+                  <span class="bg-border px-2 py-1 rounded text-sm">WCAG</span>
+                </div>
+                <div class="flex gap-2">
+                  <a href="https://github.com/latorocka/cypress-test-framework" target="_blank" class="text-accent hover:underline">View on GitHub →</a>
+                  <button onclick="showDocumentation('cypress')" class="text-muted-foreground hover:text-accent">Documentation</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 px-4 bg-muted/30">
+          <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-8">Get In Touch</h2>
+            <p class="text-lg text-muted-foreground mb-8">
+              Interested in collaborating or learning more about my testing frameworks? Let's connect!
+            </p>
+            <div class="flex justify-center gap-6 flex-wrap">
+              <a href="https://github.com/latorocka" target="_blank" class="bg-foreground text-background px-6 py-3 rounded-lg font-medium hover:bg-accent transition-colors">
+                GitHub Profile
+              </a>
+              <a href="https://linkedin.com/in/latorocka" target="_blank" class="border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+                LinkedIn
+              </a>
+              <a href="mailto:latorocka@gmail.com" class="border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+                Email
+              </a>
+              <button onclick="downloadResume()" class="border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+                Download Resume
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="py-8 px-4 border-t border-border">
+        <div class="max-w-7xl mx-auto text-center text-muted-foreground">
+          <p>&copy; 2025 Brian LaTorraca. QA Automation Engineer & Developer</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Documentation functionality
+        function showDocumentation(framework) {
+            const documentationSection = document.getElementById('documentation') || createDocumentationSection();
+            documentationSection.scrollIntoView({ behavior: 'smooth' });
+            
+            const frameworks = {
+                selenium: {
+                    title: 'Selenium Test Framework Documentation',
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Architecture Overview</h4>
+                        <p class="mb-4">Enterprise-grade Java automation framework built with Page Object Model design pattern.</p>
+                        
+                        <h4 class="text-lg font-semibold mb-3">Key Features</h4>
+                        <ul class="list-disc list-inside mb-4 space-y-1">
+                            <li>Cross-browser testing (Chrome, Firefox, Edge, Safari)</li>
+                            <li>Parallel test execution with TestNG</li>
+                            <li>Comprehensive reporting with Extent Reports</li>
+                            <li>Data-driven testing with Excel integration</li>
+                            <li>Automatic screenshot capture on failures</li>
+                            <li>CI/CD pipeline integration (Jenkins & GitHub Actions)</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold mb-3">API Reference</h4>
+                        <div class="bg-muted p-4 rounded-lg font-mono text-sm mb-4">
+                            <p class="mb-2">// WebDriver Management</p>
+                            <p class="mb-2">public class DriverManager {</p>
+                            <p class="mb-2">&nbsp;&nbsp;public static WebDriver getDriver()</p>
+                            <p class="mb-2">&nbsp;&nbsp;public static void quitDriver()</p>
+                            <p class="mb-2">}</p>
+                            <br>
+                            <p class="mb-2">// Page Object Base</p>
+                            <p class="mb-2">public abstract class BasePage {</p>
+                            <p class="mb-2">&nbsp;&nbsp;protected void waitForElement(WebElement element)</p>
+                            <p class="mb-2">&nbsp;&nbsp;protected void click(WebElement element)</p>
+                            <p class="mb-2">&nbsp;&nbsp;protected String getText(WebElement element)</p>
+                            <p>}</p>
+                        </div>
+                        
+                        <a href="https://github.com/latorocka/selenium-framework" target="_blank" class="text-accent hover:underline">View Complete Documentation on GitHub →</a>
+                    `
+                },
+                api: {
+                    title: 'API Test Suite Documentation',
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Framework Overview</h4>
+                        <p class="mb-4">Comprehensive API testing framework with support for REST, GraphQL, and WebSocket testing.</p>
+                        
+                        <h4 class="text-lg font-semibold mb-3">Testing Capabilities</h4>
+                        <ul class="list-disc list-inside mb-4 space-y-1">
+                            <li>REST API testing with JSONPlaceholder integration</li>
+                            <li>GraphQL query testing with SpaceX API</li>
+                            <li>WebSocket real-time connection testing</li>
+                            <li>Performance testing with response time validation</li>
+                            <li>Security testing for common vulnerabilities</li>
+                            <li>Live demonstration scripts for all endpoints</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold mb-3">API Reference</h4>
+                        <div class="bg-muted p-4 rounded-lg font-mono text-sm mb-4">
+                            <p class="mb-2">// REST API Testing</p>
+                            <p class="mb-2">const response = await fetch(endpoint);</p>
+                            <p class="mb-2">expect(response.status).toBe(200);</p>
+                            <p class="mb-2">expect(response.json()).toMatchSchema(schema);</p>
+                            <br>
+                            <p class="mb-2">// GraphQL Testing</p>
+                            <p class="mb-2">const query = gql\`query { launches { id mission_name } }\`;</p>
+                            <p class="mb-2">const result = await client.query({ query });</p>
+                            <p>expect(result.data.launches).toBeDefined();</p>
+                        </div>
+                        
+                        <a href="https://github.com/latorocka/api-test-suite" target="_blank" class="text-accent hover:underline">View Complete Documentation on GitHub →</a>
+                    `
+                },
+                mobile: {
+                    title: 'Mobile Test Suite Documentation',
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Cross-Platform Framework</h4>
+                        <p class="mb-4">Appium and WebDriverIO-based testing framework for Android and iOS applications.</p>
+                        
+                        <h4 class="text-lg font-semibold mb-3">Key Capabilities</h4>
+                        <ul class="list-disc list-inside mb-4 space-y-1">
+                            <li>Native app testing on real devices and emulators</li>
+                            <li>Cross-platform test execution (Android & iOS)</li>
+                            <li>Gesture automation and touch interactions</li>
+                            <li>Device management and app lifecycle control</li>
+                            <li>Parallel execution across multiple devices</li>
+                            <li>Screenshot capture and video recording</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold mb-3">API Reference</h4>
+                        <div class="bg-muted p-4 rounded-lg font-mono text-sm mb-4">
+                            <p class="mb-2">// Device Management</p>
+                            <p class="mb-2">class DeviceManager {</p>
+                            <p class="mb-2">&nbsp;&nbsp;async startDevice(deviceConfig) {}</p>
+                            <p class="mb-2">&nbsp;&nbsp;async installApp(appPath) {}</p>
+                            <p class="mb-2">&nbsp;&nbsp;async captureScreenshot() {}</p>
+                            <p class="mb-2">}</p>
+                            <br>
+                            <p class="mb-2">// Gesture Testing</p>
+                            <p class="mb-2">await driver.touchAction([</p>
+                            <p class="mb-2">&nbsp;&nbsp;{ action: 'press', x: 100, y: 200 },</p>
+                            <p class="mb-2">&nbsp;&nbsp;{ action: 'moveTo', x: 300, y: 400 },</p>
+                            <p>&nbsp;&nbsp;{ action: 'release' }</p>
+                            <p>]);</p>
+                        </div>
+                        
+                        <a href="https://github.com/latorocka/mobile-test-suite" target="_blank" class="text-accent hover:underline">View Complete Documentation on GitHub →</a>
+                    `
+                },
+                cypress: {
+                    title: 'Cypress Test Framework Documentation',
+                    content: `
+                        <h4 class="text-lg font-semibold mb-3">Modern E2E Framework</h4>
+                        <p class="mb-4">Advanced Cypress testing framework with 100+ custom commands and comprehensive testing capabilities.</p>
+                        
+                        <h4 class="text-lg font-semibold mb-3">Advanced Features</h4>
+                        <ul class="list-disc list-inside mb-4 space-y-1">
+                            <li>WCAG 2.1 AA accessibility testing</li>
+                            <li>Core Web Vitals performance monitoring</li>
+                            <li>Visual regression testing with screenshot comparison</li>
+                            <li>Security testing for XSS, CSRF, and SQL injection</li>
+                            <li>Cross-browser testing with parallel execution</li>
+                            <li>Custom command library with 100+ utilities</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-semibold mb-3">API Reference</h4>
+                        <div class="bg-muted p-4 rounded-lg font-mono text-sm mb-4">
+                            <p class="mb-2">// Custom Commands</p>
+                            <p class="mb-2">cy.checkAccessibility({</p>
+                            <p class="mb-2">&nbsp;&nbsp;standard: 'WCAG2AA',</p>
+                            <p class="mb-2">&nbsp;&nbsp;tags: ['wcag2a', 'wcag2aa']</p>
+                            <p class="mb-2">});</p>
+                            <br>
+                            <p class="mb-2">// Performance Testing</p>
+                            <p class="mb-2">cy.measurePerformance().then((metrics) => {</p>
+                            <p class="mb-2">&nbsp;&nbsp;expect(metrics.lcp).to.be.lessThan(2500);</p>
+                            <p class="mb-2">&nbsp;&nbsp;expect(metrics.fid).to.be.lessThan(100);</p>
+                            <p>});</p>
+                        </div>
+                        
+                        <a href="https://github.com/latorocka/cypress-test-framework" target="_blank" class="text-accent hover:underline">View Complete Documentation on GitHub →</a>
+                    `
+                }
+            };
+            
+            const content = frameworks[framework];
+            if (content) {
+                document.getElementById('documentation-content').innerHTML = `
+                    <h3 class="text-2xl font-bold mb-6">${content.title}</h3>
+                    ${content.content}
+                `;
+            }
+        }
+
+        function createDocumentationSection() {
+            const section = document.createElement('section');
+            section.id = 'documentation';
+            section.className = 'py-20 px-4 bg-muted/20';
+            section.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div id="documentation-content">
+                        <h3 class="text-2xl font-bold mb-6">Framework Documentation</h3>
+                        <p class="text-muted-foreground">Click on any Documentation button above to view detailed information about each testing framework.</p>
+                    </div>
+                </div>
+            `;
+            
+            const contactSection = document.getElementById('contact');
+            contactSection.parentNode.insertBefore(section, contactSection);
+            return section;
+        }
+
+        // Resume download functionality
+        async function downloadResume() {
+            try {
+                const response = await fetch('/api/resume/download');
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'Brian_LaTorraca_Resume_2025_ATS.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    console.error('Failed to download resume');
+                }
+            } catch (error) {
+                console.error('Error downloading resume:', error);
+            }
+        }
+    </script>
   </body>
 </html>
