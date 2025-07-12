@@ -853,6 +853,234 @@
         }, 100);
       };
 
+      const openDocumentationModal = (project, type) => {
+        const docContent = getDocumentationContent(project.id, type);
+        const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+        newWindow.document.write(`
+          <html>
+            <head>
+              <title>${project.title} - ${type}</title>
+              <style>
+                body { 
+                  font-family: system-ui, -apple-system, sans-serif; 
+                  line-height: 1.6; 
+                  max-width: 800px; 
+                  margin: 0 auto; 
+                  padding: 20px;
+                  background: #ffffff;
+                  color: #333;
+                }
+                h1, h2, h3 { color: #2563eb; }
+                code { 
+                  background: #f3f4f6; 
+                  padding: 2px 4px; 
+                  border-radius: 3px; 
+                  font-family: 'Monaco', 'Menlo', monospace;
+                }
+                pre { 
+                  background: #f8fafc; 
+                  padding: 16px; 
+                  border-radius: 6px; 
+                  overflow-x: auto;
+                  border-left: 4px solid #3b82f6;
+                }
+                ul { margin-left: 20px; }
+                li { margin-bottom: 5px; }
+              </style>
+            </head>
+            <body>
+              <div style="white-space: pre-wrap;">${docContent}</div>
+            </body>
+          </html>
+        `);
+        newWindow.document.close();
+      };
+
+      const getDocumentationContent = (projectId, type) => {
+        const docMap = {
+          '1': { // Selenium Framework
+            'setup': \`# Selenium Test Framework - Setup Guide
+
+## Prerequisites
+- Java Development Kit (JDK) 11 or higher
+- Apache Maven 3.6 or higher
+- IDE (IntelliJ IDEA, Eclipse, VS Code)
+- Browser support: Chrome, Firefox, Edge, Safari
+
+## Installation Steps
+1. Clone the repository: git clone https://github.com/latorocka/selenium-framework
+2. Navigate to project directory: cd selenium-framework
+3. Install dependencies: mvn clean install
+4. Configure test settings in src/test/resources/config.properties
+5. Run tests: mvn test
+
+## Configuration
+- Update browser preferences in config.properties
+- Set up test data in test-data/ directory
+- Configure TestNG suites in src/test/resources/
+
+Contact: latorocka@gmail.com\`,
+            
+            'user-guide': \`# Selenium Test Framework - User Guide
+
+## Writing Tests
+1. Create page objects in src/main/java/pages/
+2. Implement test methods in src/test/java/tests/
+3. Use data-driven testing with Excel files in test-data/
+4. Configure TestNG suites in src/test/resources/
+
+## Best Practices
+- Follow Page Object Model pattern
+- Use explicit waits for element interactions
+- Implement proper error handling
+- Add screenshots for failed tests
+
+## Running Tests
+- Single test: mvn test -Dtest=LoginTest
+- Test suite: mvn test -DsuiteXmlFile=smoke-tests.xml
+- Parallel execution: mvn test -Dparallel=methods
+
+Contact: latorocka@gmail.com\`
+          },
+          '2': { // API Test Suite
+            'setup': \`# API Test Suite - Setup Guide
+
+## Prerequisites
+- Node.js 16.x or higher
+- npm or yarn package manager
+- Internet connection for live API testing
+- Jest testing framework
+
+## Installation Steps
+1. Clone the repository: git clone https://github.com/latorocka/api-test-suite
+2. Navigate to project directory: cd api-test-suite
+3. Install dependencies: npm install
+4. Configure API endpoints in config/test.config.js
+5. Run tests: npm test
+
+## Configuration
+- Set up API endpoints in config files
+- Configure test data in test-data/ directory
+- Update authentication settings if needed
+
+Contact: latorocka@gmail.com\`,
+            
+            'user-guide': \`# API Test Suite - User Guide
+
+## Running Test Categories
+- Functional tests: npm run test:functional
+- Performance tests: npm run test:performance
+- Security tests: npm run test:security
+- All tests: npm test
+
+## Adding New Tests
+1. Create test files in appropriate category folder
+2. Extend ApiTestBase class
+3. Use provided utilities for common operations
+4. Follow naming conventions for test methods
+
+## Test Categories
+- Functional: CRUD operations, data validation
+- Integration: Cross-API workflow testing
+- Performance: Load, throughput, scalability
+- Security: SQL injection, XSS protection
+
+Contact: latorocka@gmail.com\`
+          },
+          '3': { // Mobile Test Suite
+            'setup': \`# Mobile Test Automation Suite - Setup Guide
+
+## Prerequisites
+- Node.js 16.x or higher
+- Android Studio with SDK Tools
+- Xcode 14.x or later (macOS only)
+- Appium 2.x drivers
+
+## Installation Steps
+1. Clone repository: git clone https://github.com/latorocka/mobile-test-suite
+2. Install dependencies: npm install
+3. Set up Android emulators or iOS simulators
+4. Install Appium drivers: appium driver install uiautomator2
+5. Configure device capabilities in config/
+6. Start Appium server and run tests: npm test
+
+## Device Setup
+- Android: Install Android SDK, create AVD
+- iOS: Install Xcode, set up simulators
+- Real devices: Enable developer options
+
+Contact: latorocka@gmail.com\`,
+            
+            'user-guide': \`# Mobile Test Automation Suite - User Guide
+
+## Device Configuration
+- Configure Android devices in config/android.config.js
+- Configure iOS devices in config/ios.config.js
+- Set up parallel execution in wdio.conf.js
+
+## Test Development
+1. Create page objects for each screen
+2. Implement gesture utilities for complex interactions
+3. Use performance monitoring for app optimization
+4. Add accessibility tests for compliance
+
+## Running Tests
+- Android tests: npm run test:android
+- iOS tests: npm run test:ios
+- Parallel execution: npm run test:parallel
+
+Contact: latorocka@gmail.com\`
+          },
+          '4': { // Cypress Framework
+            'setup': \`# Cypress Test Framework - Setup Guide
+
+## Prerequisites
+- Node.js 16.x or higher
+- npm or yarn package manager
+- Cypress 13.x test framework
+- Browser support: Chrome, Firefox, Edge, Safari
+
+## Installation Steps
+1. Clone the repository: git clone https://github.com/latorocka/cypress-test-framework
+2. Navigate to project directory: cd cypress-test-framework
+3. Install dependencies: npm install
+4. Open Cypress: npx cypress open
+5. Run tests headlessly: npm run cy:run
+
+## Configuration
+- Update cypress.config.js for environment settings
+- Configure test data in cypress/fixtures/
+- Set up custom commands in cypress/support/
+
+Contact: latorocka@gmail.com\`,
+            
+            'user-guide': \`# Cypress Test Framework - User Guide
+
+## Test Categories
+- API tests: npm run test:api
+- UI tests: npm run test:ui
+- Performance tests: npm run test:performance
+- Accessibility tests: npm run test:a11y
+
+## Custom Commands
+- Over 100 custom commands available
+- Import from cypress/support/commands.js
+- Use cy.customCommand() for enhanced functionality
+- Check commands directory for specific implementations
+
+## Best Practices
+- Use data-cy attributes for element selection
+- Implement page object pattern
+- Add proper wait strategies
+- Use fixtures for test data management
+
+Contact: latorocka@gmail.com\`
+          }
+        };
+
+        return docMap[projectId.toString()]?.[type] || 'Documentation not available.';
+      };
+
       return React.createElement('section', 
         { id: "projects", className: "py-20 px-4" },
         React.createElement('div', 
@@ -928,26 +1156,96 @@
           selectedProject && React.createElement('div', 
             { id: "documentation", className: "mt-20 p-8 bg-muted/20 rounded-lg" },
             React.createElement('h3', { className: "text-2xl font-bold mb-6" }, `${selectedProject.title} - Documentation`),
-            React.createElement('div', { className: "space-y-4" },
-              React.createElement('div', {},
-                React.createElement('h4', { className: "text-lg font-semibold mb-3" }, "Project Overview"),
-                React.createElement('p', { className: "mb-4" }, selectedProject.description)
-              ),
+            
+            // Project Overview
+            React.createElement('div', { className: "mb-8" },
+              React.createElement('h4', { className: "text-xl font-semibold mb-4" }, "Project Overview"),
+              React.createElement('p', { className: "text-lg leading-relaxed mb-6" }, selectedProject.description),
               selectedProject.features && React.createElement('div', {},
-                React.createElement('h4', { className: "text-lg font-semibold mb-3" }, "Key Features"),
-                React.createElement('ul', { className: "list-disc list-inside mb-4 space-y-1" },
+                React.createElement('h5', { className: "text-lg font-semibold mb-3" }, "Key Features"),
+                React.createElement('ul', { className: "grid grid-cols-1 md:grid-cols-2 gap-3 mb-6" },
                   selectedProject.features.map((feature, index) =>
-                    React.createElement('li', { key: index }, feature)
+                    React.createElement('li', { key: index, className: "flex items-start gap-2" },
+                      React.createElement('span', { className: "text-green-500 mt-1" }, "✓"),
+                      React.createElement('span', {}, feature)
+                    )
                   )
                 )
-              ),
-              React.createElement('a', 
-                { 
-                  href: selectedProject.githubUrl,
-                  target: "_blank",
-                  className: "text-accent hover:underline" 
-                },
-                "View Complete Documentation on GitHub →"
+              )
+            ),
+
+            // Documentation Grid
+            React.createElement('div', { className: "mb-8" },
+              React.createElement('h4', { className: "text-xl font-semibold mb-6" }, "Documentation"),
+              React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" },
+                
+                // Setup Guide
+                React.createElement('div', { className: "border border-border rounded-lg p-6" },
+                  React.createElement('div', { className: "flex items-center gap-3 mb-4" },
+                    React.createElement('div', { className: "h-6 w-6 text-blue-500" }, "📖"),
+                    React.createElement('h5', { className: "font-bold text-lg" }, "Setup Guide")
+                  ),
+                  React.createElement('p', { className: "text-secondary text-sm mb-4" },
+                    "Complete installation and configuration instructions."
+                  ),
+                  React.createElement('button', {
+                    className: "border border-border px-4 py-2 rounded text-sm hover:bg-muted transition-colors flex items-center gap-2",
+                    onClick: () => openDocumentationModal(selectedProject, 'setup')
+                  },
+                    React.createElement('span', {}, "📖"),
+                    React.createElement('span', {}, "View Setup Guide")
+                  )
+                ),
+
+                // User Guide  
+                React.createElement('div', { className: "border border-border rounded-lg p-6" },
+                  React.createElement('div', { className: "flex items-center gap-3 mb-4" },
+                    React.createElement('div', { className: "h-6 w-6 text-green-500" }, "👥"),
+                    React.createElement('h5', { className: "font-bold text-lg" }, "User Guide")
+                  ),
+                  React.createElement('p', { className: "text-secondary text-sm mb-4" },
+                    "Comprehensive guide covering test writing, execution, configuration, and best practices."
+                  ),
+                  React.createElement('button', {
+                    className: "border border-border px-4 py-2 rounded text-sm hover:bg-muted transition-colors flex items-center gap-2",
+                    onClick: () => openDocumentationModal(selectedProject, 'user-guide')
+                  },
+                    React.createElement('span', {}, "👥"),
+                    React.createElement('span', {}, "View User Guide")
+                  )
+                ),
+
+                // View on GitHub
+                React.createElement('div', { className: "border border-border rounded-lg p-6" },
+                  React.createElement('div', { className: "flex items-center gap-3 mb-4" },
+                    React.createElement('div', { className: "h-6 w-6 text-orange-500" }, "🔗"),
+                    React.createElement('h5', { className: "font-bold text-lg" }, "View on GitHub")
+                  ),
+                  React.createElement('p', { className: "text-secondary text-sm mb-4" },
+                    "Explore the complete source code, documentation, and implementation examples in the live repository."
+                  ),
+                  React.createElement('a', {
+                    href: selectedProject.githubUrl,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    className: "border border-border px-4 py-2 rounded text-sm hover:bg-muted transition-colors flex items-center gap-2 inline-flex"
+                  },
+                    React.createElement('span', {}, "🔗"),
+                    React.createElement('span', {}, "View Repository")
+                  )
+                )
+              )
+            ),
+
+            // Technologies Section
+            React.createElement('div', {},
+              React.createElement('h4', { className: "text-xl font-semibold mb-6" }, "Technologies & Tools"),
+              React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" },
+                selectedProject.technologies.map((tech) =>
+                  React.createElement('div', { key: tech, className: "text-center p-4 border border-border rounded-lg" },
+                    React.createElement('span', { className: "font-medium" }, tech)
+                  )
+                )
               )
             )
           )
