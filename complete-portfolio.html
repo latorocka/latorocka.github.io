@@ -89,7 +89,7 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Resume Data
+    // Resume Data - Complete dataset matching Replit
     const personalInfo = {
       name: "Brian LaTorraca",
       title: "QA Automation Engineer & Developer",
@@ -149,8 +149,27 @@
       }
     ];
 
+    // Complete Skills Data matching Replit exactly
     const skills = {
       languages: ["Java", "Javascript", "Python", "HTML5", "CSS", "PHP", "C#", "MySQL", "Swift"],
+      testingTools: [
+        "Selenium",
+        "Cypress.io", 
+        "Postman",
+        "Android Studio",
+        "Cucumber",
+        "TestNG",
+        "Appium",
+        "GraphQL"
+      ],
+      frameworks: [
+        "React",
+        "Node.js",
+        "Express",
+        "Jest",
+        "Maven",
+        "Spring Boot"
+      ],
       tools: [
         "IntelliJ",
         "MongoDB", 
@@ -161,15 +180,6 @@
         "Unity Game Engine",
         "CircleCI",
         "PowerBI"
-      ],
-      frameworks: [
-        "Selenium",
-        "Cypress.io",
-        "Postman",
-        "Android Studio",
-        "Cucumber",
-        "TestNG",
-        "Appium"
       ],
       softSkills: [
         "Team work",
@@ -184,64 +194,90 @@
       {
         id: 1,
         title: "Selenium Test Framework",
-        description: "Enterprise-grade test automation framework with Page Object Model, data-driven testing, parallel execution, and CI/CD integration. Includes comprehensive test utilities, screenshot capture, and detailed reporting.",
-        technologies: ["Selenium WebDriver 4.x", "TestNG", "Maven", "Java 11+", "Jenkins", "GitHub Actions"],
+        description: "Enterprise-grade test automation framework built with Java and Selenium WebDriver 4.x, featuring comprehensive Page Object Model implementation, data-driven testing capabilities, and advanced reporting systems. Includes cross-browser testing support, parallel execution, CI/CD pipeline integration, and professional test utilities for scalable test automation solutions.",
+        technologies: ["Selenium WebDriver 4.x", "TestNG", "Maven", "Java 11+", "Jenkins", "GitHub Actions", "Extent Reports", "Page Object Model"],
         category: "Automation",
         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
         githubUrl: "https://github.com/latorocka/selenium-framework",
         features: [
-          "Page Object Model implementation",
-          "Cross-browser testing (Chrome, Firefox, Edge, Safari)",
-          "Data-driven testing with Excel integration",
-          "Parallel test execution",
-          "Screenshot capture on failures",
-          "Comprehensive reporting with Extent Reports",
-          "CI/CD pipeline integration",
-          "Configuration management"
+          "Page Object Model implementation with maintainable test structure",
+          "Cross-browser testing support (Chrome, Firefox, Edge, Safari)",
+          "Data-driven testing with Excel integration and external test data management",
+          "Parallel test execution capabilities with thread-safe driver management",
+          "Automatic screenshot capture on test failures with detailed error reporting",
+          "Comprehensive test reporting with Extent Reports and custom dashboards",
+          "CI/CD pipeline integration with Jenkins and GitHub Actions",
+          "Configuration management for multiple testing environments",
+          "Advanced wait utilities and helper methods for robust test execution",
+          "Professional test framework architecture with enterprise-grade error handling"
         ]
       },
       {
         id: 2,
         title: "API Test Suite",
-        description: "Comprehensive enterprise-grade API testing framework with 8 specialized testing categories: Functional, Integration, Performance, Security, and Data Validation testing. Features automated test runner with detailed reporting, live API endpoint validation against JSONPlaceholder, GitHub, and SpaceX APIs, and production-ready error handling with metrics analysis.",
-        technologies: ["Jest", "Supertest", "GraphQL", "WebSocket", "REST API", "CI/CD", "Performance Testing"],
+        description: "Comprehensive enterprise-grade API testing framework featuring 8 specialized testing categories: Functional, Integration, Performance, Security, and Data Validation testing. Built with Jest and Supertest, includes automated test runner with detailed reporting, live API endpoint validation against JSONPlaceholder, GitHub, and SpaceX APIs, and production-ready error handling with comprehensive metrics analysis.",
+        technologies: ["Jest", "Supertest", "GraphQL", "WebSocket", "REST API", "CI/CD", "Performance Testing", "Security Testing"],
         category: "API Testing",
         image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
         githubUrl: "https://github.com/latorocka/api-test-suite",
         features: [
           "Comprehensive test suite with 8 specialized testing categories",
-          "Functional testing with complete CRUD operations validation",
+          "Functional testing with complete CRUD operations validation and endpoint coverage",
           "Integration testing across multiple API systems with data consistency checks",
-          "Performance testing including load, throughput, and scalability analysis",
-          "Security testing with input validation, SQL injection, and vulnerability assessment",
+          "Performance testing including load analysis, throughput measurement, and scalability testing",
+          "Security testing with input validation, SQL injection protection, and vulnerability assessment",
           "Data validation with schema verification and cross-API consistency checks",
-          "Live API endpoints: JSONPlaceholder, GitHub, SpaceX GraphQL, WebSocket servers",
+          "Live API endpoints: JSONPlaceholder, GitHub API, SpaceX GraphQL, WebSocket servers",
           "Automated test runner with detailed reporting and category-based execution",
           "Real-time demonstration capabilities with immediate execution verification",
-          "Production-ready test framework with professional error handling and metrics"
+          "Production-ready test framework with professional error handling and comprehensive metrics"
         ]
       },
       {
         id: 3,
         title: "Mobile Test Automation Suite",
-        description: "Enterprise-grade cross-platform mobile test automation framework built with Appium and WebDriverIO. Features comprehensive Page Object Model architecture, parallel execution across multiple devices, advanced gesture testing, performance monitoring, and device management utilities for Android and iOS applications.",
+        description: "Enterprise-grade cross-platform mobile test automation framework built with Appium 2.x and WebDriverIO 8.x. Features comprehensive Page Object Model architecture, parallel execution across multiple devices, advanced gesture testing, performance monitoring, and sophisticated device management utilities for both Android and iOS applications with professional CI/CD integration.",
         technologies: ["Appium 2.x", "WebDriverIO 8.x", "Android Studio", "Xcode", "iOS Simulator", "Page Object Model", "Parallel Testing", "Allure Reports", "CI/CD"],
         category: "Mobile Testing",
         image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        githubUrl: "https://github.com/latorocka/mobile-test-suite"
+        githubUrl: "https://github.com/latorocka/mobile-test-suite",
+        features: [
+          "Cross-platform framework supporting both Android and iOS testing environments",
+          "Page Object Model implementation with maintainable mobile test architecture",
+          "Parallel execution capabilities across multiple devices and platforms simultaneously",
+          "Advanced gesture testing including swipe, tap, pinch, and complex multi-touch interactions",
+          "Performance monitoring with app startup time, memory usage, and battery consumption analysis",
+          "Device management utilities for handling multiple physical devices and emulators",
+          "Comprehensive test coverage including functional, accessibility, and performance testing",
+          "CI/CD integration with Jenkins and GitHub Actions for automated mobile testing pipelines",
+          "Allure reporting integration with detailed test execution reports and screenshots",
+          "Production-ready framework with robust error handling and retry mechanisms"
+        ]
       },
       {
         id: 4,
         title: "Cypress Test Framework",
-        description: "Advanced end-to-end test automation framework built with Cypress 13.x, demonstrating modern testing practices and enterprise-grade architecture. This comprehensive framework showcases professional QA automation skills through multi-layered testing strategies, custom command libraries, and production-ready CI/CD integration with detailed performance and accessibility validation.",
+        description: "Advanced end-to-end test automation framework built with Cypress 13.x, demonstrating modern testing practices and enterprise-grade architecture. This comprehensive framework showcases professional QA automation skills through multi-layered testing strategies, 100+ custom command libraries, and production-ready CI/CD integration with detailed performance monitoring and accessibility validation.",
         technologies: ["Cypress 13.x", "JavaScript/TypeScript", "Mochawesome", "Axe-core", "Visual Regression", "GitHub Actions", "Jenkins", "Cross-browser Testing"],
         category: "E2E Testing",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        githubUrl: "https://github.com/latorocka/cypress-test-framework"
+        githubUrl: "https://github.com/latorocka/cypress-test-framework",
+        features: [
+          "Enterprise-grade framework with modern JavaScript/TypeScript architecture",
+          "100+ custom commands across API, UI, Performance, and Accessibility testing categories",
+          "Multi-layered testing approach: API, UI, Performance, Accessibility, Smoke, and Regression testing",
+          "Cross-browser support with testing capabilities for Chrome, Firefox, Edge, and Safari",
+          "Advanced performance testing with Core Web Vitals monitoring and load testing capabilities",
+          "WCAG 2.1 AA compliance testing with keyboard navigation and screen reader support validation",
+          "Security testing including XSS, CSRF, and SQL injection protection verification",
+          "Visual regression testing with screenshot comparison and responsive design validation",
+          "Professional CI/CD integration with Jenkins and GitHub Actions pipeline configurations",
+          "Comprehensive reporting with Mochawesome, video recordings, and detailed test metrics"
+        ]
       }
     ];
 
-    // Icon mapping
+    // Icon mapping - Complete set
     const languageIcons = {
       "Java": "devicon-java-plain colored",
       "Javascript": "devicon-javascript-plain colored", 
@@ -261,7 +297,17 @@
       "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
       "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
       "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
+      "TestNG": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/testinglibrary.svg' },
+      "Appium": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/appium.svg' },
       "GraphQL": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg' },
+      
+      // Frameworks
+      "React": { type: 'devicon', value: 'devicon-react-original colored' },
+      "Node.js": { type: 'devicon', value: 'devicon-nodejs-plain colored' },
+      "Express": { type: 'devicon', value: 'devicon-express-original colored' },
+      "Jest": { type: 'devicon', value: 'devicon-jest-plain colored' },
+      "Maven": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/apachemaven.svg' },
+      "Spring Boot": { type: 'devicon', value: 'devicon-spring-plain colored' },
       
       // Development Tools
       "IntelliJ": { type: 'devicon', value: 'devicon-intellij-plain colored' },
@@ -286,7 +332,7 @@
 
     function Badge({ children, className = "", variant = "default" }) {
       const baseClass = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium";
-      const variantClass = variant === "secondary" ? "bg-secondary text-secondary-foreground" : "bg-primary text-primary-foreground";
+      const variantClass = variant === "secondary" ? "bg-secondary/20 text-secondary-foreground" : "bg-primary text-primary-foreground";
       return React.createElement('span', { className: `${baseClass} ${variantClass} ${className}` }, children);
     }
 
@@ -375,15 +421,6 @@
     }
 
     function SkillsSection() {
-      const testingTools = [
-        { name: "Selenium", description: "Web automation testing framework with Java integration" },
-        { name: "Cypress.io", description: "Modern JavaScript testing framework for frontend automation" },
-        { name: "Postman", description: "API development and testing platform" },
-        { name: "Android Studio", description: "Mobile application testing and development" },
-        { name: "Cucumber", description: "Behavior-driven development testing framework" },
-        { name: "GraphQL", description: "Query language for APIs and runtime for executing queries" }
-      ];
-
       return React.createElement('section', 
         { id: "skills", className: "py-20 px-4" },
         React.createElement('div', 
@@ -424,9 +461,19 @@
             { className: "mb-16" },
             React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Testing Tools & Frameworks"),
             React.createElement('div', 
-              { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" },
-              testingTools.map((tool, index) => {
-                const iconConfig = toolIcons[tool.name];
+              { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" },
+              skills.testingTools.map((tool, index) => {
+                const iconConfig = toolIcons[tool];
+                const descriptions = {
+                  "Selenium": "Web automation testing framework with Java integration",
+                  "Cypress.io": "Modern JavaScript testing framework for frontend automation", 
+                  "Postman": "API development and testing platform",
+                  "Android Studio": "Mobile application testing and development",
+                  "Cucumber": "Behavior-driven development testing framework",
+                  "TestNG": "Testing framework for Java with advanced features",
+                  "Appium": "Cross-platform mobile test automation framework",
+                  "GraphQL": "Query language for APIs and runtime for executing queries"
+                };
                 
                 return React.createElement(Card, 
                   { key: index, className: "skill-card" },
@@ -441,15 +488,48 @@
                             React.createElement('i', { className: `${iconConfig.value} text-2xl` }) :
                             React.createElement('img', { 
                               src: iconConfig.value, 
-                              alt: tool.name,
+                              alt: tool,
                               className: "w-6 h-6 object-contain",
                               style: { filter: 'invert(1)' }
                             })
                         ) : React.createElement('span', { className: "text-2xl" }, "🛠️")
                       ),
-                      React.createElement('h4', { className: "font-bold" }, tool.name)
+                      React.createElement('h4', { className: "font-bold" }, tool)
                     ),
-                    React.createElement('p', { className: "text-secondary text-sm" }, tool.description)
+                    React.createElement('p', { className: "text-secondary text-sm" }, descriptions[tool] || `Professional ${tool} testing tool`)
+                  )
+                );
+              })
+            )
+          ),
+
+          // Frameworks
+          React.createElement('div', 
+            { className: "mb-16" },
+            React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Frameworks & Libraries"),
+            React.createElement('div', 
+              { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6" },
+              skills.frameworks.map((framework) => {
+                const iconConfig = toolIcons[framework];
+                
+                return React.createElement(Card, 
+                  { key: framework, className: "skill-card" },
+                  React.createElement(CardContent, 
+                    { className: "p-6 text-center" },
+                    React.createElement('div', 
+                      { className: "text-4xl mb-3" },
+                      iconConfig ? (
+                        iconConfig.type === 'devicon' ? 
+                          React.createElement('i', { className: iconConfig.value }) :
+                          React.createElement('img', { 
+                            src: iconConfig.value, 
+                            alt: framework,
+                            className: "w-10 h-10 mx-auto",
+                            style: { filter: 'invert(1)' }
+                          })
+                      ) : React.createElement('span', null, "🚀")
+                    ),
+                    React.createElement('h4', { className: "font-semibold" }, framework)
                   )
                 );
               })
@@ -489,7 +569,7 @@
             )
           ),
 
-          // Soft Skills
+          // Professional Skills
           React.createElement('div', 
             {},
             React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Professional Skills"),
@@ -581,7 +661,7 @@
             )
           ),
           React.createElement('div', 
-            { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" },
+            { className: "grid grid-cols-1 md:grid-cols-2 gap-8" },
             projects.map((project, index) =>
               React.createElement(Card, 
                 { key: project.id, className: "project-card overflow-hidden" },
@@ -609,7 +689,7 @@
                   ),
                   React.createElement('div', 
                     { className: "flex flex-wrap gap-2 mb-4" },
-                    project.technologies.map((tech) =>
+                    project.technologies.slice(0, 4).map((tech) =>
                       React.createElement(Badge, 
                         { key: tech, variant: "secondary", className: "text-xs" },
                         tech
