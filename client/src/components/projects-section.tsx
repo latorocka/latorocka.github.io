@@ -54,7 +54,7 @@ export default function ProjectsSection() {
                   ))}
                 </div>
                 
-                <div className="flex gap-3">
+                <div className="flex gap-2 flex-wrap">
                   <Link href={`/project/${project.id}`}>
                     <Button 
                       variant="outline" 
@@ -79,6 +79,17 @@ export default function ProjectsSection() {
                     <Github className="mr-2 h-4 w-4" />
                     <span className="text-sm">GitHub</span>
                   </Button>
+                  
+                  <Link href={`/project/${project.id}#documentation`}>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="flex items-center text-blue-600 hover:text-blue-50 hover:bg-blue-600"
+                    >
+                      <FileText className="mr-2 h-4 w-4" />
+                      <span className="text-sm">Documentation</span>
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
