@@ -710,38 +710,89 @@
     }
 
     function ExperienceSection() {
+      const getIcon = (index) => {
+        const experience = experiences[index];
+        if (experience && experience.company === "Escape AI") {
+          return "🧠";
+        }
+        if (experience && experience.company === "Tatum Games") {
+          return "🎮";
+        }
+        return "⚙️";
+      };
+
+      const getIconColor = (index) => {
+        const colors = [
+          "bg-primary",
+          "bg-accent", 
+          "bg-green-500",
+          "bg-secondary",
+          "bg-purple-500",
+          "bg-orange-500"
+        ];
+        return colors[index] || "bg-primary";
+      };
+
       return React.createElement('section', 
-        { id: "experience", className: "py-20 px-4 bg-muted/30" },
+        { id: "experience", className: "py-20 bg-muted/30" },
         React.createElement('div', 
-          { className: "max-w-4xl mx-auto" },
+          { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
           React.createElement('div', 
             { className: "text-center mb-16" },
-            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "Experience"),
+            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "Work Experience"),
             React.createElement('p', 
               { className: "text-xl text-secondary" },
-              "Professional journey in quality assurance and software testing"
+              "Progressive career growth in QA automation and software testing"
             )
           ),
           React.createElement('div', 
-            { className: "space-y-8" },
-            experiences.slice(0, 3).map((exp) =>
-              React.createElement('div', 
-                { key: exp.id, className: "experience-card" },
+            { className: "max-w-4xl mx-auto" },
+            React.createElement('div', 
+              { className: "relative" },
+              React.createElement('div', { className: "absolute left-8 top-0 bottom-0 w-0.5 bg-primary hidden md:block" }),
+              experiences.map((experience, index) =>
                 React.createElement('div', 
-                  { className: "flex items-center justify-between mb-4" },
-                  React.createElement('h3', { className: "text-xl font-bold" }, exp.title),
-                  exp.type === 'current' && 
-                    React.createElement('span', 
-                      { className: "bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm" }, 
-                      "Current"
+                  { key: experience.id, className: "relative flex items-start mb-12" },
+                  React.createElement('div', 
+                    { className: `flex-shrink-0 w-16 h-16 ${getIconColor(index)} rounded-full flex items-center justify-center z-10` },
+                    React.createElement('span', { className: "text-2xl text-white" }, getIcon(index))
+                  ),
+                  React.createElement(Card, 
+                    { className: "ml-8 flex-1 shadow-lg" },
+                    React.createElement(CardContent, 
+                      { className: "p-8" },
+                      React.createElement('div', 
+                        { className: "flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4" },
+                        React.createElement('h3', { className: "text-xl font-bold" }, experience.title),
+                        React.createElement('span', 
+                          { className: `text-sm font-medium px-3 py-1 rounded-full ${
+                            experience.type === 'current' 
+                              ? 'text-primary bg-primary/10' 
+                              : 'text-secondary bg-secondary/10'
+                          }` },
+                          experience.period
+                        )
+                      ),
+                      React.createElement('h4', 
+                        { className: "text-lg text-accent font-medium mb-3" },
+                        `${experience.company} - ${experience.location}`
+                      ),
+                      experience.description && 
+                        React.createElement('p', 
+                          { className: "text-secondary mb-3 italic" },
+                          experience.description
+                        ),
+                      React.createElement('ul', 
+                        { className: "text-secondary space-y-2" },
+                        experience.responsibilities.map((responsibility, i) =>
+                          React.createElement('li', 
+                            { key: i, className: "flex items-start" },
+                            React.createElement('span', { className: "text-green-500 mt-1 mr-3 text-sm" }, "✓"),
+                            React.createElement('span', { className: "text-sm" }, responsibility)
+                          )
+                        )
+                      )
                     )
-                ),
-                React.createElement('p', { className: "text-accent-foreground font-medium mb-2" }, `${exp.company} • ${exp.location} • ${exp.period}`),
-                exp.description && React.createElement('p', { className: "text-secondary mb-4" }, exp.description),
-                React.createElement('ul', 
-                  { className: "list-disc list-inside space-y-1 text-sm" },
-                  exp.responsibilities.map((resp, index) =>
-                    React.createElement('li', { key: index }, resp)
                   )
                 )
               )
