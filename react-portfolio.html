@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brian LaTorraca - QA Automation Engineer & Developer</title>
+  <meta name="description" content="Experienced QA Automation Engineer and Developer specializing in Selenium, Cypress.io, and mobile testing. Available for new opportunities in Long Beach, CA." />
+  
+  <!-- React and ReactDOM from CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel Standalone for JSX compilation -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- DevIcon for Programming Language Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(220, 15%, 8%)',
+            foreground: 'hsl(210, 40%, 98%)',
+            muted: 'hsl(217, 32%, 17%)',
+            'muted-foreground': 'hsl(215, 20.2%, 65.1%)',
+            accent: 'hsl(210, 40%, 88%)',
+            'accent-foreground': 'hsl(220, 15%, 8%)',
+            border: 'hsl(217, 32%, 20%)',
+            primary: 'hsl(210, 40%, 98%)',
+            'primary-foreground': 'hsl(220, 15%, 8%)',
+            secondary: 'hsl(215, 20.2%, 65.1%)',
+            'secondary-foreground': 'hsl(210, 40%, 98%)',
+            card: 'hsl(220, 15%, 10%)',
+            'card-foreground': 'hsl(210, 40%, 98%)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { 
+      font-family: 'Inter', sans-serif; 
+      margin: 0;
+      padding: 0;
+    }
+    .skill-card {
+      background-color: hsl(220, 15%, 10%);
+      border: 1px solid hsl(217, 32%, 20%);
+      transition: all 0.3s ease;
+      transform: scale(1);
+    }
+    .skill-card:hover {
+      border-color: hsl(210, 40%, 88%);
+      transform: scale(1.05);
+    }
+    .project-card {
+      background-color: hsl(220, 15%, 10%);
+      border: 1px solid hsl(217, 32%, 20%);
+      transition: all 0.3s ease;
+      transform: scale(1);
+    }
+    .project-card:hover {
+      border-color: hsl(210, 40%, 88%);
+      transform: scale(1.05);
+    }
+    .experience-card {
+      background-color: hsl(220, 15%, 10%);
+      border: 1px solid hsl(217, 32%, 20%);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body class="dark bg-background text-foreground min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // Resume Data
+    const personalInfo = {
+      name: "Brian LaTorraca",
+      title: "QA Automation Engineer & Developer",
+      location: "Long Beach, CA 90804",
+      email: "Latorocka@gmail.com",
+      phone: "714-316-3506",
+      linkedin: "https://www.linkedin.com/in/brian-latorraca-22713783/",
+      github: "https://github.com/latorocka"
+    };
+
+    const experiences = [
+      {
+        id: 1,
+        title: "Software QA Engineer",
+        company: "Escape AI",
+        location: "Remote",
+        period: "February 2025 - Present",
+        type: "current",
+        description: "AI driven mobile application",
+        responsibilities: [
+          "Tested AI responses in LLM",
+          "Generated bug reports, and communicated QA analytics",
+          "Conducted Ad Hoc testing"
+        ]
+      },
+      {
+        id: 2,
+        title: "QA Automation Engineer",
+        company: "Mercury Insurance",
+        location: "Remote",
+        period: "May 2023 - November 2023",
+        type: "previous",
+        responsibilities: [
+          "Developed test cases, submitted bug reports, and conducted automation testing using Eclipse IDE for Agile development and SaaS platforms",
+          "Utilized knowledge of SDLC, Git, MySQL, Guidewire, and Duckcreek to maintain and verify data in MySQL for effective automated script functionality",
+          "Identified and automated test cases to ensure desired outcomes were achieved",
+          "Executed weekly automated regression tests to promptly report any script bugs or issues"
+        ]
+      },
+      {
+        id: 3,
+        title: "QA Automation Engineer",
+        company: "Upkeep",
+        location: "Remote",
+        period: "October 2021 - March 2023",
+        type: "previous",
+        responsibilities: [
+          "Developed test cases for web applications",
+          "Tested API endpoints using Postman",
+          "Conducted weekly manual regression tests",
+          "Ran post-production automated smoke tests",
+          "Created and maintained automated regression suite using Selenium",
+          "Conducted mobile testing using Android Studio",
+          "Automated front and back end testing with Cucumber and Java to test user flow and server communication",
+          "Utilized Cypress.io for automation in JavaScript to test front end user flow"
+        ]
+      }
+    ];
+
+    const skills = {
+      languages: ["Java", "Javascript", "Python", "HTML5", "CSS", "PHP", "C#", "MySQL", "Swift"],
+      tools: [
+        "IntelliJ",
+        "MongoDB", 
+        "Jenkins",
+        "Visual Studio",
+        "WordPress",
+        "FlutterFlow",
+        "Unity Game Engine",
+        "CircleCI",
+        "PowerBI"
+      ],
+      frameworks: [
+        "Selenium",
+        "Cypress.io",
+        "Postman",
+        "Android Studio",
+        "Cucumber",
+        "TestNG",
+        "Appium"
+      ],
+      softSkills: [
+        "Team work",
+        "Problem solving", 
+        "Adaptability",
+        "Time management",
+        "Communication"
+      ]
+    };
+
+    const projects = [
+      {
+        id: 1,
+        title: "Selenium Test Framework",
+        description: "Enterprise-grade test automation framework with Page Object Model, data-driven testing, parallel execution, and CI/CD integration. Includes comprehensive test utilities, screenshot capture, and detailed reporting.",
+        technologies: ["Selenium WebDriver 4.x", "TestNG", "Maven", "Java 11+", "Jenkins", "GitHub Actions"],
+        category: "Automation",
+        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+        githubUrl: "https://github.com/latorocka/selenium-framework",
+        features: [
+          "Page Object Model implementation",
+          "Cross-browser testing (Chrome, Firefox, Edge, Safari)",
+          "Data-driven testing with Excel integration",
+          "Parallel test execution",
+          "Screenshot capture on failures",
+          "Comprehensive reporting with Extent Reports",
+          "CI/CD pipeline integration",
+          "Configuration management"
+        ]
+      },
+      {
+        id: 2,
+        title: "API Test Suite",
+        description: "Comprehensive enterprise-grade API testing framework with 8 specialized testing categories: Functional, Integration, Performance, Security, and Data Validation testing. Features automated test runner with detailed reporting, live API endpoint validation against JSONPlaceholder, GitHub, and SpaceX APIs, and production-ready error handling with metrics analysis.",
+        technologies: ["Jest", "Supertest", "GraphQL", "WebSocket", "REST API", "CI/CD", "Performance Testing"],
+        category: "API Testing",
+        image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+        githubUrl: "https://github.com/latorocka/api-test-suite",
+        features: [
+          "Comprehensive test suite with 8 specialized testing categories",
+          "Functional testing with complete CRUD operations validation",
+          "Integration testing across multiple API systems with data consistency checks",
+          "Performance testing including load, throughput, and scalability analysis",
+          "Security testing with input validation, SQL injection, and vulnerability assessment",
+          "Data validation with schema verification and cross-API consistency checks",
+          "Live API endpoints: JSONPlaceholder, GitHub, SpaceX GraphQL, WebSocket servers",
+          "Automated test runner with detailed reporting and category-based execution",
+          "Real-time demonstration capabilities with immediate execution verification",
+          "Production-ready test framework with professional error handling and metrics"
+        ]
+      },
+      {
+        id: 3,
+        title: "Mobile Test Automation Suite",
+        description: "Enterprise-grade cross-platform mobile test automation framework built with Appium and WebDriverIO. Features comprehensive Page Object Model architecture, parallel execution across multiple devices, advanced gesture testing, performance monitoring, and device management utilities for Android and iOS applications.",
+        technologies: ["Appium 2.x", "WebDriverIO 8.x", "Android Studio", "Xcode", "iOS Simulator", "Page Object Model", "Parallel Testing", "Allure Reports", "CI/CD"],
+        category: "Mobile Testing",
+        image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+        githubUrl: "https://github.com/latorocka/mobile-test-suite"
+      },
+      {
+        id: 4,
+        title: "Cypress Test Framework",
+        description: "Advanced end-to-end test automation framework built with Cypress 13.x, demonstrating modern testing practices and enterprise-grade architecture. This comprehensive framework showcases professional QA automation skills through multi-layered testing strategies, custom command libraries, and production-ready CI/CD integration with detailed performance and accessibility validation.",
+        technologies: ["Cypress 13.x", "JavaScript/TypeScript", "Mochawesome", "Axe-core", "Visual Regression", "GitHub Actions", "Jenkins", "Cross-browser Testing"],
+        category: "E2E Testing",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
+        githubUrl: "https://github.com/latorocka/cypress-test-framework"
+      }
+    ];
+
+    // Icon mapping
+    const languageIcons = {
+      "Java": "devicon-java-plain colored",
+      "Javascript": "devicon-javascript-plain colored", 
+      "Python": "devicon-python-plain colored",
+      "HTML5": "devicon-html5-plain colored",
+      "CSS": "devicon-css3-plain colored",
+      "PHP": "devicon-php-plain colored",
+      "C#": "devicon-csharp-plain colored",
+      "MySQL": "devicon-mysql-plain colored",
+      "Swift": "devicon-swift-plain colored"
+    };
+
+    const toolIcons = {
+      // Testing Tools & Frameworks
+      "Selenium": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/selenium.svg' },
+      "Cypress.io": { type: 'devicon', value: 'devicon-cypressio-plain colored' },
+      "Postman": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/postman.svg' },
+      "Android Studio": { type: 'devicon', value: 'devicon-androidstudio-plain colored' },
+      "Cucumber": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cucumber.svg' },
+      "GraphQL": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/graphql.svg' },
+      
+      // Development Tools
+      "IntelliJ": { type: 'devicon', value: 'devicon-intellij-plain colored' },
+      "MongoDB": { type: 'devicon', value: 'devicon-mongodb-plain colored' },
+      "Jenkins": { type: 'devicon', value: 'devicon-jenkins-line colored' },
+      "Visual Studio": { type: 'devicon', value: 'devicon-visualstudio-plain colored' },
+      "WordPress": { type: 'devicon', value: 'devicon-wordpress-plain colored' },
+      "FlutterFlow": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/flutter.svg' },
+      "Unity Game Engine": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/unity.svg' },
+      "CircleCI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/circleci.svg' },
+      "PowerBI": { type: 'image', value: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/powerbi.svg' }
+    };
+
+    // Components
+    function Card({ children, className = "" }) {
+      return React.createElement('div', { className: `rounded-lg ${className}` }, children);
+    }
+
+    function CardContent({ children, className = "" }) {
+      return React.createElement('div', { className }, children);
+    }
+
+    function Badge({ children, className = "", variant = "default" }) {
+      const baseClass = "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium";
+      const variantClass = variant === "secondary" ? "bg-secondary text-secondary-foreground" : "bg-primary text-primary-foreground";
+      return React.createElement('span', { className: `${baseClass} ${variantClass} ${className}` }, children);
+    }
+
+    function Navigation() {
+      return React.createElement('nav', 
+        { className: "fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b border-border z-50" },
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
+          React.createElement('div', 
+            { className: "flex justify-between h-16" },
+            React.createElement('div', 
+              { className: "flex items-center" },
+              React.createElement('h2', { className: "text-xl font-bold" }, "Brian LaTorraca")
+            ),
+            React.createElement('div', 
+              { className: "hidden md:flex items-center space-x-8" },
+              React.createElement('a', { href: "#about", className: "hover:text-accent transition-colors" }, "About"),
+              React.createElement('a', { href: "#skills", className: "hover:text-accent transition-colors" }, "Skills"),
+              React.createElement('a', { href: "#experience", className: "hover:text-accent transition-colors" }, "Experience"),
+              React.createElement('a', { href: "#projects", className: "hover:text-accent transition-colors" }, "Projects"),
+              React.createElement('a', { href: "#contact", className: "hover:text-accent transition-colors" }, "Contact")
+            )
+          )
+        )
+      );
+    }
+
+    function HeroSection() {
+      return React.createElement('section', 
+        { className: "py-20 px-4 pt-24" },
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto text-center" },
+          React.createElement('h1', { className: "text-5xl font-bold mb-6" }, "QA Automation Engineer & Developer"),
+          React.createElement('p', 
+            { className: "text-xl text-secondary mb-8 max-w-2xl mx-auto" },
+            "Specializing in comprehensive test frameworks, automated testing solutions, and software quality engineering"
+          ),
+          React.createElement('div', 
+            { className: "flex justify-center gap-4 flex-wrap" },
+            React.createElement('a', 
+              { 
+                href: "#projects", 
+                className: "bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-accent hover:text-accent-foreground transition-colors" 
+              }, 
+              "View Projects"
+            ),
+            React.createElement('a', 
+              { 
+                href: "https://github.com/latorocka",
+                target: "_blank",
+                className: "border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors" 
+              }, 
+              "GitHub Profile"
+            )
+          )
+        )
+      );
+    }
+
+    function AboutSection() {
+      return React.createElement('section', 
+        { id: "about", className: "py-20 px-4 bg-muted/30" },
+        React.createElement('div', 
+          { className: "max-w-4xl mx-auto" },
+          React.createElement('div', 
+            { className: "text-center mb-16" },
+            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "About Me"),
+            React.createElement('p', 
+              { className: "text-xl text-secondary" },
+              "Comprehensive expertise across multiple programming languages, frameworks, and testing tools"
+            )
+          ),
+          React.createElement('div', 
+            { className: "prose prose-invert max-w-none" },
+            React.createElement('p', 
+              { className: "text-lg leading-relaxed mb-6" },
+              "My journey into programming began in an unexpected place: the kitchen. As a chef, I learned the value of precision, creativity under pressure, and the importance of following systematic processes to achieve consistent results. When a recipe called for exact timing, temperatures, and measurements, I developed an eye for detail that would later prove invaluable in software development."
+            ),
+            React.createElement('p', 
+              { className: "text-lg leading-relaxed" },
+              "Today, I bring that same methodical approach to QA automation and software testing. I specialize in building comprehensive test automation frameworks and ensuring software quality through systematic testing approaches. My unique background combines culinary precision with technical expertise, resulting in thorough, reliable testing solutions that help teams ship better software."
+            )
+          )
+        )
+      );
+    }
+
+    function SkillsSection() {
+      const testingTools = [
+        { name: "Selenium", description: "Web automation testing framework with Java integration" },
+        { name: "Cypress.io", description: "Modern JavaScript testing framework for frontend automation" },
+        { name: "Postman", description: "API development and testing platform" },
+        { name: "Android Studio", description: "Mobile application testing and development" },
+        { name: "Cucumber", description: "Behavior-driven development testing framework" },
+        { name: "GraphQL", description: "Query language for APIs and runtime for executing queries" }
+      ];
+
+      return React.createElement('section', 
+        { id: "skills", className: "py-20 px-4" },
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto" },
+          React.createElement('div', 
+            { className: "text-center mb-16" },
+            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "Technical Skills"),
+            React.createElement('p', 
+              { className: "text-xl text-secondary" },
+              "Comprehensive expertise across multiple programming languages, frameworks, and testing tools"
+            )
+          ),
+          
+          // Programming Languages
+          React.createElement('div', 
+            { className: "mb-16" },
+            React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Programming Languages"),
+            React.createElement('div', 
+              { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" },
+              skills.languages.map((language) =>
+                React.createElement(Card, 
+                  { key: language, className: "skill-card" },
+                  React.createElement(CardContent, 
+                    { className: "p-6 text-center" },
+                    React.createElement('div', 
+                      { className: "text-5xl mb-4" },
+                      React.createElement('i', { className: languageIcons[language] || "devicon-code-plain colored" })
+                    ),
+                    React.createElement('h4', { className: "font-bold" }, language)
+                  )
+                )
+              )
+            )
+          ),
+
+          // Testing Tools & Frameworks
+          React.createElement('div', 
+            { className: "mb-16" },
+            React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Testing Tools & Frameworks"),
+            React.createElement('div', 
+              { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" },
+              testingTools.map((tool, index) => {
+                const iconConfig = toolIcons[tool.name];
+                
+                return React.createElement(Card, 
+                  { key: index, className: "skill-card" },
+                  React.createElement(CardContent, 
+                    { className: "p-6" },
+                    React.createElement('div', 
+                      { className: "flex items-center mb-4" },
+                      React.createElement('div', 
+                        { className: "w-8 h-8 mr-4 flex items-center justify-center" },
+                        iconConfig ? (
+                          iconConfig.type === 'devicon' ? 
+                            React.createElement('i', { className: `${iconConfig.value} text-2xl` }) :
+                            React.createElement('img', { 
+                              src: iconConfig.value, 
+                              alt: tool.name,
+                              className: "w-6 h-6 object-contain",
+                              style: { filter: 'invert(1)' }
+                            })
+                        ) : React.createElement('span', { className: "text-2xl" }, "🛠️")
+                      ),
+                      React.createElement('h4', { className: "font-bold" }, tool.name)
+                    ),
+                    React.createElement('p', { className: "text-secondary text-sm" }, tool.description)
+                  )
+                );
+              })
+            )
+          ),
+
+          // Development Tools
+          React.createElement('div', 
+            { className: "mb-16" },
+            React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Development Tools"),
+            React.createElement('div', 
+              { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" },
+              skills.tools.map((tool) => {
+                const iconConfig = toolIcons[tool];
+                
+                return React.createElement(Card, 
+                  { key: tool, className: "skill-card" },
+                  React.createElement(CardContent, 
+                    { className: "p-6 text-center" },
+                    React.createElement('div', 
+                      { className: "text-4xl mb-3" },
+                      iconConfig ? (
+                        iconConfig.type === 'devicon' ? 
+                          React.createElement('i', { className: iconConfig.value }) :
+                          React.createElement('img', { 
+                            src: iconConfig.value, 
+                            alt: tool,
+                            className: "w-10 h-10 mx-auto",
+                            style: { filter: tool === 'GraphQL' ? 'none' : 'invert(1)' }
+                          })
+                      ) : React.createElement('span', null, "🛠️")
+                    ),
+                    React.createElement('h4', { className: "font-semibold" }, tool)
+                  )
+                );
+              })
+            )
+          ),
+
+          // Soft Skills
+          React.createElement('div', 
+            {},
+            React.createElement('h3', { className: "text-2xl font-bold mb-8 text-center" }, "Professional Skills"),
+            React.createElement('div', 
+              { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4" },
+              skills.softSkills.map((skill) =>
+                React.createElement(Card, 
+                  { key: skill, className: "skill-card" },
+                  React.createElement(CardContent, 
+                    { className: "p-4 text-center" },
+                    React.createElement('div', { className: "text-2xl mb-2" }, "⭐"),
+                    React.createElement('p', { className: "font-medium text-sm" }, skill)
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+
+    function ExperienceSection() {
+      return React.createElement('section', 
+        { id: "experience", className: "py-20 px-4 bg-muted/30" },
+        React.createElement('div', 
+          { className: "max-w-4xl mx-auto" },
+          React.createElement('div', 
+            { className: "text-center mb-16" },
+            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "Experience"),
+            React.createElement('p', 
+              { className: "text-xl text-secondary" },
+              "Professional journey in quality assurance and software testing"
+            )
+          ),
+          React.createElement('div', 
+            { className: "space-y-8" },
+            experiences.slice(0, 3).map((exp) =>
+              React.createElement('div', 
+                { key: exp.id, className: "experience-card" },
+                React.createElement('div', 
+                  { className: "flex items-center justify-between mb-4" },
+                  React.createElement('h3', { className: "text-xl font-bold" }, exp.title),
+                  exp.type === 'current' && 
+                    React.createElement('span', 
+                      { className: "bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm" }, 
+                      "Current"
+                    )
+                ),
+                React.createElement('p', { className: "text-accent-foreground font-medium mb-2" }, `${exp.company} • ${exp.location} • ${exp.period}`),
+                exp.description && React.createElement('p', { className: "text-secondary mb-4" }, exp.description),
+                React.createElement('ul', 
+                  { className: "list-disc list-inside space-y-1 text-sm" },
+                  exp.responsibilities.map((resp, index) =>
+                    React.createElement('li', { key: index }, resp)
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+
+    function ProjectsSection() {
+      const [selectedProject, setSelectedProject] = useState(null);
+
+      const showDocumentation = (projectId) => {
+        const project = projects.find(p => p.id === projectId);
+        setSelectedProject(project);
+        // Scroll to documentation section
+        setTimeout(() => {
+          const docSection = document.getElementById('documentation');
+          if (docSection) {
+            docSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      };
+
+      return React.createElement('section', 
+        { id: "projects", className: "py-20 px-4" },
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto" },
+          React.createElement('div', 
+            { className: "text-center mb-16" },
+            React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "Featured Projects"),
+            React.createElement('p', 
+              { className: "text-xl text-secondary" },
+              "Showcasing automation frameworks, testing tools, and development projects"
+            )
+          ),
+          React.createElement('div', 
+            { className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" },
+            projects.map((project, index) =>
+              React.createElement(Card, 
+                { key: project.id, className: "project-card overflow-hidden" },
+                React.createElement('div', 
+                  { className: "relative" },
+                  React.createElement('img', { 
+                    src: project.image, 
+                    alt: project.title,
+                    className: "w-full h-48 object-cover" 
+                  }),
+                  React.createElement(Badge, 
+                    { className: "absolute top-4 right-4 bg-primary/90 text-primary-foreground" },
+                    project.category
+                  )
+                ),
+                React.createElement(CardContent, 
+                  { className: "p-6" },
+                  React.createElement('div', 
+                    { className: "flex items-center justify-between mb-4" },
+                    React.createElement('h3', { className: "text-xl font-bold" }, project.title)
+                  ),
+                  React.createElement('p', 
+                    { className: "text-secondary mb-4 text-sm leading-relaxed" },
+                    project.description
+                  ),
+                  React.createElement('div', 
+                    { className: "flex flex-wrap gap-2 mb-4" },
+                    project.technologies.map((tech) =>
+                      React.createElement(Badge, 
+                        { key: tech, variant: "secondary", className: "text-xs" },
+                        tech
+                      )
+                    )
+                  ),
+                  React.createElement('div', 
+                    { className: "flex gap-3" },
+                    React.createElement('button', 
+                      { 
+                        onClick: () => showDocumentation(project.id),
+                        className: "border border-border px-4 py-2 rounded text-sm hover:bg-muted transition-colors" 
+                      },
+                      "View Details"
+                    ),
+                    React.createElement('a', 
+                      { 
+                        href: project.githubUrl,
+                        target: "_blank",
+                        className: "border border-border px-4 py-2 rounded text-sm hover:bg-muted transition-colors" 
+                      },
+                      "View on GitHub"
+                    )
+                  )
+                )
+              )
+            )
+          ),
+
+          // Documentation Section
+          selectedProject && React.createElement('div', 
+            { id: "documentation", className: "mt-20 p-8 bg-muted/20 rounded-lg" },
+            React.createElement('h3', { className: "text-2xl font-bold mb-6" }, `${selectedProject.title} - Documentation`),
+            React.createElement('div', { className: "space-y-4" },
+              React.createElement('div', {},
+                React.createElement('h4', { className: "text-lg font-semibold mb-3" }, "Project Overview"),
+                React.createElement('p', { className: "mb-4" }, selectedProject.description)
+              ),
+              selectedProject.features && React.createElement('div', {},
+                React.createElement('h4', { className: "text-lg font-semibold mb-3" }, "Key Features"),
+                React.createElement('ul', { className: "list-disc list-inside mb-4 space-y-1" },
+                  selectedProject.features.map((feature, index) =>
+                    React.createElement('li', { key: index }, feature)
+                  )
+                )
+              ),
+              React.createElement('a', 
+                { 
+                  href: selectedProject.githubUrl,
+                  target: "_blank",
+                  className: "text-accent hover:underline" 
+                },
+                "View Complete Documentation on GitHub →"
+              )
+            )
+          )
+        )
+      );
+    }
+
+    function ContactSection() {
+      return React.createElement('section', 
+        { id: "contact", className: "py-20 px-4 bg-muted/30" },
+        React.createElement('div', 
+          { className: "max-w-4xl mx-auto text-center" },
+          React.createElement('h2', { className: "text-3xl font-bold mb-8" }, "Get In Touch"),
+          React.createElement('p', 
+            { className: "text-lg text-secondary mb-8" },
+            "Interested in collaborating or learning more about my testing frameworks? Let's connect!"
+          ),
+          React.createElement('div', 
+            { className: "flex justify-center gap-6 flex-wrap" },
+            React.createElement('a', 
+              { 
+                href: "https://github.com/latorocka",
+                target: "_blank",
+                className: "bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-accent hover:text-accent-foreground transition-colors" 
+              },
+              "GitHub Profile"
+            ),
+            React.createElement('a', 
+              { 
+                href: "https://linkedin.com/in/latorocka",
+                target: "_blank",
+                className: "border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors" 
+              },
+              "LinkedIn"
+            ),
+            React.createElement('a', 
+              { 
+                href: "mailto:latorocka@gmail.com",
+                className: "border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors" 
+              },
+              "Email"
+            )
+          )
+        )
+      );
+    }
+
+    function Footer() {
+      return React.createElement('footer', 
+        { className: "py-8 px-4 border-t border-border" },
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto text-center text-secondary" },
+          React.createElement('p', {}, "© 2025 Brian LaTorraca. QA Automation Engineer & Developer")
+        )
+      );
+    }
+
+    function App() {
+      useEffect(() => {
+        // Smooth scrolling for navigation links
+        const handleClick = (e) => {
+          const href = e.target.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        };
+
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+      }, []);
+
+      return React.createElement('div', 
+        { className: "min-h-screen bg-background text-foreground" },
+        React.createElement(Navigation),
+        React.createElement(HeroSection),
+        React.createElement(AboutSection),
+        React.createElement(SkillsSection),
+        React.createElement(ExperienceSection),
+        React.createElement(ProjectsSection),
+        React.createElement(ContactSection),
+        React.createElement(Footer)
+      );
+    }
+
+    // Render the application
+    ReactDOM.render(React.createElement(App), document.getElementById('root'));
+  </script>
+</body>
+</html>
