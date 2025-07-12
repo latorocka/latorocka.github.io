@@ -713,12 +713,12 @@
       const getIcon = (index) => {
         const experience = experiences[index];
         if (experience && experience.company === "Escape AI") {
-          return "🧠";
+          return React.createElement('span', { style: { fontSize: '24px' } }, "🧠");
         }
-        if (experience && experience.company === "Tatum Games") {
-          return "🎮";
+        if (experience && (experience.company === "Tatum Games" || experience.title.includes("Tatum"))) {
+          return React.createElement('span', { style: { fontSize: '24px' } }, "🎮");
         }
-        return "⚙️";
+        return React.createElement('span', { style: { fontSize: '24px' } }, "⚙️");
       };
 
       const getIconColor = (index) => {
@@ -755,7 +755,7 @@
                   { key: experience.id, className: "relative flex items-start mb-12" },
                   React.createElement('div', 
                     { className: `flex-shrink-0 w-16 h-16 ${getIconColor(index)} rounded-full flex items-center justify-center z-10` },
-                    React.createElement('span', { className: "text-2xl text-white" }, getIcon(index))
+                    getIcon(index)
                   ),
                   React.createElement(Card, 
                     { className: "ml-8 flex-1 shadow-lg" },
@@ -783,12 +783,12 @@
                           experience.description
                         ),
                       React.createElement('ul', 
-                        { className: "text-secondary space-y-2" },
+                        { className: "text-foreground space-y-2" },
                         experience.responsibilities.map((responsibility, i) =>
                           React.createElement('li', 
                             { key: i, className: "flex items-start" },
-                            React.createElement('span', { className: "text-green-500 mt-1 mr-3 text-sm" }, "✓"),
-                            React.createElement('span', { className: "text-sm" }, responsibility)
+                            React.createElement('span', { className: "text-green-500 mt-1 mr-3 text-base font-bold" }, "✓"),
+                            React.createElement('span', { className: "text-base leading-relaxed" }, responsibility)
                           )
                         )
                       )
