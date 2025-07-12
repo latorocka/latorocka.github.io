@@ -362,30 +362,80 @@
 
     function HeroSection() {
       return React.createElement('section', 
-        { className: "py-20 px-4 pt-24" },
+        { className: "pt-20 pb-20 min-h-screen flex items-center relative overflow-hidden" },
         React.createElement('div', 
-          { className: "max-w-7xl mx-auto text-center" },
-          React.createElement('h1', { className: "text-5xl font-bold mb-6" }, "QA Automation Engineer & Developer"),
-          React.createElement('p', 
-            { className: "text-xl text-secondary mb-8 max-w-2xl mx-auto" },
-            "Specializing in comprehensive test frameworks, automated testing solutions, and software quality engineering"
-          ),
+          { className: "absolute inset-0 z-0" },
+          React.createElement('img', { 
+            src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=1080",
+            alt: "Modern developer workspace",
+            className: "w-full h-full object-cover opacity-5"
+          })
+        ),
+        React.createElement('div', 
+          { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" },
           React.createElement('div', 
-            { className: "flex justify-center gap-4 flex-wrap" },
-            React.createElement('a', 
-              { 
-                href: "#projects", 
-                className: "bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-accent hover:text-accent-foreground transition-colors" 
-              }, 
-              "View Projects"
+            { className: "grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" },
+            React.createElement('div', 
+              { className: "animate-in slide-in-from-left duration-800" },
+              React.createElement('h1', 
+                { className: "text-5xl lg:text-6xl font-bold mb-6 leading-tight" },
+                "QA Automation Engineer & ",
+                React.createElement('span', { className: "text-primary" }, "Developer")
+              ),
+              React.createElement('p', 
+                { className: "text-xl text-secondary mb-8 leading-relaxed" },
+                "Experienced in developing automated test suites, API testing, and mobile QA with expertise in ",
+                React.createElement('span', { className: "text-accent font-medium" }, "Java"),
+                ", ",
+                React.createElement('span', { className: "text-accent font-medium" }, "JavaScript"),
+                ", and ",
+                React.createElement('span', { className: "text-accent font-medium" }, "Python"),
+                "."
+              ),
+              React.createElement('div', 
+                { className: "flex flex-col sm:flex-row gap-4" },
+                React.createElement('a', 
+                  { 
+                    href: "#contact",
+                    className: "bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center" 
+                  }, 
+                  "✉️ Get In Touch"
+                ),
+                React.createElement('a', 
+                  { 
+                    href: "#projects",
+                    className: "border border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center" 
+                  }, 
+                  "💻 View My Work"
+                )
+              ),
+              React.createElement('div', 
+                { className: "flex items-center gap-6 mt-8 text-secondary" },
+                React.createElement('div', 
+                  { className: "flex items-center" },
+                  React.createElement('span', { className: "mr-2" }, "📍"),
+                  React.createElement('span', {}, personalInfo.location)
+                ),
+                React.createElement('div', 
+                  { className: "flex items-center" },
+                  React.createElement('span', { className: "mr-2" }, "📞"),
+                  React.createElement('span', {}, personalInfo.phone)
+                )
+              )
             ),
-            React.createElement('a', 
-              { 
-                href: "https://github.com/latorocka",
-                target: "_blank",
-                className: "border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors" 
-              }, 
-              "GitHub Profile"
+            React.createElement('div', 
+              { className: "animate-in fade-in duration-1000" },
+              React.createElement('div', 
+                { className: "relative" },
+                React.createElement('div', 
+                  { className: "relative border border-white/5 rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900/20 to-slate-800/10 p-1" },
+                  React.createElement('img', { 
+                    src: "https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+                    alt: "Professional software engineer at modern workstation with multiple monitors and clean setup",
+                    className: "rounded-2xl shadow-2xl w-full"
+                  })
+                )
+              )
             )
           )
         )
@@ -393,27 +443,93 @@
     }
 
     function AboutSection() {
+      const highlights = [
+        {
+          icon: "⚙️",
+          title: "Automation Expertise",
+          description: "Specialized in Selenium, Cypress.io, and building test frameworks from scratch",
+          color: "primary"
+        },
+        {
+          icon: "📱",
+          title: "Mobile Testing",
+          description: "Extensive experience with Android Studio and mobile application testing",
+          color: "accent"
+        },
+        {
+          icon: "🖥️",
+          title: "API Testing", 
+          description: "Proficient in Postman and automated API testing for backend validation",
+          color: "success"
+        },
+        {
+          icon: "🧠",
+          title: "AI Testing",
+          description: "Recent experience testing LLM responses and AI-driven applications",
+          color: "yellow"
+        }
+      ];
+
       return React.createElement('section', 
-        { id: "about", className: "py-20 px-4 bg-muted/30" },
+        { id: "about", className: "py-20 bg-muted/30" },
         React.createElement('div', 
-          { className: "max-w-4xl mx-auto" },
+          { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" },
           React.createElement('div', 
             { className: "text-center mb-16" },
             React.createElement('h2', { className: "text-4xl font-bold mb-4" }, "About Me"),
             React.createElement('p', 
-              { className: "text-xl text-secondary" },
-              "Comprehensive expertise across multiple programming languages, frameworks, and testing tools"
+              { className: "text-xl text-secondary max-w-3xl mx-auto" },
+              "Passionate QA Automation Engineer with extensive experience in developing robust test frameworks and ensuring software quality across diverse platforms."
             )
           ),
           React.createElement('div', 
-            { className: "prose prose-invert max-w-none" },
-            React.createElement('p', 
-              { className: "text-lg leading-relaxed mb-6" },
-              "My journey into programming began in an unexpected place: the kitchen. As a chef, I learned the value of precision, creativity under pressure, and the importance of following systematic processes to achieve consistent results. When a recipe called for exact timing, temperatures, and measurements, I developed an eye for detail that would later prove invaluable in software development."
+            { className: "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" },
+            React.createElement('div', 
+              { className: "animate-in slide-in-from-left duration-700" },
+              React.createElement('img', { 
+                src: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
+                alt: "Clean developer setup with modern equipment",
+                className: "rounded-2xl shadow-xl w-full"
+              })
             ),
-            React.createElement('p', 
-              { className: "text-lg leading-relaxed" },
-              "Today, I bring that same methodical approach to QA automation and software testing. I specialize in building comprehensive test automation frameworks and ensuring software quality through systematic testing approaches. My unique background combines culinary precision with technical expertise, resulting in thorough, reliable testing solutions that help teams ship better software."
+            React.createElement('div', 
+              { className: "space-y-6" },
+              React.createElement('div', 
+                {},
+                React.createElement('h3', { className: "text-2xl font-bold mb-4" }, "My Journey"),
+                React.createElement('p', 
+                  { className: "text-secondary leading-relaxed mb-6" },
+                  "I began my career as a chef, honing precision, creativity, and problem-solving in fast-paced, high-pressure kitchens. That same drive led me to pursue programming, where I found a new passion for building efficient, elegant solutions in the digital space. Since making the switch, I've earned multiple certifications in web development, PHP programming, and fullstack development, and built a track record of success in roles ranging from junior QA analyst to senior automation engineer across a variety of industries. With hands-on experience and a collaborative mindset, I bring both technical expertise and a service-oriented approach to every project I take on."
+                )
+              ),
+              React.createElement('div', 
+                { className: "grid grid-cols-1 sm:grid-cols-2 gap-6" },
+                highlights.map((highlight, index) =>
+                  React.createElement(Card, 
+                    { key: index, className: "skill-card" },
+                    React.createElement(CardContent, 
+                      { className: "p-6" },
+                      React.createElement('div', 
+                        { className: "flex items-center mb-4" },
+                        React.createElement('div', 
+                          { className: `w-12 h-12 rounded-lg flex items-center justify-center ${
+                            highlight.color === 'primary' ? 'bg-primary/10 text-primary' :
+                            highlight.color === 'accent' ? 'bg-accent/10 text-accent' :
+                            highlight.color === 'success' ? 'bg-green-100 text-green-600' :
+                            'bg-yellow-100 text-yellow-600'
+                          }` },
+                          React.createElement('span', { className: "text-2xl" }, highlight.icon)
+                        ),
+                        React.createElement('h4', { className: "font-bold ml-4" }, highlight.title)
+                      ),
+                      React.createElement('p', 
+                        { className: "text-secondary text-sm" },
+                        highlight.description
+                      )
+                    )
+                  )
+                )
+              )
             )
           )
         )
