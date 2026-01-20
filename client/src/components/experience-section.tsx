@@ -1,11 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Settings, Gamepad2, Brain } from "lucide-react";
+import { Settings, Gamepad2, Brain, Plane } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
   const getIcon = (index: number) => {
     // Check company type for appropriate icon
     const experience = experiences[index];
+    if (experience && experience.company === "Panasonic Avionics") {
+      return <Plane className="h-6 w-6 text-white" />;
     if (experience && experience.company === "Escape AI") {
       return <Brain className="h-6 w-6 text-white" />;
     }
