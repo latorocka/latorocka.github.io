@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Settings, Gamepad2, Brain, Plane } from "lucide-react";
+import { Settings, Gamepad2, Brain, Plane, Car, BugOff } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
@@ -11,6 +11,12 @@ export default function ExperienceSection() {
     }
     if (experience && experience.company === "Escape AI") {
       return <Brain className="h-6 w-6 text-white" />;
+    }
+    if (experience && experience.company === "Mercury Insurance") {
+      return <Car className="h-6 w-6 text-white" />;
+    }
+    if (experience && experience.company === "SQaaS") {
+      return <BugOff className="h-6 w-6 text-white" />;
     }
     if (experience && experience.company === "Tatum Games") {
       return <Gamepad2 className="h-6 w-6 text-white" />;

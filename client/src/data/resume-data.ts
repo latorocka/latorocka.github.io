@@ -26,8 +26,8 @@ export const experiences = [
     title: "Software QA Engineer",
     company: "Escape AI",
     location: "Remote",
-    period: "February 2025 - Present",
-    type: "current",
+    period: "February 2025 - December 2025",
+    type: "previous",
     description: "AI driven mobile application",
     responsibilities: [
       "Tested AI responses in LLM",
