@@ -9,6 +9,18 @@ export const personalInfo = {
 };
 
 export const experiences = [
+   {
+    id: 0,
+    title: "Software QA Engineer",
+    company: "Panasonic Avionics",
+    location: "On Site",
+    period: "December 2025 - Present",
+    type: "current",
+    description: "In flight entertainment",
+    responsibilities: [
+      "Tested AI responses in LLM"
+    ]
+  },
   {
     id: 1,
     title: "Software QA Engineer",
