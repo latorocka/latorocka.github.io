@@ -18,7 +18,7 @@ export const experiences = [
     type: "current",
     description: "In flight entertainment",
     responsibilities: [
-      "Integration testing of IFE"
+      "Tested AI responses in LLM"
     ]
   },
   {
