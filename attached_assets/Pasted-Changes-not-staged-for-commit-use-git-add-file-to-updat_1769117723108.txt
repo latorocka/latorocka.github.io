@@ -1,0 +1,42 @@
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   client/index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+~/workspace$ git add index.html
+~/workspace$ git commit -m "added missing exp"
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   client/index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+~/workspace$ git add client/index.html
+~/workspace$ git commit -m "added missing exp"
+[main 58b08e7] added missing exp
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+~/workspace$ git push origin main
+Enumerating objects: 16, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (12/12), 1.96 KiB | 1.96 MiB/s, done.
+Total 12 (delta 6), reused 2 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (6/6), completed with 3 local objects.
+To https://github.com/latorocka/latorocka.github.io.git
+ ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/deploy.yml` without `workflow` scope)
+error: failed to push some refs to 'https://github.com/latorocka/latorocka.github.io.git'
+~/workspace$ git push origin main --force
+Enumerating objects: 16, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (12/12), 1.96 KiB | 1.96 MiB/s, done.
+Total 12 (delta 6), reused 2 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (6/6), completed with 3 local objects.
+To https://github.com/latorocka/latorocka.github.io.git
+ ! [remote rejected] main -> main (refusing to allow an OAuth App to create or update workflow `.github/workflows/deploy.yml` without `workflow` scope)
+error: failed to push some refs to 'https://github.com/latorocka/latorocka.github.io.git'
+~/workspace$ 
