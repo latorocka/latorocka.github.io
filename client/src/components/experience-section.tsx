@@ -1,37 +1,56 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Settings, Gamepad2, Brain, Plane, Car, BugOff } from "lucide-react";
+import { Settings, Gamepad2, Brain, Plane, Car, BugOff, Landmark, Briefcase } from "lucide-react";
 import { experiences } from "@/data/resume-data";
 
 export default function ExperienceSection() {
   const getIcon = (index: number) => {
     // Check company type for appropriate icon
     const experience = experiences[index];
-    if (experience && experience.company === "Panasonic Avionics") {
+    if (!experience) return <Settings className="h-6 w-6 text-white" />;
+    
+    const company = experience.company.toLowerCase();
+    
+    if (company.includes("panasonic")) {
       return <Plane className="h-6 w-6 text-white" />;
     }
-    if (experience && experience.company === "Escape AI") {
+    if (company.includes("escape")) {
       return <Brain className="h-6 w-6 text-white" />;
     }
-    if (experience && experience.company === "Mercury Insurance") {
+    if (company.includes("mercury")) {
       return <Car className="h-6 w-6 text-white" />;
     }
-    if (experience && experience.company === "SQaaS") {
+    if (company.includes("sqaas")) {
       return <BugOff className="h-6 w-6 text-white" />;
     }
-    if (experience && experience.company === "Tatum Games") {
+    if (company.includes("tatum")) {
       return <Gamepad2 className="h-6 w-6 text-white" />;
     }
-    return <Settings className="h-6 w-6 text-white" />;
+    if (company.includes("upkeep")) {
+      return <Settings className="h-6 w-6 text-white" />;
+    }
+    return <Briefcase className="h-6 w-6 text-white" />;
   };
 
   const getIconColor = (index: number) => {
+    const experience = experiences[index];
+    if (!experience) return "bg-primary";
+    
+    const company = experience.company.toLowerCase();
+    if (company.includes("panasonic")) return "bg-blue-600";
+    if (company.includes("escape")) return "bg-purple-600";
+    if (company.includes("mercury")) return "bg-green-600";
+    if (company.includes("upkeep")) return "bg-blue-500";
+    if (company.includes("sqaas")) return "bg-purple-500";
+    if (company.includes("tatum")) return "bg-orange-500";
+    
     const colors = [
       "bg-primary",
       "bg-accent", 
       "bg-green-500",
       "bg-secondary",
       "bg-purple-500",
-      "bg-orange-500"
+      "bg-orange-500",
+      "bg-blue-500"
     ];
     return colors[index] || "bg-primary";
   };

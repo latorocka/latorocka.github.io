@@ -9,12 +9,54 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-      body { font-family: 'Inter', sans-serif; }
+      :root {
+        --primary: 263.4 70% 50.4%;
+        --primary-foreground: 210 40% 98%;
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215.4 16.3% 56.9%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 263.4 70% 50.4%;
+      }
+      body { 
+        font-family: 'Inter', sans-serif; 
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        margin: 0;
+      }
       .font-mono { font-family: 'JetBrains Mono', Monaco, Consolas, monospace; }
+      
+      /* Decorative Background Elements */
+      .bg-blob {
+        position: fixed;
+        width: 500px;
+        height: 500px;
+        filter: blur(80px);
+        opacity: 0.15;
+        z-index: -1;
+        border-radius: 50%;
+      }
+      .blob-1 { top: -100px; right: -100px; background: hsl(var(--primary)); }
+      .blob-2 { bottom: -100px; left: -100px; background: #3b82f6; }
     </style>
   </head>
   <body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <!--  This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment  -->
